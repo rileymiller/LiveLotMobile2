@@ -1,7 +1,7 @@
 module.exports = {
-  preset: 'react-native',
+  preset: '@testing-library/react-native',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-  setupFiles: ['./jest.setup.js'],
+  setupFilesAfterEnv: ['./jest.setup.js'],
   transformIgnorePatterns: [
     'node_modules/(?!(jest-)?react-native|react-(native|universal|navigation)-(.*)|@react-native-community/(.*)|@react-navigation/(.*)|bs-platform)',
     // 'node_modules/(?!react-native|react-navigation|react-native-screens|react-native-gesture-handler|react-native-animatable|react-native-vector-icons)/',

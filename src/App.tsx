@@ -11,6 +11,8 @@ import {
 import { createStackNavigator } from 'react-navigation-stack';
 import { useNavigation } from '../hooks/useNavigation';
 
+import { render } from '@testing-library/react-native';
+
 const HomeScreen = () => {
   const navigation = useNavigation();
 
@@ -52,22 +54,21 @@ const AppView = () => {
     </>
   );
 };
+
+function renderWithNavigation({ screens = {}, navigatorConfig = {} } = {}) {
+  const AppNavigator = createStackNavigator(
+    {
+      HomeScreen,
+      DetailsScreen,
+      ...screens,
+    },
+    { initialRouteName: 'Home', ...navigatorConfig },
+  );
+
+  const App = createAppContainer(AppNavigator);
+
+  return { ...render(<App />), navigationContainer: App };
+}
+
+export { renderWithNavigation, HomeScreen, DetailsScreen };
 export default AppView;
-
-// function renderWithNavigation({ screens = {}, navigatorConfig = {} } = {}) {
-//   const AppNavigator = createStackNavigator(
-//     {
-//       Home,
-//       About,
-//       Location,
-//       ...screens,
-//     },
-//     { initialRouteName: 'Home', ...navigatorConfig },
-//   );
-
-//   const App = createAppContainer(AppNavigator);
-
-//   return { ...render(<App />), navigationContainer: App };
-// }
-
-// export { renderWithNavigation, Home, About, Location, LocationDisplay };

@@ -3,17 +3,18 @@
  */
 
 import 'react-native';
-import React from 'react';
-import AppView from '../src/App';
+// import React from 'react';
+// import AppView from '../src/App';
 
 // Note: test renderer must be required after react-native.
 // import renderer from 'react-test-renderer';
 
-import { render, fireEvent } from '@testing-library/react-native';
-// import { renderWithNavigation } from '../src/App';
+import { fireEvent } from '@testing-library/react-native';
+import { renderWithNavigation } from '../src/App';
 
 test('full app rendering/navigating', async () => {
-  const { findByText, getByTestId, getByText } = render(<AppView />);
+  const { findByText, getByTestId, getByText, debug } = renderWithNavigation();
+  debug();
   expect(getByTestId('title').props.children).toMatch('Home page');
   fireEvent.press(getByText(/Details/i));
   await expect(findByText('Details')).toBeTruthy();
