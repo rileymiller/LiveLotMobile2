@@ -9,7 +9,7 @@ import { renderWithNavigation } from '../src/App';
 describe('App', () => {
   test('full app rendering/navigating', async () => {
     const { findByText, getByTestId, getByText } = renderWithNavigation();
-    expect(getByTestId('title').props.children).toMatch('Home page');
+    expect(getByTestId('title').props.children).toMatch('Login page');
     fireEvent.press(getByText(/About page/i));
     await expect(findByText('About page')).toBeTruthy();
   });
