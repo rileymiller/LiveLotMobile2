@@ -5,8 +5,8 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
 
 import { render } from '@testing-library/react-native';
-import { useNavigation } from '../hooks/useNavigation';
-import LoginScreen from './screens/LoginScreen';
+import { useNavigation } from '../../hooks/useNavigation';
+import LoginScreen from '../screens/LoginScreen/LoginScreen';
 
 const About = () => {
   const navigation = useNavigation();

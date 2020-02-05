@@ -4,7 +4,7 @@
 
 import 'react-native';
 import { fireEvent } from '@testing-library/react-native';
-import { renderWithNavigation } from '../src/App';
+import { renderWithNavigation } from './App';
 
 describe('App', () => {
   test('full app rendering/navigating', async () => {

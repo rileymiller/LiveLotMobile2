@@ -6,8 +6,8 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native';
-import LoginForm from './LoginForm';
-import SignupForm from './SignupForm';
+import LoginForm from '../LoginForm/LoginForm';
+// import SignupForm from './SignupForm';
 import Credentials from '../authentication/Credentials';
 import { ScrollView } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -15,31 +15,20 @@ import { auth0, REFRESH_TOKEN_KEY } from '../authentication/Authentication';
 import SnackBar from 'react-native-snackbar';
 import { Button } from 'react-native-elements';
 import { PasswordRealmParams, PasswordRealmResponse, AuthorizeParams } from 'react-native-auth0';
+import { CredentialParams } from '../screens/LoginScreen/LoginScreen';
 
 interface Props {
   onAuth: any;
 }
 
-type CredentialParams = {
-  refreshToken: string,
-  accessToken: string,
-  domain: string,
-}
-
-const Login: React.FC<Props> = ({onAuth}) => {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = { viewLogin: true };
-  //   this.realmLogin = this.realmLogin.bind(this);
-  //   this.createUser = this.createUser.bind(this);
-  // }
-  //Uses refresh token to obtain new auth token
+const Login: React.FC<Props> = ({ onAuth }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [credentials, setCredentials] = useState<CredentialParams>({
     refreshToken: '',
     accessToken: '',
     domain: ''
   })
+
   const refreshUser = (refreshToken: string) => {
     auth0.auth
       .refreshToken({
@@ -88,9 +77,9 @@ const Login: React.FC<Props> = ({onAuth}) => {
       .catch(error =>
         console.log('Error authorizing user: ' + error.json.error_description),
       );
-  };
+  }
 
-  const realmLogin = (username: string, password: string, credentials: CredentialParams) => {
+  const realmLogin = (username: string, password: string) => {
     auth0.auth
       .passwordRealm({
         username: username,
@@ -166,55 +155,56 @@ const Login: React.FC<Props> = ({onAuth}) => {
     checkRefreshToken()
   }, [])
 
-    const renderLoginOrSignup = () => {
-      return isLoggedIn ? <LoginForm realmLogin={realmLogin} /> : <SignupForm createUser={createUser} />;
-    }
-    return (
-      <ScrollView
-        contentContainerStyle={{
-          flexGrow: 1,
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-        }}
-      >
-        <View style={styles.container}>
-          <View style={styles.headerContainer}>
-            <Text style={styles.titleBold}>LiveLot </Text>
-            <Text style={styles.title}> Alpha-v0.5 </Text>
-          </View>
-          <View style={styles.tabContainer}>
-            <Button
-              raised
-              onPress={() => setIsLoggedIn(true)}
-              title="Log In"
-            />
-            <Button
-              raised
-              onPress={() => setIsLoggedIn(true)}
-              title="Sign up"
-            />
-          </View>
-          <View style={styles.socialContainer}>
-            <TouchableHighlight onPress={() => webAuth('facebook')}>
-              <Image
-                style={styles.socialIcon}
-                source={require('../images/facebook.png')}
-              />
-            </TouchableHighlight>
-            <TouchableHighlight onPress={() => webAuth('google-oauth2')}>
-              <Image
-                style={styles.socialIcon}
-                source={require('../images/google.png')}
-              />
-            </TouchableHighlight>
-          </View>
-          <View style={styles.formContainer}>{
-            renderLoginOrSignup()
-          }</View>
+  const renderLoginOrSignup = () => {
+    // return isLoggedIn ? <LoginForm realmLogin={realmLogin} /> : <SignupForm createUser={createUser} />;
+    return isLoggedIn ? <LoginForm realmLogin={realmLogin} /> : null;
+  }
+
+  return (
+    <ScrollView
+      contentContainerStyle={{
+        flexGrow: 1,
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+      }}
+    >
+      <View style={styles.container}>
+        <View style={styles.headerContainer}>
+          <Text style={styles.titleBold}>LiveLot </Text>
+          <Text style={styles.title}> Alpha-v0.5 </Text>
         </View>
-      </ScrollView>
-    );
-  };
+        <View style={styles.tabContainer}>
+          <Button
+            raised
+            onPress={() => setIsLoggedIn(true)}
+            title="Log In"
+          />
+          <Button
+            raised
+            onPress={() => setIsLoggedIn(true)}
+            title="Sign up"
+          />
+        </View>
+        <View style={styles.socialContainer}>
+          <TouchableHighlight onPress={() => webAuth('facebook')}>
+            <Image
+              style={styles.socialIcon}
+              source={require('../images/facebook.png')}
+            />
+          </TouchableHighlight>
+          <TouchableHighlight onPress={() => webAuth('google-oauth2')}>
+            <Image
+              style={styles.socialIcon}
+              source={require('../images/google.png')}
+            />
+          </TouchableHighlight>
+        </View>
+        <View style={styles.formContainer}>{
+          renderLoginOrSignup()
+        }</View>
+      </View>
+    </ScrollView>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -263,3 +253,5 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 });
+
+export default Login;
