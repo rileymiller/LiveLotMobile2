@@ -5,9 +5,11 @@ import {
   NavigationContext,
 } from 'react-navigation';
 
-export function useNavigation<Params>() {
+function useNavigation<Params>() {
   return useContext(NavigationContext) as NavigationScreenProp<
     NavigationRoute,
     Params
   >;
 }
+
+export { useNavigation };
