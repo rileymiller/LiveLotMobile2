@@ -178,10 +178,21 @@ const StartView: React.FC<Props> = ({ onAuth }) => {
       </View>
       <View style={styles.buttonContainer} testID="button-container">
         <View style={styles.loginButton}>
-          <Button title="Login" onPress={() => navigation.navigate('LoginScreen')} />
+          <Button
+            titleStyle={{ color: colors.buttonPrimaryTextColor }}
+            buttonStyle={{ backgroundColor: colors.buttonPrimaryColor }}
+            title="Login"
+            onPress={() => navigation.navigate('LoginScreen')}
+          />
         </View>
         <View style={styles.signupButton}>
-          <Button title="Signup" type='outline' onPress={() => navigation.navigate('SignupScreen')} />
+          <Button
+            title="Signup"
+            titleStyle={{ color: colors.buttonSecondaryTextColor }}
+            buttonStyle={{ borderStyle: 'solid', borderColor: colors.buttonBorderColor }}
+            type='outline'
+            onPress={() => navigation.navigate('SignupScreen')}
+          />
         </View>
       </View>
     </View>
