@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Text, Button } from 'react-native';
 import { useNavigation } from '../../../hooks/useNavigation';
 import Login from '../../Login/Login';
 type CredentialParams = {
@@ -19,7 +19,7 @@ const LoginScreen = () => {
   };
 
   return (
-    <View>
+    <View style={{ flex: 1, }}>
       {/* <Text testID="title">Login page</Text>
       <Button title="About page" onPress={() => navigation.navigate('About')} /> */}
       <Login onAuth={onAuth} />

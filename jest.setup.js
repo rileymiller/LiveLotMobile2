@@ -1,5 +1,19 @@
 // jest.mock('NativeAnimatedHelper');
+jest.useFakeTimers();
+import mockAsyncStorage from '@react-native-community/async-storage/jest/async-storage-mock';
+
+jest.mock('@react-native-community/async-storage', () => mockAsyncStorage);
+
 jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
+
+// jest.mock('react-native-snackbar', () => {});
+
+jest.mock('react-native-vector-icons/FontAwesome', () => {
+  return {
+    loadFont: jest.fn(),
+  }
+});
+
 
 jest.mock('react-native-gesture-handler', () => {
   const View = require('react-native/Libraries/Components/View/View');
@@ -72,7 +86,7 @@ console.warn = arg => {
     'Calling .blur()',
   ];
 
-  const finalArgs = warnings.reduce((acc, curr) => (arg.includes(curr) ? [...acc, arg] : acc),[]) // eslint-disable-line
+  const finalArgs = warnings.reduce((acc, curr) => (arg.includes(curr) ? [...acc, arg] : acc), []) // eslint-disable-line
 
   if (!finalArgs.length) {
     console.warn(arg);

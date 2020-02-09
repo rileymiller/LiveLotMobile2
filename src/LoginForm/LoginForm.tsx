@@ -13,7 +13,7 @@ type LoginFormProps = {
 };
 
 
-const LoginForm: React.FC<LoginFormProps> = ({realmLogin}) => {
+const LoginForm: React.FC<LoginFormProps> = ({ realmLogin }) => {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [usernameError, setUsernameError] = useState<boolean>(false);
@@ -26,29 +26,29 @@ const LoginForm: React.FC<LoginFormProps> = ({realmLogin}) => {
   const updatePassword = (password: String) => setPassword(password.trim());
 
   const clearLoginForm = () => {
-      passwordInputRef.current?.clear();
-      usernameInputRef.current?.clear();
-      setPassword("");
-      setUsername("");
-      setPasswordError(false);
-      setUsernameError(false);
+    passwordInputRef.current?.clear();
+    usernameInputRef.current?.clear();
+    setPassword("");
+    setUsername("");
+    setPasswordError(false);
+    setUsernameError(false);
   }
   const validateLogin = () => {
     if (!username?.length) {
-        setUsernameError(true)
-        usernameInputRef.current?.shake()
+      setUsernameError(true)
+      usernameInputRef.current?.shake()
     }
-    
+
     if (!password?.length) {
-        setPasswordError(true)
-        passwordInputRef.current?.shake()
+      setPasswordError(true)
+      passwordInputRef.current?.shake()
     }
 
     if (usernameError === false && passwordError === false) {
       realmLogin(username, password)
       clearLoginForm();
     }
-}
+  }
   return (
     <KeyboardAvoidingView style={styles.container}>
       <View style={styles.inputContainer}>

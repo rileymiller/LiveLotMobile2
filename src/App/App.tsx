@@ -7,7 +7,11 @@ import { createAppContainer } from 'react-navigation';
 import { render } from '@testing-library/react-native';
 import { useNavigation } from '../../hooks/useNavigation';
 import LoginScreen from '../screens/LoginScreen/LoginScreen';
+import HomeScreen from '../screens/HomeScreen/HomeScreen';
 
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+Icon.loadFont();
 const About = () => {
   const navigation = useNavigation();
   return (
@@ -18,21 +22,12 @@ const About = () => {
   );
 };
 
-const Location = () => {
-  const navigation = useNavigation();
-  return (
-    <View>
-      <Text testID="title">Location page</Text>
-      <Text testID="location-display">{navigation.state.routeName}</Text>
-    </View>
-  );
-};
 
 const AppNavigator = createStackNavigator(
   {
     LoginScreen,
+    HomeScreen,
     About,
-    Location,
   },
   { initialRouteName: 'LoginScreen' },
 );
@@ -42,8 +37,8 @@ function renderWithNavigation({ screens = {}, navigatorConfig = {} } = {}) {
   const AppNavigatorRender = createStackNavigator(
     {
       LoginScreen,
+      HomeScreen,
       About,
-      Location,
       ...screens,
     },
     { initialRouteName: 'LoginScreen', ...navigatorConfig },
@@ -52,11 +47,4 @@ function renderWithNavigation({ screens = {}, navigatorConfig = {} } = {}) {
   return { ...render(<AppRender />), navigationContainer: App };
 }
 
-export {
-  renderWithNavigation,
-  Location,
-  About,
-  LoginScreen,
-  App,
-  AppNavigator,
-};
+export { renderWithNavigation, About, App, AppNavigator };
