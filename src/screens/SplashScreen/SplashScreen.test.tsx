@@ -1,4 +1,4 @@
-import { renderWithNavigation } from '../../components/App/App'
+import { renderWithNavigation } from 'components/App/App'
 
 // The SplashScreen is set as the default route so this will render on app load
 describe('SplashScreen', () => {

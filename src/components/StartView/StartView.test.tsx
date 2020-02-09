@@ -1,7 +1,7 @@
 import 'react-native';
 import { fireEvent, findByText, render } from '@testing-library/react-native';
-import { renderWithNavigation } from '../App/App'
-import { useNavigation } from 'src/hooks/useNavigation';
+import { renderWithNavigation } from 'components/App/App'
+
 describe('StartView', () => {
   test('Renders StartView on load', async () => {
     const { getByTestId } = renderWithNavigation();

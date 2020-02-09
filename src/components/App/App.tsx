@@ -5,11 +5,11 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
 
 import { render } from '@testing-library/react-native';
-import { useNavigation } from '../../hooks/useNavigation';
-import SplashScreen from '../../screens/SplashScreen/SplashScreen';
-import HomeScreen from '../../screens/HomeScreen/HomeScreen';
-import LoginScreen from '../../screens/LoginScreen/LoginScreen';
-import SignupScreen from '../../screens/SignupScreen/SignupScreen';
+import { useNavigation } from 'hooks/useNavigation';
+import SplashScreen from 'screens/SplashScreen/SplashScreen';
+import HomeScreen from 'screens/HomeScreen/HomeScreen';
+import LoginScreen from 'screens/LoginScreen/LoginScreen';
+import SignupScreen from 'screens/SignupScreen/SignupScreen';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 Icon.loadFont();

@@ -1,4 +1,4 @@
-import { renderWithNavigation } from '../../components/App/App'
+import { renderWithNavigation } from 'components/App/App'
 
 describe('SignupScreen', () => {
   test('Renders SignupScreen when SignupScreen is in focus', () => {

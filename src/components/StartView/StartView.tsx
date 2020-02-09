@@ -6,12 +6,12 @@ import {
   // TouchableHighlight,
   View,
 } from 'react-native';
-import LoginForm from '../LoginForm/LoginForm';
+import LoginForm from 'components/LoginForm/LoginForm';
 import { Button } from 'react-native-elements';
-import { useNavigation } from '../../hooks/useNavigation';
+import { useNavigation } from 'hooks/useNavigation';
 
-import { colors } from '../../colors/colors'
-import { spacing } from '../../spacing/spacing'
+import { colors } from 'colors/colors'
+import { spacing } from 'spacing/spacing'
 // import SignupForm from './SignupForm';
 // import Credentials from '../authentication/Credentials';
 // import { ScrollView } from 'react-native-gesture-handler';
@@ -20,7 +20,7 @@ import { spacing } from '../../spacing/spacing'
 // import SnackBar from 'react-native-snackbar';
 // import { Button } from 'react-native-elements';
 // import { PasswordRealmResponse } from 'react-native-auth0';
-import { CredentialParams } from '../../screens/SplashScreen/SplashScreen';
+import { CredentialParams } from 'screens/SplashScreen/SplashScreen';
 import { TextInput } from 'react-native-gesture-handler';
 
 interface Props {

@@ -1,4 +1,4 @@
-import { renderWithNavigation } from '../../components/App/App'
+import { renderWithNavigation } from 'components/App/App'
 
 describe('HomeScreen', () => {
   test('Renders HomeScreen when HomeScreen is in focus', () => {

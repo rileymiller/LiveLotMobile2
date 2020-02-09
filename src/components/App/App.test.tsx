@@ -1,8 +1,4 @@
-/**
- * @format
- */
-
-import { renderWithNavigation } from './App';
+import { renderWithNavigation } from 'components/App/App';
 
 describe('App', () => {
   test('Renders StartView on load', async () => {
