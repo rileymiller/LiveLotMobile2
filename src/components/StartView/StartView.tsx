@@ -9,6 +9,8 @@ import {
 import LoginForm from '../LoginForm/LoginForm';
 import { Button } from 'react-native-elements';
 import { useNavigation } from '../../hooks/useNavigation';
+
+import { colors } from '../../colors/colors'
 // import SignupForm from './SignupForm';
 // import Credentials from '../authentication/Credentials';
 // import { ScrollView } from 'react-native-gesture-handler';
@@ -17,14 +19,14 @@ import { useNavigation } from '../../hooks/useNavigation';
 // import SnackBar from 'react-native-snackbar';
 // import { Button } from 'react-native-elements';
 // import { PasswordRealmResponse } from 'react-native-auth0';
-import { CredentialParams } from '../screens/LoginScreen/LoginScreen';
+import { CredentialParams } from '../../screens/SplashScreen/SplashScreen';
 import { TextInput } from 'react-native-gesture-handler';
 
 interface Props {
   onAuth: any;
 }
 
-const Login: React.FC<Props> = ({ onAuth }) => {
+const StartView: React.FC<Props> = ({ onAuth }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [credentials, setCredentials] = useState<CredentialParams>({
     refreshToken: '',
@@ -176,10 +178,10 @@ const Login: React.FC<Props> = ({ onAuth }) => {
       </View>
       <View style={styles.buttonContainer} testID="button-container">
         <View style={styles.loginButton}>
-          <Button title="Login" onPress={() => navigation.navigate('HomeScreen')} />
+          <Button title="Login" onPress={() => navigation.navigate('LoginScreen')} />
         </View>
         <View style={styles.signupButton}>
-          <Button title="Signup" type='outline' onPress={() => navigation.navigate('HomeScreen')} />
+          <Button title="Signup" type='outline' onPress={() => navigation.navigate('SignupScreen')} />
         </View>
       </View>
     </View>
@@ -188,20 +190,19 @@ const Login: React.FC<Props> = ({ onAuth }) => {
 
 const styles = StyleSheet.create({
   screenContainer: {
-    backgroundColor: '#27FB6B',
+    backgroundColor: colors.backgroundPrimaryColor,
     flexDirection: 'column',
     alignItems: 'stretch',
     flex: 1,
     padding: 5
   },
   livelotTitle: {
-    color: '#0A2E36',
+    color: colors.textPrimaryColor,
     fontSize: 36,
     fontWeight: 'bold',
   },
   titleBackground: {
     justifyContent: 'center',
-    backgroundColor: '#27FB6B',
     alignItems: 'center',
     borderRadius: 5,
     flex: 4,
@@ -214,14 +215,12 @@ const styles = StyleSheet.create({
     padding: 8
   },
   loginButton: {
-    // backgroundColor: '#09A129',
     flex: 1,
     margin: 4,
     borderRadius: 4,
     justifyContent: 'center',
   },
   signupButton: {
-    // backgroundColor: '#036D19',
     flex: 1,
     margin: 4,
     borderRadius: 4,
@@ -229,51 +228,4 @@ const styles = StyleSheet.create({
   }
 })
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#ffffff',
-//   },
-//   formContainer: {
-//     flex: 2,
-//   },
-//   headerContainer: {
-//     flex: 1,
-//     alignItems: 'center',
-//     backgroundColor: '#eeeeee',
-//     justifyContent: 'center',
-//   },
-//   socialContainer: {
-//     flex: 2,
-//     flexDirection: 'column',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-//   tabContainer: {
-//     flex: 0.5,
-//     flexDirection: 'row',
-//     alignItems: 'center',
-//     justifyContent: 'space-around',
-//     borderRadius: 1,
-//     borderWidth: 0.5,
-//     borderColor: '#d6d7da',
-//   },
-//   titleBold: {
-//     fontWeight: 'bold',
-//     marginTop: 10,
-//     width: 100,
-//     textAlign: 'center',
-//     fontSize: 16,
-//   },
-//   title: {
-//     marginTop: 10,
-//     width: 100,
-//     textAlign: 'center',
-//     fontSize: 16,
-//   },
-//   socialIcon: {
-//     marginTop: 10,
-//   },
-// });
-
-export default Login;
+export default StartView;
