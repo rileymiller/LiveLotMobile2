@@ -11,6 +11,7 @@ import { Button } from 'react-native-elements';
 import { useNavigation } from '../../hooks/useNavigation';
 
 import { colors } from '../../colors/colors'
+import { spacing } from '../../spacing/spacing'
 // import SignupForm from './SignupForm';
 // import Credentials from '../authentication/Credentials';
 // import { ScrollView } from 'react-native-gesture-handler';
@@ -205,17 +206,17 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'stretch',
     flex: 1,
-    padding: 5
+    padding: 4
   },
   livelotTitle: {
     color: colors.textPrimaryColor,
-    fontSize: 36,
+    fontSize: spacing.l,
     fontWeight: 'bold',
   },
   titleBackground: {
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 5,
+    borderRadius: spacing.xxxs,
     flex: 4,
   },
   buttonContainer: {
@@ -223,18 +224,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'stretch',
-    padding: 8
+    padding: spacing.xxs,
+    marginBottom: spacing.xxs,
   },
   loginButton: {
     flex: 1,
-    margin: 4,
-    borderRadius: 4,
+    margin: spacing.xxxs,
+    borderRadius: spacing.xxxs,
+    padding: spacing.xxxxs,
     justifyContent: 'center',
   },
   signupButton: {
     flex: 1,
-    margin: 4,
-    borderRadius: 4,
+    margin: spacing.xxxs,
+    borderRadius: spacing.xxxs,
+    padding: spacing.xxxxs,
     justifyContent: 'center'
   }
 })
