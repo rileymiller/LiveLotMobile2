@@ -7,15 +7,13 @@ import {
   KeyboardAvoidingView,
   Text,
 } from 'react-native';
-import { Button as PlainButton } from 'react-native'
 import { Button, Input, SocialIcon } from 'react-native-elements';
+
+
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { colors } from 'colors/colors'
 import { spacing } from 'spacing/spacing'
 import { useNavigation } from 'hooks/useNavigation'
-// type LoginFormProps = {
-//   realmLogin: (username: string, password: string) => void;
-// };
 
 
 const LoginForm = () => {
@@ -52,7 +50,6 @@ const LoginForm = () => {
     }
 
     if (usernameError === false && passwordError === false) {
-      // realmLogin(username, password)
       clearLoginForm();
     }
   }
@@ -60,9 +57,6 @@ const LoginForm = () => {
 
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <KeyboardAvoidingView style={styles.container}>
-        {/* <Text>
-        YOLO
-      </Text> */}
         <View style={styles.inputGroupContainer}>
           <Text style={styles.logoPlaceholder}>
             insert_logo_here
@@ -131,7 +125,6 @@ const LoginForm = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // justifyContent: 'center',
     padding: spacing.xs,
     flexDirection: 'column',
     backgroundColor: colors.backgroundPrimaryColor
@@ -141,13 +134,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   inputContainer: {
-    // flex: 1
-    // alignItems: 'stretch'
     margin: spacing.xs
   },
   inputGroupContainer: {
-    // flex: 6,
-    // flexDirection: 'column',
     marginTop: 150,
 
   },
@@ -161,7 +150,6 @@ const styles = StyleSheet.create({
     margin: spacing.xxs,
   },
   loginButtonContainer: {
-    // flex: 1
     margin: spacing.xxs
   }
 });

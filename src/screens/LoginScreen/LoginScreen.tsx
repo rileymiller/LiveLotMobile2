@@ -8,7 +8,7 @@ const LoginScreen = () => {
   const navigation = useNavigation()
   return (
     <View style={{ flex: 1 }}>
-      <LoginForm realmLogin={() => { }}></LoginForm>
+      <LoginForm />
     </View>
   )
 }

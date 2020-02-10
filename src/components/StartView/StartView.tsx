@@ -163,7 +163,7 @@ const StartView: React.FC<Props> = ({ onAuth }) => {
 
   const renderLoginOrSignup = () => {
     const realmLogin = () => { };
-    return <LoginForm realmLogin={realmLogin} />;
+    return <LoginForm />;
     // return isLoggedIn ? <LoginForm realmLogin={realmLogin} /> : <SignupForm createUser={createUser} />;
     // return !isLoggedIn ? <LoginForm realmLogin={realmLogin} /> : null;
   };

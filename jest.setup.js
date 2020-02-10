@@ -8,11 +8,11 @@ jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
 
 // jest.mock('react-native-snackbar', () => {});
 
-jest.mock('react-native-vector-icons/FontAwesome', () => {
-  return {
-    loadFont: jest.fn(),
-  }
-});
+// jest.mock('react-native-vector-icons/FontAwesome', () => {
+//   return {
+//     loadFont: jest.fn(),
+//   }
+// });
 
 
 jest.mock('react-native-gesture-handler', () => {

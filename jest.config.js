@@ -1,9 +1,8 @@
 module.exports = {
   preset: '@testing-library/react-native',
-  transform: {
-    '^.+\\.js$': '<rootDir>/node_modules/react-native/jest/preprocessor.js',
-    '\\.(ts|tsx)$': 'ts-jest',
-  },
+  // transform: {
+  //   '\\.(ts|tsx)$': 'ts-jest',
+  // },
   globals: {
     'ts-jest': {
       tsConfig: 'tsconfig.jest.json',
