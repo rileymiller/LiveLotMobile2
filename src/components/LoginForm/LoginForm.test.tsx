@@ -81,7 +81,7 @@ describe('LoginForm', () => {
       navigatorConfig: { initialRouteName }
     })
 
-    getByText('Signup for an account')
+    getByText('Signup')
   })
 
   test('Signup button has accessibility label', () => {

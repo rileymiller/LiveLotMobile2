@@ -2,13 +2,12 @@ import React from 'react';
 import { View, Text, Button } from 'react-native';
 
 import { useNavigation } from 'hooks/useNavigation'
-
+import { colors } from 'colors/colors'
 const HomeScreen = () => {
   const navigation = useNavigation();
   return (
-    <View>
+    <View style={{ flex: 1, backgroundColor: colors.backgroundPrimaryColor }}>
       <Text testID="title">Home Page</Text>
-      <Button title="Home page" onPress={() => navigation.navigate('SplashScreen')} />
     </View>
   )
 }

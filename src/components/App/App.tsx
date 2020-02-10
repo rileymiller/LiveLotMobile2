@@ -10,7 +10,7 @@ import SplashScreen from 'screens/SplashScreen/SplashScreen';
 import HomeScreen from 'screens/HomeScreen/HomeScreen';
 import LoginScreen from 'screens/LoginScreen/LoginScreen';
 import SignupScreen from 'screens/SignupScreen/SignupScreen';
-
+import { colors } from 'colors/colors'
 const AppNavigator = createStackNavigator(
   {
     SplashScreen,
@@ -18,7 +18,21 @@ const AppNavigator = createStackNavigator(
     LoginScreen,
     SignupScreen,
   },
-  { initialRouteName: 'SplashScreen' },
+  {
+    initialRouteName: 'SplashScreen',
+    defaultNavigationOptions: {
+      title: '<LiveLot_logo>',
+      headerBackTitle: 'Back',
+      headerStyle: {
+        backgroundColor: colors.backgroundPrimaryColor,
+      },
+      headerTintColor: colors.textPrimaryColor,
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      },
+    },
+  },
+
 );
 const App = createAppContainer(AppNavigator);
 
@@ -31,7 +45,19 @@ function renderWithNavigation({ screens = {}, navigatorConfig = {} } = {}) {
       SignupScreen,
       ...screens,
     },
-    { initialRouteName: 'SplashScreen', ...navigatorConfig },
+    {
+      initialRouteName: 'SplashScreen',
+      defaultNavigationOptions: {
+        headerStyle: {
+          backgroundColor: colors.backgroundPrimaryColor,
+        },
+        headerTintColor: colors.textPrimaryColor,
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      },
+      ...navigatorConfig
+    },
   );
   const AppRender = createAppContainer(AppNavigatorRender);
   return { ...render(<AppRender />), navigationContainer: App };

@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 import LoginForm from 'components/LoginForm/LoginForm';
-import { Button } from 'react-native-elements';
+import { Button, Header } from 'react-native-elements';
 import { useNavigation } from 'hooks/useNavigation';
 
 import { colors } from 'colors/colors'

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import { useNavigation } from 'hooks/useNavigation';
 import Login from 'components/StartView/StartView';
@@ -25,6 +25,11 @@ const SplashScreen = () => {
     </View>
   );
 };
+
+// Template for custom header options
+SplashScreen['navigationOptions'] = () => ({
+  title: ''
+})
 
 // eslint-disable-next-line no-undef
 export { CredentialParams };

@@ -61,6 +61,7 @@ const LoginForm = () => {
 
     if (usernameError === false && passwordError === false) {
       clearLoginForm();
+      navigation.navigate('HomeScreen')
     }
   }
   return (
@@ -68,9 +69,6 @@ const LoginForm = () => {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <KeyboardAvoidingView style={styles.container}>
         <View style={styles.inputGroupContainer}>
-          <Text style={styles.logoPlaceholder}>
-            insert_logo_here
-          </Text>
           <Input
             containerStyle={styles.inputContainer}
             label={'Username'}
@@ -151,7 +149,7 @@ const LoginForm = () => {
             containerStyle={{ marginBottom: spacing.xs }}
             buttonStyle={{ backgroundColor: 'transparent' }}
             titleStyle={{ color: colors.textPrimaryColor }}
-            title='Signup for an account'
+            title='Signup'
             accessibilityLabel={'Signup button'}
             onPress={() => { navigation.navigate('SignupScreen') }} />
         </View>
