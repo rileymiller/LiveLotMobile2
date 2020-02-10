@@ -10,29 +10,31 @@ describe('StartView', () => {
 
   test('renders Login button', () => {
     const { getByText } = renderWithNavigation()
-    getByText(/Login/i)
+
+    getByText('Login')
+
   })
 
   test('renders Signup button', () => {
     const { getByText } = renderWithNavigation()
-    getByText(/Signup/i)
+    getByText('Signup')
+
   })
 
   test('navigates to Login Form when Login button is pressed', async () => {
-    const { findByText, getByText } = renderWithNavigation()
+    const { getByText, getByPlaceholderText } = renderWithNavigation()
 
-    fireEvent.press(getByText(/Login/i))
+    fireEvent.press(getByText('Login'))
 
-    // change to text on Login form after implementing
-    await expect(findByText('Login bitches')).toBeTruthy()
+    getByPlaceholderText('Username')
   })
 
   test('navigates to Signup Form when Signup is pressed', async () => {
-    const { findByText, getByText } = renderWithNavigation()
+    const { getByText } = renderWithNavigation()
 
     fireEvent.press(getByText(/Signup/i))
 
     // change to text on Signup form after implementing
-    await expect(findByText('Signup bitches')).toBeTruthy()
+    getByText('Signup bitches')
   })
 });

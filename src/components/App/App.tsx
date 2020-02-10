@@ -11,24 +11,12 @@ import HomeScreen from 'screens/HomeScreen/HomeScreen';
 import LoginScreen from 'screens/LoginScreen/LoginScreen';
 import SignupScreen from 'screens/SignupScreen/SignupScreen';
 
-const About = () => {
-  const navigation = useNavigation();
-  return (
-    <View>
-      <Text testID="title">About page</Text>
-      <Button title="About page" onPress={() => navigation.navigate('Home')} />
-    </View>
-  );
-};
-
-
 const AppNavigator = createStackNavigator(
   {
     SplashScreen,
     HomeScreen,
     LoginScreen,
     SignupScreen,
-    About,
   },
   { initialRouteName: 'SplashScreen' },
 );
@@ -41,7 +29,6 @@ function renderWithNavigation({ screens = {}, navigatorConfig = {} } = {}) {
       HomeScreen,
       LoginScreen,
       SignupScreen,
-      About,
       ...screens,
     },
     { initialRouteName: 'SplashScreen', ...navigatorConfig },
@@ -50,4 +37,4 @@ function renderWithNavigation({ screens = {}, navigatorConfig = {} } = {}) {
   return { ...render(<AppRender />), navigationContainer: App };
 }
 
-export { renderWithNavigation, About, App, AppNavigator };
+export { renderWithNavigation, App, AppNavigator };

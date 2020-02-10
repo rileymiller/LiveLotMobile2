@@ -25,8 +25,14 @@ const LoginForm = () => {
   const passwordInputRef = useRef<Input>(null);
   const usernameInputRef = useRef<Input>(null);
 
-  const updateUsername = (username: String) => setUsername(username.trim());
-  const updatePassword = (password: String) => setPassword(password.trim());
+  const updateUsername = (username: String) => {
+    setUsername(username.trim());
+    setUsernameError(false)
+  }
+  const updatePassword = (password: String) => {
+    setPassword(password.trim());
+    setPasswordError(false)
+  }
 
   const navigation = useNavigation()
 
@@ -39,14 +45,18 @@ const LoginForm = () => {
     setUsernameError(false);
   }
   const validateLogin = () => {
+    debugger
+    console.log('inside validate login')
     if (!username?.length) {
       setUsernameError(true)
       usernameInputRef.current?.shake()
+      return
     }
 
     if (!password?.length) {
       setPasswordError(true)
       passwordInputRef.current?.shake()
+      return
     }
 
     if (usernameError === false && passwordError === false) {
@@ -63,10 +73,19 @@ const LoginForm = () => {
           </Text>
           <Input
             containerStyle={styles.inputContainer}
-            label={'Email'}
-            placeholder={'Email'}
+            label={'Username'}
+            accessibilityLabel={'Username'}
+            placeholder={'Username'}
+            returnKeyType={'next'}
+            returnKeyLabel={'Next'}
+            testID={'username-input'}
+            onSubmitEditing={() => { passwordInputRef.current?.focus() }}
+            errorMessage={usernameError ? 'Please enter your username or email' : ''}
+            inputContainerStyle={{ borderColor: !usernameError ? colors.borderPrimaryColor : colors.errorColor }}
             labelStyle={{ color: colors.textPrimaryColor }}
             placeholderTextColor={colors.placeholderTextColor}
+            onChangeText={updateUsername}
+            keyboardType={'email-address'}
             leftIcon={
               <Icon
                 name={'envelope'}
@@ -75,13 +94,19 @@ const LoginForm = () => {
                 style={{ marginRight: spacing.xs }}
               />
             }
+            ref={usernameInputRef}
           />
           <Input
             containerStyle={styles.inputContainer}
+            inputContainerStyle={{ borderColor: !passwordError ? colors.borderPrimaryColor : colors.errorColor }}
             label={'Password'}
             placeholder={'Password'}
+            accessibilityLabel={'Password'}
+            secureTextEntry
+            errorMessage={passwordError ? 'Please enter your password' : ''}
             labelStyle={{ color: colors.textPrimaryColor }}
             placeholderTextColor={colors.placeholderTextColor}
+            onChangeText={updatePassword}
             leftIcon={
               <Icon
                 name={'lock'}
@@ -90,12 +115,24 @@ const LoginForm = () => {
                 style={{ marginRight: spacing.xs }}
               />
             }
+            returnKeyType={'go'}
+            returnKeyLabel={'Submit'}
+            onSubmitEditing={() => { validateLogin() }}
+            ref={passwordInputRef}
           />
         </View>
-        <Button raised={true} containerStyle={styles.loginButtonContainer} title={'Login'} />
+        <Button
+          raised={true}
+          containerStyle={styles.loginButtonContainer}
+          title={'Login'}
+          accessibilityLabel={'Login Button'}
+          onPress={() => {
+            validateLogin()
+          }}
+        />
         <SocialIcon
           button={true}
-          title={'Sign in with Facebook'}
+          title={'Login in with Facebook'}
           style={styles.socialLogin}
           type={'facebook'}
           iconSize={spacing.s}
@@ -103,7 +140,7 @@ const LoginForm = () => {
         />
         <SocialIcon
           button={true}
-          title={'Sign in with Google'}
+          title={'Login in with Google'}
           style={styles.socialLogin}
           iconSize={spacing.s}
           type={'google'}
@@ -115,6 +152,7 @@ const LoginForm = () => {
             buttonStyle={{ backgroundColor: 'transparent' }}
             titleStyle={{ color: colors.textPrimaryColor }}
             title='Signup for an account'
+            accessibilityLabel={'Signup button'}
             onPress={() => { navigation.navigate('SignupScreen') }} />
         </View>
       </KeyboardAvoidingView>
@@ -134,11 +172,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   inputContainer: {
-    margin: spacing.xs
+    margin: spacing.xs,
   },
   inputGroupContainer: {
     marginTop: 150,
 
+  },
+  inputError: {
+    borderColor: '#ff0000'
   },
   signupLinkContainer: {
     flex: 1,
