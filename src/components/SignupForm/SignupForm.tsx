@@ -152,6 +152,7 @@ const SignupForm = () => {
             placeholder={'Enter Password Again'}
             accessibilityLabel={'Confirm Password'}
             secureTextEntry
+            autoCorrect={false}
             errorMessage={confirmPasswordError ? 'Please enter a matching password' : ''}
             labelStyle={{ color: colors.textPrimaryColor }}
             placeholderTextColor={colors.textPrimaryColor}

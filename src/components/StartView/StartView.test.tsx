@@ -30,11 +30,11 @@ describe('StartView', () => {
   })
 
   test('navigates to Signup Form when Signup is pressed', async () => {
-    const { getByText } = renderWithNavigation()
+    const { getByText, getByPlaceholderText } = renderWithNavigation()
 
     fireEvent.press(getByText(/Signup/i))
 
     // change to text on Signup form after implementing
-    getByText('Signup bitches')
+    getByPlaceholderText('Enter Password Again')
   })
 });

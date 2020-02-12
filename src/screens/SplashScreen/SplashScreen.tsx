@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import { useNavigation } from 'hooks/useNavigation';
-import Login from 'components/StartView/StartView';
 import StartView from 'components/StartView/StartView';
 type CredentialParams = {
   refreshToken: string;
