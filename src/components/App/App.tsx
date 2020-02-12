@@ -11,6 +11,11 @@ import HomeScreen from 'screens/HomeScreen/HomeScreen';
 import LoginScreen from 'screens/LoginScreen/LoginScreen';
 import SignupScreen from 'screens/SignupScreen/SignupScreen';
 import { colors } from 'colors/colors'
+
+// import Icon from 'react-native-vector-icons/FontAwesome'
+
+// Icon.loadFont();
+
 const AppNavigator = createStackNavigator(
   {
     SplashScreen,
