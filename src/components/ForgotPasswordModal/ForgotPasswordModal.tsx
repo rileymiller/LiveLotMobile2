@@ -1,12 +1,28 @@
 import React from 'react'
 import { Text, StyleSheet } from 'react-native'
-import { Overlay } from 'react-native-elements'
+import { Overlay, Input } from 'react-native-elements'
 import { colors } from 'colors/colors'
 import { spacing } from 'spacing/spacing'
 
 type Props = {
   isDisplayed: boolean
   closeModal: () => void
+}
+
+const resetPasswordForm = () => {
+  return (
+    <>
+      <Text
+        style={styles.forgotPasswordTitle}
+        testID={'forgot-password-modal'}
+      >Forgot Password</Text>
+      <Input
+        label={'Email'}
+        placeholder={'Enter Email'}
+        accessibilityLabel={'Enter Email to Reset Rassword'}
+      />
+    </>
+  )
 }
 
 const ForgotPasswordModal = (props: Props) => {
