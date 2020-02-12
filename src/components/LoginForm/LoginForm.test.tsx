@@ -113,7 +113,7 @@ describe('LoginForm', () => {
       navigatorConfig: { initialRouteName }
     })
 
-    fireEvent.changeText(getByTestId('email-input'), 'yoo')
+    fireEvent.changeText(getByTestId('login-email-input'), 'yoo')
 
     await wait(() => fireEvent.press(getByText('Login')))
 

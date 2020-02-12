@@ -16,13 +16,18 @@ import { spacing } from 'spacing/spacing'
 import { useNavigation } from 'hooks/useNavigation'
 
 
-const LoginForm = () => {
+const SignupForm = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
+
   const [emailError, setEmailError] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
+  const [confirmPasswordError, setConfirmPasswordError] = useState<boolean>(false)
+
 
   const passwordInputRef = useRef<Input>(null);
+  const confirmPasswordInputRef = useRef<Input>(null);
   const emailInputRef = useRef<Input>(null);
 
   const updateEmail = (email: String) => {
@@ -34,17 +39,27 @@ const LoginForm = () => {
     setPasswordError(false)
   }
 
+  const updateConfirmPassword = (confirmPassword: string) => {
+    setConfirmPassword(confirmPassword.trim())
+    setConfirmPasswordError(false)
+  }
+
   const navigation = useNavigation()
 
-  const clearLoginForm = () => {
+  const clearSignupForm = () => {
     passwordInputRef.current?.clear();
     emailInputRef.current?.clear();
+    confirmPasswordInputRef.current?.clear();
     setPassword("");
+    setConfirmPassword("")
     setEmail("");
     setPasswordError(false);
     setEmailError(false);
+    setConfirmPasswordError(false)
   }
-  const validateLogin = () => {
+
+  const validateSignup = () => {
+    debugger
     if (!email?.length) {
       setEmailError(true)
       emailInputRef.current?.shake()
@@ -57,8 +72,20 @@ const LoginForm = () => {
       return
     }
 
-    if (emailError === false && passwordError === false) {
-      clearLoginForm();
+    if (!confirmPassword?.length) {
+      setConfirmPasswordError(true)
+      confirmPasswordInputRef.current?.shake()
+      return
+    }
+
+    if (confirmPassword !== password) {
+      setConfirmPasswordError(true)
+      confirmPasswordInputRef.current?.shake()
+      return
+    }
+
+    if (!emailError && !passwordError && !confirmPasswordError) {
+      // clearSignupForm();
       navigation.navigate('HomeScreen')
     }
   }
@@ -71,10 +98,10 @@ const LoginForm = () => {
             containerStyle={styles.inputContainer}
             label={'Email'}
             accessibilityLabel={'Email'}
-            placeholder={'Email'}
+            placeholder={'Enter Email'}
             returnKeyType={'next'}
             returnKeyLabel={'Next'}
-            testID={'login-email-input'}
+            testID={'signup-email-input'}
             onSubmitEditing={() => { passwordInputRef.current?.focus() }}
             errorMessage={emailError ? 'Please enter your email' : ''}
             inputContainerStyle={{ borderColor: !emailError ? colors.borderPrimaryColor : colors.errorColor }}
@@ -96,13 +123,40 @@ const LoginForm = () => {
             containerStyle={styles.inputContainer}
             inputContainerStyle={{ borderColor: !passwordError ? colors.borderPrimaryColor : colors.errorColor }}
             label={'Password'}
-            placeholder={'Password'}
+            placeholder={'Enter Password'}
             accessibilityLabel={'Password'}
             secureTextEntry
             errorMessage={passwordError ? 'Please enter your password' : ''}
             labelStyle={{ color: colors.textPrimaryColor }}
             placeholderTextColor={colors.textPrimaryColor}
             onChangeText={updatePassword}
+            autoCorrect={false}
+            testID={'signup-password-input'}
+            leftIcon={
+              <Icon
+                name={'lock'}
+                size={spacing.m}
+                color={colors.textPrimaryColor}
+                style={{ marginRight: spacing.xs }}
+              />
+            }
+            returnKeyType={'next'}
+            returnKeyLabel={'Next'}
+            onSubmitEditing={() => { confirmPasswordInputRef.current?.focus() }}
+            ref={passwordInputRef}
+          />
+          <Input
+            containerStyle={styles.inputContainer}
+            inputContainerStyle={{ borderColor: !passwordError ? colors.borderPrimaryColor : colors.errorColor }}
+            label={'Confirm Password'}
+            placeholder={'Enter Password Again'}
+            accessibilityLabel={'Confirm Password'}
+            secureTextEntry
+            errorMessage={confirmPasswordError ? 'Please enter a matching password' : ''}
+            labelStyle={{ color: colors.textPrimaryColor }}
+            placeholderTextColor={colors.textPrimaryColor}
+            onChangeText={updateConfirmPassword}
+            testID={'signup-confirm-password-input'}
             leftIcon={
               <Icon
                 name={'lock'}
@@ -113,19 +167,19 @@ const LoginForm = () => {
             }
             returnKeyType={'go'}
             returnKeyLabel={'Submit'}
-            onSubmitEditing={() => { validateLogin() }}
-            ref={passwordInputRef}
+            onSubmitEditing={() => { validateSignup() }}
+            ref={confirmPasswordInputRef}
           />
         </View>
         <Button
           raised={true}
-          containerStyle={styles.loginButtonContainer}
+          containerStyle={styles.signUpButtonContainer}
           titleStyle={{ color: colors.buttonTextPrimaryColor }}
           buttonStyle={{ backgroundColor: colors.buttonPrimaryColor }}
-          title={'Login'}
-          accessibilityLabel={'Login Button'}
+          title={'Signup'}
+          accessibilityLabel={'Signup Button'}
           onPress={() => {
-            validateLogin()
+            validateSignup()
           }}
         />
         {/* TODO: re-enable with OAuth2 <SocialIcon
@@ -149,18 +203,17 @@ const LoginForm = () => {
             containerStyle={{ marginBottom: spacing.xs }}
             buttonStyle={{ backgroundColor: 'transparent' }}
             titleStyle={{ color: colors.textPrimaryColor }}
-            title='Signup'
-            iconRight={true}
+            title='Login'
             icon={
               <Icon
-                name={'angle-double-right'}
+                name={'angle-double-left'}
                 size={spacing.m}
                 color={colors.textPrimaryColor}
-                style={{ marginLeft: spacing.xs }}
+                style={{ marginRight: spacing.xs }}
               />
             }
-            accessibilityLabel={'Signup button'}
-            onPress={() => { navigation.navigate('SignupScreen') }} />
+            accessibilityLabel={'Login button'}
+            onPress={() => { navigation.navigate('LoginScreen') }} />
 
         </View>
       </KeyboardAvoidingView>
@@ -198,9 +251,9 @@ const styles = StyleSheet.create({
     borderRadius: spacing.xxxs,
     margin: spacing.xxs,
   },
-  loginButtonContainer: {
+  signUpButtonContainer: {
     margin: spacing.xxs,
   }
 });
 
-export default LoginForm;
+export default SignupForm;
