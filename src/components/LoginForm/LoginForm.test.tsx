@@ -119,4 +119,29 @@ describe('LoginForm', () => {
 
     getByText('Forgot Password?')
   })
+
+  test('Pressing Forgot Password opens Forgot Password Modal', async () => {
+    const { getByText, getByTestId } = renderWithNavigation({
+      navigatorConfig: { initialRouteName }
+    })
+
+    await wait(() => { fireEvent.press(getByText('Forgot Password?')) })
+
+    getByTestId('forgot-password-modal')
+  })
+
+  // TODO: make this test work
+  // test('Pressing backdrop closes Forgot Password Modal', async () => {
+  //   const { getByText, queryByText } = renderWithNavigation({
+  //     navigatorConfig: { initialRouteName }
+  //   })
+
+  //   await wait(() => { fireEvent.press(getByText('Forgot Password?')) })
+
+  //   getByText('Hello World')
+
+  //   await wait(() => { fireEvent.press(getByText('Signup')) })
+
+  //   expect(queryByText('Hello World')).toBeNull()
+  // })
 });

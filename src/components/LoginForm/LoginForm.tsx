@@ -8,7 +8,7 @@ import {
   Text,
 } from 'react-native';
 import { Button, Input, SocialIcon } from 'react-native-elements';
-
+import ForgotPasswordModal from 'components/ForgotPasswordModal/ForgotPasswordModal'
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { colors } from 'colors/colors'
@@ -21,7 +21,8 @@ const LoginForm = () => {
   const [password, setPassword] = useState<string>('');
   const [emailError, setEmailError] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
-
+  const [displayForgotModal, setDisplayForgotModal] = useState<boolean>(false);
+  const [forgotLongPress, setForgotLongPress] = useState<boolean>(false)
   const passwordInputRef = useRef<Input>(null);
   const emailInputRef = useRef<Input>(null);
 
@@ -61,6 +62,11 @@ const LoginForm = () => {
       clearLoginForm();
       navigation.navigate('HomeScreen')
     }
+  }
+
+  const closeForgotModal = () => {
+    setDisplayForgotModal(false)
+    setForgotLongPress(false)
   }
   return (
 
@@ -128,8 +134,8 @@ const LoginForm = () => {
             validateLogin()
           }}
         />
-        <TouchableWithoutFeedback>
-          <Text style={styles.forgotPassword}>Forgot Password?</Text>
+        <TouchableWithoutFeedback onLongPress={() => { setForgotLongPress(true), setDisplayForgotModal(true) }} onPress={() => { setForgotLongPress(true), setDisplayForgotModal(true) }}>
+          <Text style={!forgotLongPress ? styles.forgotPassword : styles.forgotPasswordLongPress}>Forgot Password?</Text>
         </TouchableWithoutFeedback>
         {/* TODO: re-enable with OAuth2 <SocialIcon
           button={true}
@@ -166,6 +172,7 @@ const LoginForm = () => {
             onPress={() => { navigation.navigate('SignupScreen') }} />
 
         </View>
+        <ForgotPasswordModal isDisplayed={displayForgotModal} closeModal={() => closeForgotModal()} />
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   );
@@ -189,6 +196,12 @@ const styles = StyleSheet.create({
     marginTop: 150,
   },
   forgotPassword: {
+    fontSize: spacing.s,
+    color: colors.textPrimaryColor,
+    alignSelf: 'center',
+    marginTop: spacing.xxs
+  },
+  forgotPasswordLongPress: {
     fontSize: spacing.s,
     color: colors.textPrimaryColor,
     alignSelf: 'center',
