@@ -1,20 +1,18 @@
 import React from 'react';
-import { Button, Text, View } from 'react-native';
+import { Text } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
-
 import { createAppContainer } from 'react-navigation';
 
 import { render } from '@testing-library/react-native';
-import { useNavigation } from 'hooks/useNavigation';
+
 import SplashScreen from 'screens/SplashScreen/SplashScreen';
 import HomeScreen from 'screens/HomeScreen/HomeScreen';
 import LoginScreen from 'screens/LoginScreen/LoginScreen';
 import SignupScreen from 'screens/SignupScreen/SignupScreen';
+import ResetPasswordScreen from 'screens/ResetPasswordScreen/ResetPasswordScreen'
+
 import { colors } from 'colors/colors'
 
-// import Icon from 'react-native-vector-icons/FontAwesome'
-
-// Icon.loadFont();
 
 const AppNavigator = createStackNavigator(
   {
@@ -22,6 +20,7 @@ const AppNavigator = createStackNavigator(
     HomeScreen,
     LoginScreen,
     SignupScreen,
+    ResetPasswordScreen,
   },
   {
     initialRouteName: 'SplashScreen',
@@ -49,6 +48,7 @@ function renderWithNavigation({ screens = {}, navigatorConfig = {} } = {}) {
       HomeScreen,
       LoginScreen,
       SignupScreen,
+      ResetPasswordScreen,
       ...screens,
     },
     {

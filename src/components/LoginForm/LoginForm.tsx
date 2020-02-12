@@ -22,7 +22,6 @@ const LoginForm = () => {
   const [emailError, setEmailError] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
   const [displayForgotModal, setDisplayForgotModal] = useState<boolean>(false);
-  const [forgotLongPress, setForgotLongPress] = useState<boolean>(false)
   const passwordInputRef = useRef<Input>(null);
   const emailInputRef = useRef<Input>(null);
 
@@ -66,12 +65,11 @@ const LoginForm = () => {
 
   const closeForgotModal = () => {
     setDisplayForgotModal(false)
-    setForgotLongPress(false)
   }
   return (
 
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <KeyboardAvoidingView style={styles.container}>
+      <KeyboardAvoidingView style={styles.container} behavior='padding'>
         <View style={styles.inputGroupContainer}>
           <Input
             containerStyle={styles.inputContainer}
@@ -134,8 +132,8 @@ const LoginForm = () => {
             validateLogin()
           }}
         />
-        <TouchableWithoutFeedback onLongPress={() => { setForgotLongPress(true), setDisplayForgotModal(true) }} onPress={() => { setForgotLongPress(true), setDisplayForgotModal(true) }}>
-          <Text style={!forgotLongPress ? styles.forgotPassword : styles.forgotPasswordLongPress}>Forgot Password?</Text>
+        <TouchableWithoutFeedback onPress={() => { setDisplayForgotModal(true) }}>
+          <Text style={styles.forgotPassword}>Forgot Password?</Text>
         </TouchableWithoutFeedback>
         {/* TODO: re-enable with OAuth2 <SocialIcon
           button={true}
@@ -199,14 +197,8 @@ const styles = StyleSheet.create({
     fontSize: spacing.s,
     color: colors.textPrimaryColor,
     alignSelf: 'center',
-    marginTop: spacing.xxs
-  },
-  forgotPasswordLongPress: {
-    fontSize: spacing.s,
-    color: colors.textPrimaryColor,
-    alignSelf: 'center',
-    textDecorationLine: 'underline',
-    marginTop: spacing.xxs
+    marginTop: spacing.xxs,
+    textDecorationLine: 'underline'
   },
   inputError: {
     borderColor: '#ff0000'
