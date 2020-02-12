@@ -30,7 +30,11 @@ yarn plop
 ```
 and answer the following prompts. This will generate a corresponding screen or component under the path `src/screens/<(screen_name|component_name)>/` with a TypeScript component file `(screen_name|component_name).tsx` and a Typescript test file `(screen_name|component_name).test.tsx`. When creating new test files on your own, ensure that the file has the extension `.test.tsx` so that `jest` can find and run the test suite. Under the hood `plop` leverages a `plopfile.js` to create new generators and manage the scaffolding within our project as well as handlebars templates located in `plop-templates/`.
 
+<<<<<<< HEAD
 At a high level all of our app's source code should live within the `src/` folder. In addition to `screens/` and `components/` we also have additional scaffolding to maintain common code throughout our app:
+=======
+At a high level all of our app's source code should live within the `src/` folder. In addition to `screens/` and `components` we also have additional scaffolding to maintain common code throughout our app:
+>>>>>>> e7a44334f04fc3c379617e961cd1f606f9c3f607
 * `authentication/`: contains app authentication files
 * `colors/`: contains our app's global styles. Inside of `colors.ts` we have color constants as well as a `colors` object that holds common styles so we can make global style changes in one place vs. changing styles in every file in our app. When styling components app you **MUST** utilize this file in order for us to maintain our styles as we continue to scale. Example of uptaking colors below:
 ```
