@@ -32,7 +32,7 @@ and answer the following prompts. This will generate a corresponding screen or c
 
 At a high level all of our app's source code should live within the `src/` folder. In addition to `screens/` and `components/` we also have additional scaffolding to maintain common code throughout our app:
 * `authentication/`: contains app authentication files
-* `colors/`: contains our app's global styles. Inside of `colors.ts` we have color constants as well as a `colors` object that holds common styles so we can make global style changes in one place vs. changing styles in every file in our app. When styling components app you **MUST** utilize this file in order for us to maintain our styles as we continue to scale. Example of uptaking colors below:
+* `colors/`: contains our app's global styles. Inside of `colors.ts` we have color constants as well as a `colors` object that holds common styles so we can make global style changes in one place vs. changing styles in every file in our app. When styling components you **MUST** utilize this file in order for us to maintain our styles as we continue to scale. Example of uptaking colors below:
 ```
 import React from 'react'
 import { Text } from 'react-native
