@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import { View } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { useNavigation } from 'hooks/useNavigation';
 import StartView from 'components/StartView/StartView';
+import { colors } from 'colors/colors'
 type CredentialParams = {
   refreshToken: string;
   accessToken: string;
@@ -21,9 +22,19 @@ const SplashScreen = () => {
   return (
     <View style={{ flex: 1, }}>
       <StartView onAuth={onAuth} />
+      <Text style={copyRightStyles.copyRight}>© 2020 LiveLot LLC All Rights Reserved</Text>
     </View>
   );
 };
+
+const copyRightStyles = StyleSheet.create({
+  copyRight: {
+    alignSelf: 'stretch',
+    backgroundColor: colors.backgroundPrimaryColor,
+    textAlign: 'center',
+    color: colors.textPrimaryColor
+  }
+})
 
 // Template for custom header options
 SplashScreen['navigationOptions'] = () => ({
@@ -31,5 +42,5 @@ SplashScreen['navigationOptions'] = () => ({
 })
 
 // eslint-disable-next-line no-undef
-export { CredentialParams };
+export { CredentialParams, copyRightStyles };
 export default SplashScreen;

@@ -4,6 +4,7 @@ import LotsView from 'components/LotsView/LotsView'
 import { useNavigation } from 'hooks/useNavigation'
 import { colors } from 'colors/colors'
 import { spacing } from 'spacing/spacing'
+import { copyRightStyles } from 'screens/SplashScreen/SplashScreen'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-navigation'
 
@@ -15,6 +16,7 @@ const HomeScreen = () => {
   return (
     <View style={{ flex: 1, backgroundColor: colors.backgroundPrimaryColor }}>
       <LotsView />
+      <Text style={copyRightStyles.copyRight}>© 2020 LiveLot LLC All Rights Reserved</Text>
     </View>
   )
 }
@@ -34,7 +36,7 @@ HomeScreen['navigationOptions'] = ({
         size={spacing.m}
         color={colors.textPrimaryColor}
         style={{ marginRight: spacing.xs }}
-        onPress={() => navigation.navigate('SplashScreen')}
+        onPress={() => navigation.navigate('SplashScreen')} // add logic to hit signout endpoint here 
       />
     )
   },
@@ -50,17 +52,4 @@ HomeScreen['navigationOptions'] = ({
     )
   }
 })
-// HomeScreen['navigationOptions'] = () => ({
-//   headerRight: () => {
-//     <Icon
-//       name={'user'}
-//       size={spacing.m}
-//       color={colors.textPrimaryColor}
-//     // style={{ marginRight: spacing.xs }}
-//     >
-
-//     </Icon>
-//   },
-//   title: 'Daddy'
-// })
 export default HomeScreen

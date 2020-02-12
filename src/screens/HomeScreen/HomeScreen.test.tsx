@@ -1,8 +1,8 @@
 import { renderWithNavigation } from 'components/App/App'
 import { fireEvent, wait, getByTestId } from '@testing-library/react-native'
 describe('HomeScreen', () => {
+  const initialRouteName = 'HomeScreen';
   test('Renders HomeScreen when HomeScreen is in focus', () => {
-    const initialRouteName = 'HomeScreen';
     const { getByText } = renderWithNavigation({
       navigatorConfig: { initialRouteName },
     });
@@ -11,7 +11,6 @@ describe('HomeScreen', () => {
   });
 
   test('renders profile button button', () => {
-    const initialRouteName = 'HomeScreen';
     const { getByTestId } = renderWithNavigation({
       navigatorConfig: { initialRouteName },
     });
@@ -20,7 +19,6 @@ describe('HomeScreen', () => {
   })
 
   test('renders signout button', () => {
-    const initialRouteName = 'HomeScreen';
     const { getByTestId } = renderWithNavigation({
       navigatorConfig: { initialRouteName },
     });
@@ -29,7 +27,6 @@ describe('HomeScreen', () => {
   })
 
   test('Pressing signout button redirects to SplashScreen', async () => {
-    const initialRouteName = 'HomeScreen';
     const { getByText, getByTestId } = renderWithNavigation({
       navigatorConfig: { initialRouteName },
     });
@@ -39,5 +36,13 @@ describe('HomeScreen', () => {
 
     getByText('Signup')
 
+  })
+
+  test('Renders copyright notice', () => {
+    const { getByText } = renderWithNavigation({
+      navigatorConfig: { initialRouteName }
+    })
+
+    getByText('© 2020 LiveLot LLC All Rights Reserved')
   })
 })

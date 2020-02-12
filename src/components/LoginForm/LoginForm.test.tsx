@@ -3,8 +3,8 @@ import { fireEvent, getByText, wait, } from '@testing-library/react-native';
 import { renderWithNavigation } from 'components/App/App'
 
 describe('LoginForm', () => {
+  const initialRouteName = 'LoginScreen'
   test('renders email input', async () => {
-    const initialRouteName = 'LoginScreen'
     const { getByPlaceholderText } = renderWithNavigation({
       navigatorConfig: { initialRouteName },
     })
@@ -13,7 +13,6 @@ describe('LoginForm', () => {
   })
 
   test('renders email accessibility label', () => {
-    const initialRouteName = 'LoginScreen'
     const { getByLabelText } = renderWithNavigation({
       navigatorConfig: { initialRouteName },
     })
@@ -22,7 +21,6 @@ describe('LoginForm', () => {
   })
 
   test('renders password input', () => {
-    const initialRouteName = 'LoginScreen'
     const { getByPlaceholderText } = renderWithNavigation({
       navigatorConfig: { initialRouteName },
     })
@@ -31,7 +29,6 @@ describe('LoginForm', () => {
   })
 
   test('renders password accessibility label', () => {
-    const initialRouteName = 'LoginScreen'
     const { getByLabelText } = renderWithNavigation({
       navigatorConfig: { initialRouteName },
     })
@@ -40,7 +37,6 @@ describe('LoginForm', () => {
   })
 
   test('renders login button', () => {
-    const initialRouteName = 'LoginScreen'
     const { getByText } = renderWithNavigation({
       navigatorConfig: { initialRouteName }
     })
@@ -49,7 +45,6 @@ describe('LoginForm', () => {
   })
 
   test('login button has accessibility label', () => {
-    const initialRouteName = 'LoginScreen'
     const { getByLabelText } = renderWithNavigation({
       navigatorConfig: { initialRouteName }
     })
@@ -79,7 +74,6 @@ describe('LoginForm', () => {
   // })
 
   test('renders Signup button', () => {
-    const initialRouteName = 'LoginScreen'
     const { getByText } = renderWithNavigation({
       navigatorConfig: { initialRouteName }
     })
@@ -88,7 +82,6 @@ describe('LoginForm', () => {
   })
 
   test('Signup button has accessibility label', () => {
-    const initialRouteName = 'LoginScreen'
     const { getByLabelText } = renderWithNavigation({
       navigatorConfig: { initialRouteName }
     })
@@ -97,7 +90,6 @@ describe('LoginForm', () => {
   })
 
   test('Email error message displays when input is empty', () => {
-    const initialRouteName = 'LoginScreen'
     const { getByText } = renderWithNavigation({
       navigatorConfig: { initialRouteName }
     })
@@ -108,7 +100,6 @@ describe('LoginForm', () => {
   })
 
   test('Password error message displays when input is empty', async () => {
-    const initialRouteName = 'LoginScreen'
     const { getByTestId, getByText } = renderWithNavigation({
       navigatorConfig: { initialRouteName }
     })
