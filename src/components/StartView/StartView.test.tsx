@@ -26,7 +26,7 @@ describe('StartView', () => {
 
     fireEvent.press(getByText('Login'))
 
-    getByPlaceholderText('Username')
+    getByPlaceholderText('Email')
   })
 
   test('navigates to Signup Form when Signup is pressed', async () => {

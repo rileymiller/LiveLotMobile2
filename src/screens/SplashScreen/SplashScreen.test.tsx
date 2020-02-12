@@ -8,7 +8,7 @@ describe('SplashScreen', () => {
       navigatorConfig: { initialRouteName },
     });
     expect(getByTestId('title').props.children).toBe(
-      'LiveLot'
+      'LiveLot 🌴'
     );
   });
 });

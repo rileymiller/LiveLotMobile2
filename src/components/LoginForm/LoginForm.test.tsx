@@ -3,22 +3,22 @@ import { fireEvent, getByText, wait, } from '@testing-library/react-native';
 import { renderWithNavigation } from 'components/App/App'
 
 describe('LoginForm', () => {
-  test('renders username input', async () => {
+  test('renders email input', async () => {
     const initialRouteName = 'LoginScreen'
     const { getByPlaceholderText } = renderWithNavigation({
       navigatorConfig: { initialRouteName },
     })
 
-    getByPlaceholderText('Username')
+    getByPlaceholderText('Email')
   })
 
-  test('renders username accessibility label', () => {
+  test('renders email accessibility label', () => {
     const initialRouteName = 'LoginScreen'
     const { getByLabelText } = renderWithNavigation({
       navigatorConfig: { initialRouteName },
     })
 
-    getByLabelText('Username')
+    getByLabelText('Email')
   })
 
   test('renders password input', () => {
@@ -57,23 +57,26 @@ describe('LoginForm', () => {
     getByLabelText('Login Button')
   })
 
-  test('renders Facebook login button', () => {
-    const initialRouteName = 'LoginScreen'
-    const { getByText } = renderWithNavigation({
-      navigatorConfig: { initialRouteName }
-    })
+  // TODO: re-enable after adding OAuth2
+  // test('renders Facebook login button', () => {
+  //   const initialRouteName = 'LoginScreen'
+  //   const { getByText } = renderWithNavigation({
+  //     navigatorConfig: { initialRouteName }
+  //   })
 
-    getByText('Login in with Facebook')
-  })
+  //   getByText('Login in with Facebook')
+  // })
 
-  test('renders Google login button', () => {
-    const initialRouteName = 'LoginScreen'
-    const { getByText } = renderWithNavigation({
-      navigatorConfig: { initialRouteName }
-    })
+  // TODO: re-enable after adding OAuth2
 
-    getByText('Login in with Google')
-  })
+  // test('renders Google login button', () => {
+  //   const initialRouteName = 'LoginScreen'
+  //   const { getByText } = renderWithNavigation({
+  //     navigatorConfig: { initialRouteName }
+  //   })
+
+  //   getByText('Login in with Google')
+  // })
 
   test('renders Signup button', () => {
     const initialRouteName = 'LoginScreen'
@@ -93,7 +96,7 @@ describe('LoginForm', () => {
     getByLabelText('Signup button')
   })
 
-  test('Username error message displays when input is empty', () => {
+  test('Email error message displays when input is empty', () => {
     const initialRouteName = 'LoginScreen'
     const { getByText } = renderWithNavigation({
       navigatorConfig: { initialRouteName }
@@ -101,7 +104,7 @@ describe('LoginForm', () => {
 
     fireEvent.press(getByText('Login'))
 
-    getByText('Please enter your username or email')
+    getByText('Please enter your email')
   })
 
   test('Password error message displays when input is empty', async () => {
@@ -110,7 +113,7 @@ describe('LoginForm', () => {
       navigatorConfig: { initialRouteName }
     })
 
-    fireEvent.changeText(getByTestId('username-input'), 'yoo')
+    fireEvent.changeText(getByTestId('email-input'), 'yoo')
 
     await wait(() => fireEvent.press(getByText('Login')))
 

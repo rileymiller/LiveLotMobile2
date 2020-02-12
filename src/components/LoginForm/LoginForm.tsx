@@ -17,17 +17,17 @@ import { useNavigation } from 'hooks/useNavigation'
 
 
 const LoginForm = () => {
-  const [username, setUsername] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [usernameError, setUsernameError] = useState<boolean>(false);
+  const [emailError, setEmailError] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
 
   const passwordInputRef = useRef<Input>(null);
-  const usernameInputRef = useRef<Input>(null);
+  const emailInputRef = useRef<Input>(null);
 
-  const updateUsername = (username: String) => {
-    setUsername(username.trim());
-    setUsernameError(false)
+  const updateEmail = (email: String) => {
+    setEmail(email.trim());
+    setEmailError(false)
   }
   const updatePassword = (password: String) => {
     setPassword(password.trim());
@@ -38,18 +38,16 @@ const LoginForm = () => {
 
   const clearLoginForm = () => {
     passwordInputRef.current?.clear();
-    usernameInputRef.current?.clear();
+    emailInputRef.current?.clear();
     setPassword("");
-    setUsername("");
+    setEmail("");
     setPasswordError(false);
-    setUsernameError(false);
+    setEmailError(false);
   }
   const validateLogin = () => {
-    debugger
-    console.log('inside validate login')
-    if (!username?.length) {
-      setUsernameError(true)
-      usernameInputRef.current?.shake()
+    if (!email?.length) {
+      setEmailError(true)
+      emailInputRef.current?.shake()
       return
     }
 
@@ -59,7 +57,7 @@ const LoginForm = () => {
       return
     }
 
-    if (usernameError === false && passwordError === false) {
+    if (emailError === false && passwordError === false) {
       clearLoginForm();
       navigation.navigate('HomeScreen')
     }
@@ -71,18 +69,18 @@ const LoginForm = () => {
         <View style={styles.inputGroupContainer}>
           <Input
             containerStyle={styles.inputContainer}
-            label={'Username'}
-            accessibilityLabel={'Username'}
-            placeholder={'Username'}
+            label={'Email'}
+            accessibilityLabel={'Email'}
+            placeholder={'Email'}
             returnKeyType={'next'}
             returnKeyLabel={'Next'}
-            testID={'username-input'}
+            testID={'email-input'}
             onSubmitEditing={() => { passwordInputRef.current?.focus() }}
-            errorMessage={usernameError ? 'Please enter your username or email' : ''}
-            inputContainerStyle={{ borderColor: !usernameError ? colors.borderPrimaryColor : colors.errorColor }}
+            errorMessage={emailError ? 'Please enter your email' : ''}
+            inputContainerStyle={{ borderColor: !emailError ? colors.borderPrimaryColor : colors.errorColor }}
             labelStyle={{ color: colors.textPrimaryColor }}
-            placeholderTextColor={colors.placeholderTextColor}
-            onChangeText={updateUsername}
+            placeholderTextColor={colors.textPrimaryColor}
+            onChangeText={updateEmail}
             keyboardType={'email-address'}
             leftIcon={
               <Icon
@@ -92,7 +90,7 @@ const LoginForm = () => {
                 style={{ marginRight: spacing.xs }}
               />
             }
-            ref={usernameInputRef}
+            ref={emailInputRef}
           />
           <Input
             containerStyle={styles.inputContainer}
@@ -103,7 +101,7 @@ const LoginForm = () => {
             secureTextEntry
             errorMessage={passwordError ? 'Please enter your password' : ''}
             labelStyle={{ color: colors.textPrimaryColor }}
-            placeholderTextColor={colors.placeholderTextColor}
+            placeholderTextColor={colors.textPrimaryColor}
             onChangeText={updatePassword}
             leftIcon={
               <Icon
@@ -122,13 +120,15 @@ const LoginForm = () => {
         <Button
           raised={true}
           containerStyle={styles.loginButtonContainer}
+          titleStyle={{ color: colors.buttonTextPrimaryColor }}
+          buttonStyle={{ backgroundColor: colors.buttonPrimaryColor }}
           title={'Login'}
           accessibilityLabel={'Login Button'}
           onPress={() => {
             validateLogin()
           }}
         />
-        <SocialIcon
+        {/* TODO: re-enable with OAuth2 <SocialIcon
           button={true}
           title={'Login in with Facebook'}
           style={styles.socialLogin}
@@ -143,7 +143,7 @@ const LoginForm = () => {
           iconSize={spacing.s}
           type={'google'}
           raised={true}
-        />
+        /> */}
         <View style={styles.signupLinkContainer}>
           <Button
             containerStyle={{ marginBottom: spacing.xs }}
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
     margin: spacing.xxs,
   },
   loginButtonContainer: {
-    margin: spacing.xxs
+    margin: spacing.xxs,
   }
 });
 

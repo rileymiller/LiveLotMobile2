@@ -174,7 +174,7 @@ const StartView: React.FC<Props> = ({ onAuth }) => {
     <View style={styles.screenContainer}>
       <View style={styles.titleBackground}>
         <Text>insert_logo_here</Text>
-        <Text style={styles.livelotTitle} testID="title">LiveLot</Text>
+        <Text style={styles.livelotTitle} testID="title">LiveLot 🌴</Text>
         <Text>v.0.0-alpha</Text>
       </View>
       <View style={styles.buttonContainer} testID="button-container">
@@ -189,7 +189,7 @@ const StartView: React.FC<Props> = ({ onAuth }) => {
         <View style={styles.signupButton}>
           <Button
             title="Signup"
-            titleStyle={{ color: colors.buttonSecondaryTextColor }}
+            titleStyle={{ color: colors.textPrimaryColor }}
             buttonStyle={{ borderStyle: 'solid', borderColor: colors.buttonBorderColor }}
             type='outline'
             onPress={() => navigation.navigate('SignupScreen')}
@@ -218,6 +218,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: spacing.xxxs,
     flex: 4,
+    color: colors.textPrimaryColor
   },
   buttonContainer: {
     flex: .3,
@@ -239,7 +240,7 @@ const styles = StyleSheet.create({
     margin: spacing.xxxs,
     borderRadius: spacing.xxxs,
     padding: spacing.xxxxs,
-    justifyContent: 'center'
+    justifyContent: 'center',
   }
 })
 
