@@ -111,4 +111,12 @@ describe('LoginForm', () => {
     getByText('Please enter your password')
 
   })
+
+  test('Renders Forgot Password link', () => {
+    const { getByText } = renderWithNavigation({
+      navigatorConfig: { initialRouteName }
+    })
+
+    getByText('Forgot Password?')
+  })
 });

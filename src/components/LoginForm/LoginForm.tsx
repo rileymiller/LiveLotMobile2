@@ -128,6 +128,9 @@ const LoginForm = () => {
             validateLogin()
           }}
         />
+        <TouchableWithoutFeedback>
+          <Text style={styles.forgotPassword}>Forgot Password?</Text>
+        </TouchableWithoutFeedback>
         {/* TODO: re-enable with OAuth2 <SocialIcon
           button={true}
           title={'Login in with Facebook'}
@@ -184,7 +187,13 @@ const styles = StyleSheet.create({
   },
   inputGroupContainer: {
     marginTop: 150,
-
+  },
+  forgotPassword: {
+    fontSize: spacing.s,
+    color: colors.textPrimaryColor,
+    alignSelf: 'center',
+    textDecorationLine: 'underline',
+    marginTop: spacing.xxs
   },
   inputError: {
     borderColor: '#ff0000'

@@ -160,4 +160,12 @@ describe('SignupForm', () => {
     expect(queryByText('Please enter a matching password')).toBeNull()
 
   })
+
+  test('Renders Forgot Password link', () => {
+    const { getByText } = renderWithNavigation({
+      navigatorConfig: { initialRouteName }
+    })
+
+    getByText('Forgot Password?')
+  })
 });
