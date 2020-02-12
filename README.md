@@ -40,7 +40,7 @@ import { colors } from 'colors/colors'
 
 const MyComponent = () => {
   return (
-    <Text style={{ backgroundColor: colors/backgroundPrimaryColor, color: colors.textPrimaryColor}} />
+    <Text style={{ backgroundColor: colors.backgroundPrimaryColor, color: colors.textPrimaryColor}} />
   )
 }
 
