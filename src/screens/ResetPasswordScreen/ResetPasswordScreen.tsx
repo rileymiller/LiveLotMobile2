@@ -35,7 +35,7 @@ ResetPasswordScreen['navigationOptions'] = ({
 }: {
   navigation: Navigation;
 }) => ({
-  title: 'Mines Lots',
+  title: 'Password Reset',
   headerLeft: () => {
     return (
       <Icon

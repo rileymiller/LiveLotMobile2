@@ -34,7 +34,7 @@ LoginScreen['navigationOptions'] = ({
 }: {
   navigation: Navigation;
 }) => ({
-  title: 'Mines Lots',
+  title: 'User Login',
   headerLeft: () => {
     return (
       <Icon

@@ -38,4 +38,12 @@ describe('SignupScreen', () => {
 
     getByText('LiveLot 🌴')
   })
+
+  test('render user signup title', () => {
+    const { getByText } = renderWithNavigation({
+      navigatorConfig: { initialRouteName }
+    })
+
+    getByText('User Signup')
+  })
 })

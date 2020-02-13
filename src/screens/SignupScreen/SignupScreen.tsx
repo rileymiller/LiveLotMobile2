@@ -29,7 +29,7 @@ SignupScreen['navigationOptions'] = ({
 }: {
   navigation: Navigation;
 }) => ({
-  title: 'Mines Lots',
+  title: 'User Signup',
   headerLeft: () => {
     return (
       <Icon

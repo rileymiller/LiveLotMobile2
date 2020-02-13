@@ -59,4 +59,12 @@ describe('ResetPasswordForm', () => {
 
     getByTestId('login-email-input')
   })
+
+  test('renders password reset title', () => {
+    const { getByText } = renderWithNavigation({
+      navigatorConfig: { initialRouteName }
+    })
+
+    getByText('Password Reset')
+  })
 })

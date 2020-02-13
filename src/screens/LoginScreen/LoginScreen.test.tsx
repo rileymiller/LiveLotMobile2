@@ -38,4 +38,12 @@ describe('LoginScreen', () => {
 
     getByText('LiveLot 🌴')
   })
+
+  test('renders user login title', async () => {
+    const { getByText } = renderWithNavigation({
+      navigatorConfig: { initialRouteName }
+    })
+
+    getByText('User Login')
+  })
 })
