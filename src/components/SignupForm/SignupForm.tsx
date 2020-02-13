@@ -183,7 +183,7 @@ const SignupForm = () => {
             validateSignup()
           }}
         />
-        <TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={() => { navigation.navigate('ResetPasswordScreen') }}>
           <Text style={styles.forgotPassword}>Forgot Password?</Text>
         </TouchableWithoutFeedback>
         {/* TODO: re-enable with OAuth2 <SocialIcon
@@ -217,8 +217,8 @@ const SignupForm = () => {
               />
             }
             accessibilityLabel={'Login button'}
-            onPress={() => { navigation.navigate('LoginScreen') }} />
-
+            onPress={() => { navigation.navigate('LoginScreen') }}
+          />
         </View>
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>

@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { useNavigation } from 'hooks/useNavigation';
 import StartView from 'components/StartView/StartView';
 import { colors } from 'colors/colors'
+import { spacing } from 'spacing/spacing';
 type CredentialParams = {
   refreshToken: string;
   accessToken: string;
@@ -32,13 +33,14 @@ const copyRightStyles = StyleSheet.create({
     alignSelf: 'stretch',
     backgroundColor: colors.backgroundPrimaryColor,
     textAlign: 'center',
-    color: colors.textPrimaryColor
+    color: colors.textPrimaryColor,
+    paddingBottom: spacing.xs
   }
 })
 
 // Template for custom header options
 SplashScreen['navigationOptions'] = () => ({
-  title: ''
+  title: '',
 })
 
 // eslint-disable-next-line no-undef

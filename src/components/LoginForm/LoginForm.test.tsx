@@ -120,14 +120,14 @@ describe('LoginForm', () => {
     getByText('Forgot Password?')
   })
 
-  test('Pressing Forgot Password opens Forgot Password Modal', async () => {
-    const { getByText, getByTestId } = renderWithNavigation({
+  test('Pressing Forgot Password opens Reset Password Modal', async () => {
+    const { getByText, getAllByText } = renderWithNavigation({
       navigatorConfig: { initialRouteName }
     })
 
     await wait(() => { fireEvent.press(getByText('Forgot Password?')) })
 
-    getByTestId('forgot-password-modal')
+    getAllByText('Reset Password')
   })
 
   // TODO: make this test work

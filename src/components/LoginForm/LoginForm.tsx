@@ -8,7 +8,6 @@ import {
   Text,
 } from 'react-native';
 import { Button, Input, SocialIcon } from 'react-native-elements';
-import ForgotPasswordModal from 'components/ForgotPasswordModal/ForgotPasswordModal'
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { colors } from 'colors/colors'
@@ -21,7 +20,6 @@ const LoginForm = () => {
   const [password, setPassword] = useState<string>('');
   const [emailError, setEmailError] = useState<boolean>(false);
   const [passwordError, setPasswordError] = useState<boolean>(false);
-  const [displayForgotModal, setDisplayForgotModal] = useState<boolean>(false);
   const passwordInputRef = useRef<Input>(null);
   const emailInputRef = useRef<Input>(null);
 
@@ -63,9 +61,6 @@ const LoginForm = () => {
     }
   }
 
-  const closeForgotModal = () => {
-    setDisplayForgotModal(false)
-  }
   return (
 
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -132,7 +127,7 @@ const LoginForm = () => {
             validateLogin()
           }}
         />
-        <TouchableWithoutFeedback onPress={() => { setDisplayForgotModal(true) }}>
+        <TouchableWithoutFeedback onPress={() => { navigation.navigate('ResetPasswordScreen') }}>
           <Text style={styles.forgotPassword}>Forgot Password?</Text>
         </TouchableWithoutFeedback>
         {/* TODO: re-enable with OAuth2 <SocialIcon
@@ -170,7 +165,6 @@ const LoginForm = () => {
             onPress={() => { navigation.navigate('SignupScreen') }} />
 
         </View>
-        <ForgotPasswordModal isDisplayed={displayForgotModal} closeModal={() => closeForgotModal()} />
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   );

@@ -1,5 +1,5 @@
 import { renderWithNavigation } from 'components/App/App'
-import { fireEvent, wait } from '@testing-library/react-native'
+import { fireEvent, wait, getByText } from '@testing-library/react-native'
 
 describe('ResetPasswordScreen', () => {
   const initialRouteName = 'ResetPasswordScreen';
@@ -10,5 +10,15 @@ describe('ResetPasswordScreen', () => {
     })
 
     getByText('© 2020 LiveLot LLC All Rights Reserved')
+  })
+
+  test('pressing home button redirects to SplashScreen', async () => {
+    const { getByTestId, getByText } = renderWithNavigation({
+      navigatorConfig: { initialRouteName }
+    })
+
+    await wait(() => { fireEvent.press(getByTestId('login-home')) })
+
+    getByText('LiveLot 🌴')
   })
 })

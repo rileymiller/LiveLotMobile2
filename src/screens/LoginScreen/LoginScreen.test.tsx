@@ -28,4 +28,14 @@ describe('LoginScreen', () => {
 
     getByTestId('signup-email-input')
   })
+
+  test('pressing home button redirects to SplashScreen', async () => {
+    const { getByTestId, getByText } = renderWithNavigation({
+      navigatorConfig: { initialRouteName }
+    })
+
+    await wait(() => { fireEvent.press(getByTestId('login-home')) })
+
+    getByText('LiveLot 🌴')
+  })
 })
