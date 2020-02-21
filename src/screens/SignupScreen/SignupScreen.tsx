@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { KeyboardAvoidingView, Text } from 'react-native'
 
 import SignupForm from 'components/SignupForm/SignupForm'
 import { copyRightStyles } from 'screens/SplashScreen/SplashScreen'
@@ -16,11 +16,11 @@ const SignupScreen = () => {
   const navigation = useNavigation()
 
   return (
-    <View style={{ flex: 1, backgroundColor: colors.backgroundPrimaryColor }}>
+    <KeyboardAvoidingView style={{ flex: 1, backgroundColor: colors.backgroundPrimaryColor }} behavior="padding">
       <SignupForm />
       <Text style={copyRightStyles.copyRight}>© 2020 LiveLot LLC All Rights Reserved</Text>
 
-    </View>
+    </KeyboardAvoidingView>
   )
 }
 

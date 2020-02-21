@@ -19,7 +19,7 @@ describe('LoginScreen', () => {
     getByText('© 2020 LiveLot LLC All Rights Reserved')
   })
 
-  test('Pressing Signup button switches to Login page', async () => {
+  test('Pressing Signup button switches to Signup page', async () => {
     const { getByText, getByTestId } = renderWithNavigation({
       navigatorConfig: { initialRouteName }
     })

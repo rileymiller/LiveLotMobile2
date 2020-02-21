@@ -9,7 +9,7 @@ describe('SignupForm', () => {
       navigatorConfig: { initialRouteName },
     })
 
-    getByPlaceholderText('Enter Email')
+    getByPlaceholderText('Email')
   })
 
   test('renders email accessibility label', () => {
@@ -25,7 +25,7 @@ describe('SignupForm', () => {
       navigatorConfig: { initialRouteName },
     })
 
-    getByPlaceholderText('Enter Password')
+    getByPlaceholderText('Password')
   })
 
   test('renders password accessibility label', () => {
@@ -96,7 +96,7 @@ describe('SignupForm', () => {
 
     fireEvent.press(getByText('Signup'))
 
-    getByText('Please enter your email')
+    getByText('Please enter a valid email')
   })
 
   test('Password error message displays when input is empty', async () => {
@@ -108,7 +108,7 @@ describe('SignupForm', () => {
 
     await wait(() => fireEvent.press(getByText('Signup')))
 
-    getByText('Please enter your password')
+    getByText('Please enter a valid password')
 
   })
 
@@ -123,7 +123,7 @@ describe('SignupForm', () => {
 
     await wait(() => fireEvent.press(getByText('Signup')))
 
-    getByText('Please enter a matching password')
+    getByText('Please enter a valid password')
 
   })
 
@@ -140,7 +140,7 @@ describe('SignupForm', () => {
 
     await wait(() => fireEvent.press(getByText('Signup')))
 
-    getByText('Please enter a matching password')
+    getByText('Please enter a valid password')
 
   })
 

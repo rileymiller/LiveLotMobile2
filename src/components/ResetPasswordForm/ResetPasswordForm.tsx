@@ -71,6 +71,7 @@ const ResetPasswordForm = () => {
         <Input
           label={'Enter Email'}
           placeholder={'Email'}
+          accessibilityLabel={'Email'}
           labelStyle={{ color: colors.textPrimaryColor }}
           placeholderTextColor={colors.textPrimaryColor}
           onChangeText={updateEmail}
@@ -91,6 +92,7 @@ const ResetPasswordForm = () => {
         <Input
           label={'Enter Password'}
           placeholder={'Password'}
+          accessibilityLabel={'Password'}
           containerStyle={{ marginTop: spacing.s }}
           labelStyle={{ color: colors.textPrimaryColor }}
           placeholderTextColor={colors.textPrimaryColor}
@@ -117,6 +119,7 @@ const ResetPasswordForm = () => {
           labelStyle={{ color: colors.textPrimaryColor }}
           placeholderTextColor={colors.textPrimaryColor}
           onChangeText={updateNewPassword}
+          accessibilityLabel={'New Password'}
           secureTextEntry
           keyboardType={'default'}
           leftIcon={
@@ -135,6 +138,7 @@ const ResetPasswordForm = () => {
         <Input
           label={'Confirm Password'}
           placeholder={'Confirm Password'}
+          accessibilityLabel={'Confirm Password'}
           containerStyle={{ marginTop: spacing.s }}
           labelStyle={{ color: colors.textPrimaryColor }}
           placeholderTextColor={colors.textPrimaryColor}

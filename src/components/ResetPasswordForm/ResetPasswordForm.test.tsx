@@ -20,6 +20,15 @@ describe('ResetPasswordForm', () => {
     getByText('Enter Email')
   })
 
+  test('renders email accessibility label', () => {
+    const { getByLabelText } = renderWithNavigation({
+      navigatorConfig: { initialRouteName }
+    })
+
+    getByLabelText('Email')
+  })
+
+
   test('renders email placeholder', () => {
     const { getByPlaceholderText } = renderWithNavigation({
       navigatorConfig: { initialRouteName }
@@ -44,6 +53,14 @@ describe('ResetPasswordForm', () => {
     })
 
     getByText('Enter Password')
+  })
+
+  test('renders password accessibility label', () => {
+    const { getByLabelText } = renderWithNavigation({
+      navigatorConfig: { initialRouteName }
+    })
+
+    getByLabelText('Password')
   })
 
   test('renders password placeholder', () => {
@@ -74,6 +91,14 @@ describe('ResetPasswordForm', () => {
     getByText('Enter New Password')
   })
 
+  test('renders new password accessibility label', () => {
+    const { getByLabelText } = renderWithNavigation({
+      navigatorConfig: { initialRouteName }
+    })
+
+    getByLabelText('New Password')
+  })
+
   test('renders new password placeholder', () => {
     const { getByPlaceholderText } = renderWithNavigation({
       navigatorConfig: { initialRouteName }
@@ -100,6 +125,14 @@ describe('ResetPasswordForm', () => {
     })
 
     getByText('Confirm Password')
+  })
+
+  test('renders confirm new password accessibility label', () => {
+    const { getByLabelText } = renderWithNavigation({
+      navigatorConfig: { initialRouteName }
+    })
+
+    getByLabelText('Confirm Password')
   })
 
   test('renders confirm new password placeholder', () => {

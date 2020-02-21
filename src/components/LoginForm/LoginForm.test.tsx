@@ -96,7 +96,7 @@ describe('LoginForm', () => {
 
     fireEvent.press(getByText('Login'))
 
-    getByText('Please enter your email')
+    getByText('Please enter a valid email')
   })
 
   test('Password error message displays when input is empty', async () => {
@@ -121,7 +121,7 @@ describe('LoginForm', () => {
   })
 
   test('Pressing Forgot Password opens Reset Password Modal', async () => {
-    const { getByText, getAllByText } = renderWithNavigation({
+    const { getAllByText, getByText } = renderWithNavigation({
       navigatorConfig: { initialRouteName }
     })
 

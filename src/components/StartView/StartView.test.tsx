@@ -35,6 +35,6 @@ describe('StartView', () => {
     fireEvent.press(getByText(/Signup/i))
 
     // change to text on Signup form after implementing
-    getByPlaceholderText('Enter Password Again')
+    getByPlaceholderText('Confirm Password')
   })
 });

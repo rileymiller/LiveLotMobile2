@@ -1,214 +1,162 @@
-import React from 'react';
-import { useState, useRef } from 'react';
-import { Keyboard, TouchableWithoutFeedback } from 'react-native';
-import {
-  StyleSheet,
-  View,
-  KeyboardAvoidingView,
-  Text,
-} from 'react-native';
-import { Button, Input, SocialIcon } from 'react-native-elements';
+import React from 'react'
+import { useState } from 'react'
+import { Text, StyleSheet, ScrollView, View, TouchableWithoutFeedback } from 'react-native'
 
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { Input, Button } from 'react-native-elements'
+import Icon from 'react-native-vector-icons/FontAwesome'
 import { colors } from 'colors/colors'
-import { spacing } from 'spacing/spacing'
 import { useNavigation } from 'hooks/useNavigation'
-
+import { spacing } from 'spacing/spacing'
 
 const LoginForm = () => {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [emailError, setEmailError] = useState<boolean>(false);
-  const [passwordError, setPasswordError] = useState<boolean>(false);
-  const passwordInputRef = useRef<Input>(null);
-  const emailInputRef = useRef<Input>(null);
 
-  const updateEmail = (email: String) => {
-    setEmail(email.trim());
+  const navigation = useNavigation()
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+
+  const [emailError, setEmailError] = useState<boolean>(false)
+  const [passwordError, setPasswordError] = useState<boolean>(false)
+
+
+  const updateEmail = (email: string) => {
+    setEmail(email)
     setEmailError(false)
   }
-  const updatePassword = (password: String) => {
-    setPassword(password.trim());
+
+  const updatePassword = (password: string) => {
+    setPassword(password)
     setPasswordError(false)
   }
 
-  const navigation = useNavigation()
 
-  const clearLoginForm = () => {
-    passwordInputRef.current?.clear();
-    emailInputRef.current?.clear();
-    setPassword("");
-    setEmail("");
-    setPasswordError(false);
-    setEmailError(false);
-  }
-  const validateLogin = () => {
+
+  const validateForm = () => {
     if (!email?.length) {
       setEmailError(true)
-      emailInputRef.current?.shake()
       return
     }
 
     if (!password?.length) {
       setPasswordError(true)
-      passwordInputRef.current?.shake()
       return
     }
 
-    if (emailError === false && passwordError === false) {
-      clearLoginForm();
-      navigation.navigate('HomeScreen')
-    }
+    navigation.navigate('HomeScreen')
   }
 
   return (
-
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <KeyboardAvoidingView style={styles.container} behavior='padding'>
-        <View style={styles.inputGroupContainer}>
-          <Input
-            containerStyle={styles.inputContainer}
-            label={'Email'}
-            accessibilityLabel={'Email'}
-            placeholder={'Email'}
-            returnKeyType={'next'}
-            returnKeyLabel={'Next'}
-            testID={'login-email-input'}
-            onSubmitEditing={() => { passwordInputRef.current?.focus() }}
-            errorMessage={emailError ? 'Please enter your email' : ''}
-            inputContainerStyle={{ borderColor: !emailError ? colors.borderPrimaryColor : colors.errorColor }}
-            labelStyle={{ color: colors.textPrimaryColor }}
-            placeholderTextColor={colors.textPrimaryColor}
-            onChangeText={updateEmail}
-            keyboardType={'email-address'}
-            leftIcon={
-              <Icon
-                name={'envelope'}
-                size={spacing.s + spacing.xxxs}
-                color={colors.textPrimaryColor}
-                style={{ marginRight: spacing.xs }}
-              />
-            }
-            ref={emailInputRef}
-          />
-          <Input
-            containerStyle={styles.inputContainer}
-            inputContainerStyle={{ borderColor: !passwordError ? colors.borderPrimaryColor : colors.errorColor }}
-            label={'Password'}
-            placeholder={'Password'}
-            accessibilityLabel={'Password'}
-            secureTextEntry
-            errorMessage={passwordError ? 'Please enter your password' : ''}
-            labelStyle={{ color: colors.textPrimaryColor }}
-            placeholderTextColor={colors.textPrimaryColor}
-            onChangeText={updatePassword}
-            leftIcon={
-              <Icon
-                name={'lock'}
-                size={spacing.m}
-                color={colors.textPrimaryColor}
-                style={{ marginRight: spacing.xs }}
-              />
-            }
-            returnKeyType={'go'}
-            returnKeyLabel={'Submit'}
-            onSubmitEditing={() => { validateLogin() }}
-            ref={passwordInputRef}
-          />
-        </View>
+    <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.keyboardContainer}>
+        <Input
+          label={'Enter Email'}
+          placeholder={'Email'}
+          testID={'login-email-input'}
+          accessibilityLabel={'Email'}
+          labelStyle={{ color: colors.textPrimaryColor }}
+          placeholderTextColor={colors.textPrimaryColor}
+          onChangeText={updateEmail}
+          keyboardType={'default'}
+          leftIcon={
+            <Icon
+              name={'envelope'}
+              size={spacing.s + spacing.xxxs}
+              color={colors.textPrimaryColor}
+              style={{ marginRight: spacing.xs }}
+            />
+          }
+          returnKeyType={'next'}
+          returnKeyLabel={'Next'}
+          onSubmitEditing={() => validateForm()}
+          errorMessage={emailError ? 'Please enter a valid email' : ''}
+        />
+        <Input
+          label={'Enter Password'}
+          placeholder={'Password'}
+          accessibilityLabel={'Password'}
+          containerStyle={{ marginTop: spacing.s }}
+          labelStyle={{ color: colors.textPrimaryColor }}
+          placeholderTextColor={colors.textPrimaryColor}
+          onChangeText={updatePassword}
+          keyboardType={'default'}
+          secureTextEntry
+          leftIcon={
+            <Icon
+              name={'lock'}
+              size={spacing.s + spacing.xxs}
+              color={colors.textPrimaryColor}
+              style={{ marginRight: spacing.xs }}
+            />
+          }
+          returnKeyType={'next'}
+          returnKeyLabel={'Next'}
+          onSubmitEditing={() => validateForm()}
+          errorMessage={passwordError ? 'Please enter your password' : ''}
+        />
         <Button
-          raised={true}
-          containerStyle={styles.loginButtonContainer}
-          titleStyle={{ color: colors.buttonTextPrimaryColor }}
-          buttonStyle={{ backgroundColor: colors.buttonPrimaryColor }}
           title={'Login'}
           accessibilityLabel={'Login Button'}
-          onPress={() => {
-            validateLogin()
-          }}
+          containerStyle={{ marginTop: spacing.xs, alignSelf: 'stretch' }}
+          buttonStyle={{ backgroundColor: colors.buttonPrimaryColor }}
+          titleStyle={{ color: colors.buttonTextPrimaryColor }}
+          onPress={() => { validateForm() }}
         />
-        <TouchableWithoutFeedback onPress={() => { navigation.navigate('ResetPasswordScreen') }}>
-          <Text style={styles.forgotPassword}>Forgot Password?</Text>
-        </TouchableWithoutFeedback>
-        {/* TODO: re-enable with OAuth2 <SocialIcon
-          button={true}
-          title={'Login in with Facebook'}
-          style={styles.socialLogin}
-          type={'facebook'}
-          iconSize={spacing.s}
-          raised={true}
+        <Button
+          titleStyle={styles.forgotPassword}
+          title={'Forgot Password?'}
+          buttonStyle={{ backgroundColor: 'transparent' }}
+          onPress={() => { navigation.navigate('ResetPasswordScreen') }}
         />
-        <SocialIcon
-          button={true}
-          title={'Login in with Google'}
-          style={styles.socialLogin}
-          iconSize={spacing.s}
-          type={'google'}
-          raised={true}
-        /> */}
-        <View style={styles.signupLinkContainer}>
-          <Button
-            containerStyle={{ marginBottom: spacing.xs }}
-            buttonStyle={{ backgroundColor: 'transparent' }}
-            titleStyle={{ color: colors.textPrimaryColor }}
-            title='Signup'
-            iconRight={true}
-            icon={
-              <Icon
-                name={'angle-double-right'}
-                size={spacing.m}
-                color={colors.textPrimaryColor}
-                style={{ marginLeft: spacing.xs }}
-              />
-            }
-            accessibilityLabel={'Signup button'}
-            onPress={() => { navigation.navigate('SignupScreen') }} />
-
-        </View>
-      </KeyboardAvoidingView>
-    </TouchableWithoutFeedback>
-  );
-};
+      </ScrollView>
+      <View style={styles.signupLinkContainer}>
+        <Button
+          containerStyle={{ marginBottom: spacing.xs }}
+          buttonStyle={{ backgroundColor: 'transparent' }}
+          titleStyle={{ color: colors.textPrimaryColor }}
+          title='Signup'
+          iconRight={true}
+          icon={
+            <Icon
+              name={'angle-double-right'}
+              size={spacing.m}
+              color={colors.textPrimaryColor}
+              style={{ marginLeft: spacing.xs }}
+            />
+          }
+          accessibilityLabel={'Signup button'}
+          onPress={() => { navigation.navigate('SignupScreen') }}
+        />
+      </View>
+    </View>
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: spacing.xs,
     flexDirection: 'column',
-    backgroundColor: colors.backgroundPrimaryColor
+    alignItems: 'stretch',
+    justifyContent: 'center',
+    padding: spacing.xs
   },
-  logoPlaceholder: {
-    alignSelf: 'center',
-    fontWeight: 'bold'
+  keyboardContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    // alignContent: 'center',
+    justifyContent: 'center',
   },
-  inputContainer: {
-    margin: spacing.xs,
-  },
-  inputGroupContainer: {
-    marginTop: 150,
+  signupLinkContainer: {
+    // flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
   },
   forgotPassword: {
     fontSize: spacing.s,
     color: colors.textPrimaryColor,
-    alignSelf: 'center',
-    marginTop: spacing.xxs,
-    textDecorationLine: 'underline'
+    // alignSelf: 'center',
+    textDecorationLine: 'underline',
+    marginTop: spacing.xxs
   },
-  inputError: {
-    borderColor: '#ff0000'
-  },
-  signupLinkContainer: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-  socialLogin: {
-    borderRadius: spacing.xxxs,
-    margin: spacing.xxs,
-  },
-  loginButtonContainer: {
-    margin: spacing.xxs,
-  }
-});
+})
 
-export default LoginForm;
+export default LoginForm
