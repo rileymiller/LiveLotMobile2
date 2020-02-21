@@ -12,20 +12,59 @@ const ResetPasswordForm = () => {
 
   const navigation = useNavigation()
   const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const [newPassword, setNewPassword] = useState<string>('')
+  const [confirmNewPassword, setConfirmNewPassword] = useState<string>('')
+
   const [emailError, setEmailError] = useState<boolean>(false)
+  const [passwordError, setPasswordError] = useState<boolean>(false)
+  const [newPasswordError, setNewPasswordError] = useState<boolean>(false)
+  const [confirmNewPasswordError, setConfirmNewPasswordError] = useState<boolean>(false)
+
   const updateEmail = (email: string) => {
     setEmail(email)
     setEmailError(false)
   }
 
-  const validateEmail = () => {
+  const updatePassword = (password: string) => {
+    setPassword(password)
+    setPasswordError(false)
+  }
+
+  const updateNewPassword = (newPassword: string) => {
+    setNewPassword(newPassword)
+    setNewPasswordError(false)
+  }
+
+  const updateConfirmNewPassword = (confirmNewPassword: string) => {
+    setConfirmNewPassword(confirmNewPassword)
+    setConfirmNewPasswordError(false)
+  }
+
+  const validateForm = () => {
     if (!email?.length) {
       setEmailError(true)
       return
     }
 
-    navigation.navigate('LoginScreen')
+    if (!password?.length) {
+      setPasswordError(true)
+      return
+    }
+
+    if (!newPassword?.length) {
+      setNewPasswordError(true)
+      return
+    }
+
+    if (!confirmNewPassword?.length) {
+      setConfirmNewPasswordError(true)
+      return
+    }
+
+    navigation.navigate('HomeScreen')
   }
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.keyboardContainer}>
@@ -35,7 +74,7 @@ const ResetPasswordForm = () => {
           labelStyle={{ color: colors.textPrimaryColor }}
           placeholderTextColor={colors.textPrimaryColor}
           onChangeText={updateEmail}
-          keyboardType={'email-address'}
+          keyboardType={'default'}
           leftIcon={
             <Icon
               name={'envelope'}
@@ -44,17 +83,83 @@ const ResetPasswordForm = () => {
               style={{ marginRight: spacing.xs }}
             />
           }
+          returnKeyType={'next'}
+          returnKeyLabel={'Next'}
+          onSubmitEditing={() => validateForm()}
+          errorMessage={emailError ? 'Please enter a valid email' : ''}
+        />
+        <Input
+          label={'Enter Password'}
+          placeholder={'Password'}
+          containerStyle={{ marginTop: spacing.s }}
+          labelStyle={{ color: colors.textPrimaryColor }}
+          placeholderTextColor={colors.textPrimaryColor}
+          onChangeText={updatePassword}
+          keyboardType={'default'}
+          secureTextEntry
+          leftIcon={
+            <Icon
+              name={'lock'}
+              size={spacing.s + spacing.xxs}
+              color={colors.textPrimaryColor}
+              style={{ marginRight: spacing.xs }}
+            />
+          }
+          returnKeyType={'next'}
+          returnKeyLabel={'Next'}
+          onSubmitEditing={() => validateForm()}
+          errorMessage={passwordError ? 'Please enter your password' : ''}
+        />
+        <Input
+          label={'Enter New Password'}
+          placeholder={'New Password'}
+          containerStyle={{ marginTop: spacing.s }}
+          labelStyle={{ color: colors.textPrimaryColor }}
+          placeholderTextColor={colors.textPrimaryColor}
+          onChangeText={updateNewPassword}
+          secureTextEntry
+          keyboardType={'default'}
+          leftIcon={
+            <Icon
+              name={'lock'}
+              size={spacing.s + spacing.xxs}
+              color={colors.textPrimaryColor}
+              style={{ marginRight: spacing.xs }}
+            />
+          }
+          returnKeyType={'next'}
+          returnKeyLabel={'Next'}
+          onSubmitEditing={() => validateForm()}
+          errorMessage={newPasswordError ? 'Please enter a valid password' : ''}
+        />
+        <Input
+          label={'Confirm Password'}
+          placeholder={'Confirm Password'}
+          containerStyle={{ marginTop: spacing.s }}
+          labelStyle={{ color: colors.textPrimaryColor }}
+          placeholderTextColor={colors.textPrimaryColor}
+          onChangeText={updateConfirmNewPassword}
+          secureTextEntry
+          keyboardType={'default'}
+          leftIcon={
+            <Icon
+              name={'lock'}
+              size={spacing.s + spacing.xxs}
+              color={colors.textPrimaryColor}
+              style={{ marginRight: spacing.xs }}
+            />
+          }
           returnKeyType={'go'}
           returnKeyLabel={'Submit'}
-          onSubmitEditing={() => validateEmail()}
-          errorMessage={emailError ? 'Please enter a valid email' : ''}
+          onSubmitEditing={() => validateForm()}
+          errorMessage={confirmNewPasswordError ? 'Please enter a valid password' : ''}
         />
         <Button
           title={'Reset Password'}
           containerStyle={{ marginTop: spacing.xs }}
           buttonStyle={{ backgroundColor: colors.buttonPrimaryColor }}
           titleStyle={{ color: colors.buttonTextPrimaryColor }}
-          onPress={() => { validateEmail() }}
+          onPress={() => { validateForm() }}
         />
       </ScrollView>
       <View style={styles.signupLinkContainer}>
