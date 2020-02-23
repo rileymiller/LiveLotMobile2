@@ -35,7 +35,7 @@ ResetPasswordScreen['navigationOptions'] = ({
 }: {
   navigation: Navigation;
 }) => ({
-  title: 'Password Reset',
+  title: 'LiveLot',
   headerLeft: () => {
     return (
       <Icon

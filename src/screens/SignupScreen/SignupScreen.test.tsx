@@ -44,6 +44,6 @@ describe('SignupScreen', () => {
       navigatorConfig: { initialRouteName }
     })
 
-    getByText('User Signup')
+    getByText('Signup')
   })
 })

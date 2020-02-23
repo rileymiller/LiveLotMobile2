@@ -29,7 +29,7 @@ SignupScreen['navigationOptions'] = ({
 }: {
   navigation: Navigation;
 }) => ({
-  title: 'User Signup',
+  title: 'LiveLot',
   headerLeft: () => {
     return (
       <Icon

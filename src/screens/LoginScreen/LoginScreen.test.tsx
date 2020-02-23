@@ -44,6 +44,6 @@ describe('LoginScreen', () => {
       navigatorConfig: { initialRouteName }
     })
 
-    getByText('User Login')
+    getByText('LiveLot')
   })
 })

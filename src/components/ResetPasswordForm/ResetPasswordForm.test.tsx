@@ -192,6 +192,6 @@ describe('ResetPasswordForm', () => {
       navigatorConfig: { initialRouteName }
     })
 
-    getByText('Password Reset')
+    getByText('LiveLot')
   })
 })

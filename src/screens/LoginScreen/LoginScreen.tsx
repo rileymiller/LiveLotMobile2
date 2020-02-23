@@ -34,7 +34,7 @@ LoginScreen['navigationOptions'] = ({
 }: {
   navigation: Navigation;
 }) => ({
-  title: 'User Login',
+  title: 'LiveLot',
   headerLeft: () => {
     return (
       <Icon
