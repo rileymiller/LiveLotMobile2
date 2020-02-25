@@ -1,12 +1,13 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { useEffect, useState } from 'react'
+import { AsyncStorage } from 'react-native';
 import { Provider } from 'react-redux'
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
 import store from 'state/store'
 import { initialState } from 'state/auth/reducer'
 import { render } from '@testing-library/react-native';
-
+import io from "socket.io-client";
 import SplashScreen from 'screens/SplashScreen/SplashScreen';
 import HomeScreen from 'screens/HomeScreen/HomeScreen';
 import LoginScreen from 'screens/LoginScreen/LoginScreen';
@@ -14,7 +15,7 @@ import SignupScreen from 'screens/SignupScreen/SignupScreen';
 import ResetPasswordScreen from 'screens/ResetPasswordScreen/ResetPasswordScreen'
 
 import { colors } from 'colors/colors'
-import { Store } from 'redux';
+// import { Store } from 'redux';
 
 
 const AppNavigator = createStackNavigator(
@@ -43,9 +44,38 @@ const AppNavigator = createStackNavigator(
 
 );
 
-const Navigation = createAppContainer(AppNavigator);
 
+const Navigation = createAppContainer(AppNavigator);
+const serverURL = "http://localhost:3000"
 const App = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+
+  const getToken = () => {
+    let userToken
+    try {
+      userToken = AsyncStorage.getItem('userToken')
+    } catch (e) {
+      console.error(e)
+    }
+    return userToken
+  }
+
+  useEffect(() => {
+    // try to restore token from Async Storage, if token is restored, redirect to homescreen
+
+    // socket example
+    //   const socket = io(serverURL, {
+    //     transportOptions: {
+    //       polling: {
+    //         extraHeaders: {
+    //           token: getToken()
+    //         }
+    //       }
+    //     }
+    //   })
+    //   socket.on("HELLO", (data: any) => console.log('received payload', data))
+
+  }, [])
   return (
     <Provider store={store}>
       <Navigation />
