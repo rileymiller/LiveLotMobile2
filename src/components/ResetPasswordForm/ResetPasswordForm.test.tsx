@@ -1,11 +1,11 @@
-import { renderWithNavigation } from 'components/App/App'
+import { renderWithReduxAndNavigation } from 'components/App/App'
 import { fireEvent, wait, render, getAllByPlaceholderText } from '@testing-library/react-native'
 
 describe('ResetPasswordForm', () => {
   const initialRouteName = 'ResetPasswordScreen';
 
   test('Renders ResetPasswordForm', () => {
-    const { getAllByText } = renderWithNavigation({
+    const { getAllByText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName }
     })
 
@@ -13,7 +13,7 @@ describe('ResetPasswordForm', () => {
   })
 
   test('renders email label', () => {
-    const { getByText } = renderWithNavigation({
+    const { getByText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName }
     })
 
@@ -21,7 +21,7 @@ describe('ResetPasswordForm', () => {
   })
 
   test('renders email accessibility label', () => {
-    const { getByLabelText } = renderWithNavigation({
+    const { getByLabelText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName }
     })
 
@@ -30,7 +30,7 @@ describe('ResetPasswordForm', () => {
 
 
   test('renders email placeholder', () => {
-    const { getByPlaceholderText } = renderWithNavigation({
+    const { getByPlaceholderText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName }
     })
 
@@ -38,7 +38,7 @@ describe('ResetPasswordForm', () => {
   })
 
   test('submitting a blank email throws error', async () => {
-    const { getByText } = renderWithNavigation({
+    const { getByText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName }
     })
 
@@ -48,7 +48,7 @@ describe('ResetPasswordForm', () => {
   })
 
   test('renders password label', () => {
-    const { getByText } = renderWithNavigation({
+    const { getByText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName }
     })
 
@@ -56,7 +56,7 @@ describe('ResetPasswordForm', () => {
   })
 
   test('renders password accessibility label', () => {
-    const { getByLabelText } = renderWithNavigation({
+    const { getByLabelText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName }
     })
 
@@ -64,7 +64,7 @@ describe('ResetPasswordForm', () => {
   })
 
   test('renders password placeholder', () => {
-    const { getByPlaceholderText } = renderWithNavigation({
+    const { getByPlaceholderText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName }
     })
 
@@ -72,7 +72,7 @@ describe('ResetPasswordForm', () => {
   })
 
   test('submitting a blank password throws error', async () => {
-    const { getByText, getByPlaceholderText } = renderWithNavigation({
+    const { getByText, getByPlaceholderText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName }
     })
 
@@ -84,7 +84,7 @@ describe('ResetPasswordForm', () => {
 
 
   test('renders new password label', () => {
-    const { getByText } = renderWithNavigation({
+    const { getByText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName }
     })
 
@@ -92,7 +92,7 @@ describe('ResetPasswordForm', () => {
   })
 
   test('renders new password accessibility label', () => {
-    const { getByLabelText } = renderWithNavigation({
+    const { getByLabelText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName }
     })
 
@@ -100,7 +100,7 @@ describe('ResetPasswordForm', () => {
   })
 
   test('renders new password placeholder', () => {
-    const { getByPlaceholderText } = renderWithNavigation({
+    const { getByPlaceholderText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName }
     })
 
@@ -108,7 +108,7 @@ describe('ResetPasswordForm', () => {
   })
 
   test('submitting a blank new password field throws error', async () => {
-    const { getByText, getByPlaceholderText } = renderWithNavigation({
+    const { getByText, getByPlaceholderText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName }
     })
 
@@ -120,7 +120,7 @@ describe('ResetPasswordForm', () => {
   })
 
   test('renders confirm new password label', () => {
-    const { getByText } = renderWithNavigation({
+    const { getByText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName }
     })
 
@@ -128,7 +128,7 @@ describe('ResetPasswordForm', () => {
   })
 
   test('renders confirm new password accessibility label', () => {
-    const { getByLabelText } = renderWithNavigation({
+    const { getByLabelText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName }
     })
 
@@ -136,7 +136,7 @@ describe('ResetPasswordForm', () => {
   })
 
   test('renders confirm new password placeholder', () => {
-    const { getByPlaceholderText } = renderWithNavigation({
+    const { getByPlaceholderText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName }
     })
 
@@ -144,7 +144,7 @@ describe('ResetPasswordForm', () => {
   })
 
   test('submitting a blank confirm new password field throws error', async () => {
-    const { getByText, getByPlaceholderText } = renderWithNavigation({
+    const { getByText, getByPlaceholderText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName }
     })
 
@@ -158,7 +158,7 @@ describe('ResetPasswordForm', () => {
   })
 
   test('submitting a valid reset password form redirects to home screen', async () => {
-    const { getByText, getByPlaceholderText } = renderWithNavigation({
+    const { getByText, getByPlaceholderText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName }
     })
 
@@ -178,7 +178,7 @@ describe('ResetPasswordForm', () => {
   })
 
   test('pressing login button redirects to login page', async () => {
-    const { getByText, getByTestId } = renderWithNavigation({
+    const { getByText, getByTestId } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName }
     })
 
@@ -188,7 +188,7 @@ describe('ResetPasswordForm', () => {
   })
 
   test('renders password reset title', () => {
-    const { getByText } = renderWithNavigation({
+    const { getByText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName }
     })
 

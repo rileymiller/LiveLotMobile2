@@ -23,8 +23,8 @@ module.exports = {
           components: './src/components',
           hooks: './src/hooks',
           images: './src/images',
-          authentication: './src/authentication'
-          // state: './src/state',
+          authentication: './src/authentication',
+          state: './src/state',
         },
       }
     ],

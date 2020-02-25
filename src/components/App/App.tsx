@@ -1,8 +1,10 @@
 import React from 'react';
 import { Text } from 'react-native';
+import { Provider } from 'react-redux'
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
-
+import store from 'state/store'
+import { initialState } from 'state/auth/reducer'
 import { render } from '@testing-library/react-native';
 
 import SplashScreen from 'screens/SplashScreen/SplashScreen';
@@ -12,6 +14,7 @@ import SignupScreen from 'screens/SignupScreen/SignupScreen';
 import ResetPasswordScreen from 'screens/ResetPasswordScreen/ResetPasswordScreen'
 
 import { colors } from 'colors/colors'
+import { Store } from 'redux';
 
 
 const AppNavigator = createStackNavigator(
@@ -39,9 +42,18 @@ const AppNavigator = createStackNavigator(
   },
 
 );
-const App = createAppContainer(AppNavigator);
 
-function renderWithNavigation({ screens = {}, navigatorConfig = {} } = {}) {
+const Navigation = createAppContainer(AppNavigator);
+
+const App = () => {
+  return (
+    <Provider store={store}>
+      <Navigation />
+    </Provider>
+  )
+}
+
+function renderWithNavigation({ screens = {}, navigatorConfig = {}, } = {}) {
   const AppNavigatorRender = createStackNavigator(
     {
       SplashScreen,
@@ -66,7 +78,43 @@ function renderWithNavigation({ screens = {}, navigatorConfig = {} } = {}) {
     },
   );
   const AppRender = createAppContainer(AppNavigatorRender);
-  return { ...render(<AppRender />), navigationContainer: App };
+  return { ...render(<AppRender />), navigationContainer: Navigation };
 }
 
-export { renderWithNavigation, App, AppNavigator };
+function renderWithReduxAndNavigation({ screens = {}, navigatorConfig = {}, mockStore = store } = {}) {
+  const AppNavigatorRender = createStackNavigator(
+    {
+      SplashScreen,
+      HomeScreen,
+      LoginScreen,
+      SignupScreen,
+      ResetPasswordScreen,
+      ...screens,
+    },
+    {
+      initialRouteName: 'SplashScreen',
+      defaultNavigationOptions: {
+        headerStyle: {
+          backgroundColor: colors.backgroundPrimaryColor,
+        },
+        headerTintColor: colors.textPrimaryColor,
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      },
+      ...navigatorConfig
+    },
+  );
+  const AppRender = createAppContainer(AppNavigatorRender);
+  return {
+    ...render(
+      <Provider store={mockStore}>
+        <AppRender />
+      </Provider>
+    ),
+    navigationContainer: Navigation,
+    store
+  };
+}
+
+export { renderWithNavigation, renderWithReduxAndNavigation, Navigation, App, AppNavigator };

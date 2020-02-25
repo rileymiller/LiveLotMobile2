@@ -1,11 +1,12 @@
 import 'react-native';
 import { fireEvent, getByText, wait, } from '@testing-library/react-native';
-import { renderWithNavigation } from 'components/App/App'
+// import { renderWithNavigation } from 'components/App/App'
+import { renderWithReduxAndNavigation } from 'components/App/App'
 
 describe('LoginForm', () => {
   const initialRouteName = 'LoginScreen'
   test('renders email input', async () => {
-    const { getByPlaceholderText } = renderWithNavigation({
+    const { getByPlaceholderText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName },
     })
 
@@ -13,7 +14,7 @@ describe('LoginForm', () => {
   })
 
   test('renders email accessibility label', () => {
-    const { getByLabelText } = renderWithNavigation({
+    const { getByLabelText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName },
     })
 
@@ -21,7 +22,7 @@ describe('LoginForm', () => {
   })
 
   test('renders password input', () => {
-    const { getByPlaceholderText } = renderWithNavigation({
+    const { getByPlaceholderText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName },
     })
 
@@ -29,7 +30,7 @@ describe('LoginForm', () => {
   })
 
   test('renders password accessibility label', () => {
-    const { getByLabelText } = renderWithNavigation({
+    const { getByLabelText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName },
     })
 
@@ -37,7 +38,7 @@ describe('LoginForm', () => {
   })
 
   test('renders login button', () => {
-    const { getByText } = renderWithNavigation({
+    const { getByText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName }
     })
 
@@ -45,7 +46,7 @@ describe('LoginForm', () => {
   })
 
   test('login button has accessibility label', () => {
-    const { getByLabelText } = renderWithNavigation({
+    const { getByLabelText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName }
     })
 
@@ -55,7 +56,7 @@ describe('LoginForm', () => {
   // TODO: re-enable after adding OAuth2
   // test('renders Facebook login button', () => {
   //   const initialRouteName = 'LoginScreen'
-  //   const { getByText } = renderWithNavigation({
+  //   const { getByText } = renderWithReduxAndNavigation({
   //     navigatorConfig: { initialRouteName }
   //   })
 
@@ -66,7 +67,7 @@ describe('LoginForm', () => {
 
   // test('renders Google login button', () => {
   //   const initialRouteName = 'LoginScreen'
-  //   const { getByText } = renderWithNavigation({
+  //   const { getByText } = renderWithReduxAndNavigation({
   //     navigatorConfig: { initialRouteName }
   //   })
 
@@ -74,7 +75,7 @@ describe('LoginForm', () => {
   // })
 
   test('renders Signup button', () => {
-    const { getByText } = renderWithNavigation({
+    const { getByText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName }
     })
 
@@ -82,7 +83,7 @@ describe('LoginForm', () => {
   })
 
   test('Signup button has accessibility label', () => {
-    const { getByLabelText } = renderWithNavigation({
+    const { getByLabelText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName }
     })
 
@@ -90,7 +91,7 @@ describe('LoginForm', () => {
   })
 
   test('Email error message displays when input is empty', () => {
-    const { getByText } = renderWithNavigation({
+    const { getByText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName }
     })
 
@@ -100,7 +101,7 @@ describe('LoginForm', () => {
   })
 
   test('Password error message displays when input is empty', async () => {
-    const { getByTestId, getByText } = renderWithNavigation({
+    const { getByTestId, getByText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName }
     })
 
@@ -113,7 +114,7 @@ describe('LoginForm', () => {
   })
 
   test('Renders Forgot Password link', () => {
-    const { getByText } = renderWithNavigation({
+    const { getByText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName }
     })
 
@@ -121,7 +122,7 @@ describe('LoginForm', () => {
   })
 
   test('Pressing Forgot Password opens Reset Password Modal', async () => {
-    const { getAllByText, getByText } = renderWithNavigation({
+    const { getAllByText, getByText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName }
     })
 
