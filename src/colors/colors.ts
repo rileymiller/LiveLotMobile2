@@ -6,6 +6,7 @@ const grass_500 = '#6decb9'
 const sand_500 = '#eef5b2'
 const vanilla_500 = '#ffffff'
 const fire_truck_500 = '#ff0000'
+const august_burns_red_500 = '#f0134d'
 
 const colors = {
   backgroundPrimaryColor: aqua_marine_500,
@@ -16,7 +17,8 @@ const colors = {
   buttonPrimaryTextColor: vanilla_500,
   buttonTextSecondaryColor: aqua_marine_500,
   textPrimaryColor: marine_500,
-  errorColor: fire_truck_500
+  errorColor: august_burns_red_500,
+  errorTextPrimaryColor: vanilla_500,
 }
 
 export { colors, sea_500, marine_500, aqua_marine_500, grass_500, sand_500, vanilla_500 }

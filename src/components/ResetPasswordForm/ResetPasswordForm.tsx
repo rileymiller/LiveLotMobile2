@@ -16,6 +16,8 @@ const ResetPasswordForm = () => {
   const [newPassword, setNewPassword] = useState<string>('')
   const [confirmNewPassword, setConfirmNewPassword] = useState<string>('')
 
+  const [serverError, setServerError] = useState<string>('')
+
   const [emailError, setEmailError] = useState<boolean>(false)
   const [passwordError, setPasswordError] = useState<boolean>(false)
   const [newPasswordError, setNewPasswordError] = useState<boolean>(false)
@@ -62,12 +64,11 @@ const ResetPasswordForm = () => {
       return
     }
 
-    navigation.navigate('HomeScreen')
   }
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.keyboardContainer}>
+      <ScrollView contentContainerStyle={styles.keyboardContainer} keyboardShouldPersistTaps={'handled'}>
         <Input
           label={'Enter Email'}
           placeholder={'Email'}

@@ -5,14 +5,17 @@ import { connect } from 'react-redux'
 
 import { TokenAuthAction } from 'state/types'
 import { signIn } from 'state/auth/actions'
+import { login } from 'api/authentication/LoginAPI'
 
-import { Text, StyleSheet, ScrollView, View, TouchableWithoutFeedback } from 'react-native'
+import { Text, StyleSheet, ScrollView, View, TouchableWithoutFeedback, Keyboard } from 'react-native'
+import ErrorToast from 'components/ErrorToast/ErrorToast'
 import { AppState } from 'state/types'
 import { Input, Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { colors } from 'colors/colors'
 import { useNavigation } from '@react-navigation/native'
 import { spacing } from 'spacing/spacing'
+import { XOutboundToken, XOutboundAuthError } from 'api/authentication/XOutboundToken'
 
 const LoginForm = () => {
 
@@ -23,15 +26,17 @@ const LoginForm = () => {
   const [emailError, setEmailError] = useState<boolean>(false)
   const [passwordError, setPasswordError] = useState<boolean>(false)
 
-
+  const [serverError, setServerError] = useState<string>('')
   const updateEmail = (email: string) => {
     setEmail(email)
     setEmailError(false)
+    setServerError('')
   }
 
   const updatePassword = (password: string) => {
     setPassword(password)
     setPasswordError(false)
+    setServerError('')
   }
 
 
@@ -39,20 +44,40 @@ const LoginForm = () => {
   const validateForm = () => {
     if (!email?.length) {
       setEmailError(true)
-      return
+      return false
     }
 
     if (!password?.length) {
       setPasswordError(true)
-      return
+      return false
     }
 
-    navigation.navigate('HomeScreen')
+    return true
+    // navigation.navigate('HomeScreen')
+  }
+
+  const submitForm = async () => {
+    if (!validateForm()) {
+      return
+    }
+    try {
+      console.log('about to submit form')
+      const response: XOutboundToken = await login(email, password)
+      if ((response as XOutboundAuthError)?.statusCode) {
+        // type guard for error
+        setServerError((response as XOutboundAuthError)?.message ?? 'Server Error')
+      }
+
+
+    } catch (e) {
+      console.log('ERROR: ', e)
+    }
   }
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.keyboardContainer}>
+      <ErrorToast error={serverError} setError={setServerError} />
+      <ScrollView contentContainerStyle={styles.keyboardContainer} keyboardShouldPersistTaps={'handled'}>
         <Input
           label={'Enter Email'}
           placeholder={'Email'}
@@ -93,9 +118,9 @@ const LoginForm = () => {
               style={{ marginRight: spacing.xs }}
             />
           }
-          returnKeyType={'next'}
-          returnKeyLabel={'Next'}
-          onSubmitEditing={() => validateForm()}
+          returnKeyType={'go'}
+          returnKeyLabel={'Submit'}
+          onSubmitEditing={() => submitForm()}
           errorMessage={passwordError ? 'Please enter your password' : ''}
         />
         <Button
@@ -104,7 +129,7 @@ const LoginForm = () => {
           containerStyle={{ marginTop: spacing.xs, alignSelf: 'stretch' }}
           buttonStyle={{ backgroundColor: colors.buttonPrimaryColor }}
           titleStyle={{ color: colors.buttonTextPrimaryColor }}
-          onPress={() => { validateForm() }}
+          onPress={() => { submitForm() }}
         />
         <Button
           titleStyle={styles.forgotPassword}

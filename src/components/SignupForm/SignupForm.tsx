@@ -62,7 +62,7 @@ const SignupForm = () => {
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.keyboardContainer}>
+      <ScrollView contentContainerStyle={styles.keyboardContainer} keyboardShouldPersistTaps={'handled'}>
         <Input
           label={'Enter Email'}
           placeholder={'Email'}
