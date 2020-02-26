@@ -158,7 +158,7 @@ describe('SignupForm', () => {
 
     await wait(() => fireEvent.press(getByText('Signup')))
 
-    getByText('Please enter a valid password')
+    getByText('Please enter a valid, matching password')
 
   })
 
@@ -177,7 +177,7 @@ describe('SignupForm', () => {
 
     await wait(() => fireEvent.press(getByText('Signup')))
 
-    getByText('Please enter a valid password')
+    getByText('Please enter a valid, matching password')
 
   })
 

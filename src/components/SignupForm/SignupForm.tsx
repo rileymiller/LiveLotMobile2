@@ -2,6 +2,9 @@ import React from 'react'
 import { useState } from 'react'
 import { Text, StyleSheet, ScrollView, View, TouchableWithoutFeedback } from 'react-native'
 
+import { signup } from 'api/authentication/SignupAPI'
+import { XOutboundAuthError, XOutboundToken } from 'api/authentication/XOutboundToken'
+
 import { Input, Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { colors } from 'colors/colors'
@@ -48,28 +51,53 @@ const SignupForm = () => {
   const validateForm = () => {
     if (!email?.length) {
       setEmailError(true)
-      return
+      return false
     }
 
     if (!username?.length) {
       setUsernameError(true)
-      return
+      return false
     }
     if (!password?.length) {
       setPasswordError(true)
-      return
+      return false
     }
 
     if (password !== confirmPassword) {
       setConfirmPasswordError(true)
-      return
+      return false
     }
 
     if (!confirmPassword?.length) {
       setConfirmPasswordError(true)
-      return
+      return false
     }
 
+    return true
+  }
+
+  const submitForm = async () => {
+    if (!validateForm()) {
+      return
+    }
+    try {
+      console.log('about to submit form')
+      const response: XOutboundToken = await signup(email, username, password, confirmPassword)
+      if ((response as XOutboundAuthError)?.statusCode) {
+        // type guard for error
+        setServerError((response as XOutboundAuthError)?.message ?? 'Server Error')
+        return
+      }
+
+      // upon response of token, set isLoading to true
+      // try to authenticate with token
+      // if authenticated
+      // call action creater to store token
+      // set isLoading to false in store and drop auth screens at root
+
+    } catch (e) {
+      console.log('ERROR: ', e)
+    }
   }
 
   return (
@@ -166,8 +194,8 @@ const SignupForm = () => {
           }
           returnKeyType={'go'}
           returnKeyLabel={'Submit'}
-          onSubmitEditing={() => validateForm()}
-          errorMessage={confirmPasswordError ? 'Please enter a valid password' : ''}
+          onSubmitEditing={() => submitForm()}
+          errorMessage={confirmPasswordError ? 'Please enter a valid, matching password' : ''}
         />
         <Button
           title={'Signup'}
@@ -175,7 +203,7 @@ const SignupForm = () => {
           containerStyle={{ marginTop: spacing.xs, alignSelf: 'stretch' }}
           buttonStyle={{ backgroundColor: colors.buttonPrimaryColor }}
           titleStyle={{ color: colors.buttonTextPrimaryColor }}
-          onPress={() => { validateForm() }}
+          onPress={() => { submitForm() }}
         />
         <Button
           titleStyle={styles.forgotPassword}

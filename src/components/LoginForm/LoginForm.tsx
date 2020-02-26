@@ -66,9 +66,14 @@ const LoginForm = () => {
       if ((response as XOutboundAuthError)?.statusCode) {
         // type guard for error
         setServerError((response as XOutboundAuthError)?.message ?? 'Server Error')
+        return
       }
 
-
+      // upon response of token, set isLoading to true
+      // try to authenticate with token
+      // if authenticated
+      // call action creater to store token
+      // set isLoading to false in store and drop auth screens at root
     } catch (e) {
       console.log('ERROR: ', e)
     }

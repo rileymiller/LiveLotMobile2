@@ -13,7 +13,7 @@ import { SERVER_URL } from 'react-native-dotenv'
 * @param password the user password
 * @param username the user username
 */
-const signup = async (email: string, password: string, confirmPassword: string, username: string): Promise<XOutboundToken | undefined> => {
+const signup = async (email: string, username: string, password: string, confirmPassword: string): Promise<XOutboundToken | undefined> => {
   const signupEndpoint = '/signup'
 
   const signupInbound: IXInboundSignup = {
