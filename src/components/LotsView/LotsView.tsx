@@ -2,7 +2,7 @@ import React from 'react'
 import { Text, StyleSheet, ScrollView } from 'react-native'
 
 import Lot from 'components/Lot/Lot'
-import { useNavigation } from 'hooks/useNavigation'
+import { useNavigation } from '@react-navigation/native'
 const LotsView = () => {
 
   const navigation = useNavigation()

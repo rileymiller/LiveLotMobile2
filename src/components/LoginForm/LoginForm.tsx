@@ -11,7 +11,7 @@ import { AppState } from 'state/types'
 import { Input, Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { colors } from 'colors/colors'
-import { useNavigation } from 'hooks/useNavigation'
+import { useNavigation } from '@react-navigation/native'
 import { spacing } from 'spacing/spacing'
 
 const LoginForm = () => {

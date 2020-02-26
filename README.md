@@ -51,7 +51,7 @@ export default MyComponent
 import React from 'react'
 import { Text } from 'react-native
 import { colors } from 'colors/colors'
-import { useNavigation } from 'hooks/useNavigation'
+import { useNavigation } from '@react-navigation/native'
 const MyComponent = () => {
   const navigation = useNavigation()
   return (
@@ -60,7 +60,7 @@ const MyComponent = () => {
         backgroundColor: colors backgroundPrimaryColor, color: colors.textPrimaryColor
       }}
       onPress={
-        () => navigation.navigate('HomesScreen')
+        () => navigation.navigate('Home')
       }
     />
   )

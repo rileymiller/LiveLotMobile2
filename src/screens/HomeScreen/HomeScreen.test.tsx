@@ -1,48 +1,50 @@
-import { renderWithNavigation } from 'components/App/App'
-import { fireEvent, wait, getByTestId } from '@testing-library/react-native'
-describe('HomeScreen', () => {
-  const initialRouteName = 'HomeScreen';
-  test('Renders HomeScreen when HomeScreen is in focus', () => {
-    const { getByText } = renderWithNavigation({
-      navigatorConfig: { initialRouteName },
-    });
+test.todo('re-enable this test after readding homescreen')
 
-    getByText('Mines Lots')
-  });
+// import { renderWithReduxAndNavigation } from 'components/App/App'
+// import { fireEvent, wait, getByTestId } from '@testing-library/react-native'
+// describe('HomeScreen', () => {
+//   const initialRouteName = 'HomeScreen';
+//   test('Renders HomeScreen when HomeScreen is in focus', () => {
+//     const { getByText } = renderWithReduxAndNavigation({
+//       navigatorConfig: { initialRouteName },
+//     });
 
-  test('renders profile button button', () => {
-    const { getByTestId } = renderWithNavigation({
-      navigatorConfig: { initialRouteName },
-    });
+//     getByText('Mines Lots')
+//   });
 
-    getByTestId('profile-button')
-  })
+//   test('renders profile button button', () => {
+//     const { getByTestId } = renderWithReduxAndNavigation({
+//       navigatorConfig: { initialRouteName },
+//     });
 
-  test('renders signout button', () => {
-    const { getByTestId } = renderWithNavigation({
-      navigatorConfig: { initialRouteName },
-    });
+//     getByTestId('profile-button')
+//   })
 
-    getByTestId('signout-button')
-  })
+//   test('renders signout button', () => {
+//     const { getByTestId } = renderWithReduxAndNavigation({
+//       navigatorConfig: { initialRouteName },
+//     });
 
-  test('Pressing signout button redirects to SplashScreen', async () => {
-    const { getByText, getByTestId } = renderWithNavigation({
-      navigatorConfig: { initialRouteName },
-    });
+//     getByTestId('signout-button')
+//   })
+
+//   test('Pressing signout button redirects to SplashScreen', async () => {
+//     const { getByText, getByTestId } = renderWithReduxAndNavigation({
+//       navigatorConfig: { initialRouteName },
+//     });
 
 
-    await wait(() => fireEvent.press(getByTestId('signout-button')))
+//     await wait(() => fireEvent.press(getByTestId('signout-button')))
 
-    getByText('Signup')
+//     getByText('Signup')
 
-  })
+//   })
 
-  test('Renders copyright notice', () => {
-    const { getByText } = renderWithNavigation({
-      navigatorConfig: { initialRouteName }
-    })
+//   test('Renders copyright notice', () => {
+//     const { getByText } = renderWithReduxAndNavigation({
+//       navigatorConfig: { initialRouteName }
+//     })
 
-    getByText('© 2020 LiveLot LLC All Rights Reserved')
-  })
-})
+//     getByText('© 2020 LiveLot LLC All Rights Reserved')
+//   })
+// })

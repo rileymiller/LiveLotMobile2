@@ -1,6 +1,5 @@
 import 'react-native';
 import { fireEvent, getByText, wait, } from '@testing-library/react-native';
-// import { renderWithNavigation } from 'components/App/App'
 import { renderWithReduxAndNavigation } from 'components/App/App'
 
 describe('LoginForm', () => {
@@ -121,7 +120,7 @@ describe('LoginForm', () => {
     getByText('Forgot Password?')
   })
 
-  test('Pressing Forgot Password opens Reset Password Modal', async () => {
+  test('Pressing Forgot Password opens Reset Password Screen', async () => {
     const { getAllByText, getByText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName }
     })

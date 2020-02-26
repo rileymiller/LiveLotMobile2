@@ -1,24 +1,35 @@
 import React from 'react'
-import { View, Text, StyleSheet, KeyboardAvoidingView } from 'react-native'
+import { StyleSheet, KeyboardAvoidingView } from 'react-native'
 
 import ResetPasswordForm from 'components/ResetPasswordForm/ResetPasswordForm'
-import { copyRightStyles } from 'screens/SplashScreen/SplashScreen'
-import { useNavigation } from 'hooks/useNavigation'
+import CopyRightFooter from 'components/CopyRightFooter/CopyRightFooter'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { RootStackParamList } from 'components/App/App'
 import { colors } from 'colors/colors'
-import { spacing } from 'spacing/spacing'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import BackToSplashScreenButton from 'components/BackToSplashScreenButton/BackToSplashScreenButton'
 
-import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-navigation'
 
-type Navigation = NavigationScreenProp<NavigationState, NavigationParams>;
+type SignupScreenNavigationProps = StackNavigationProp<
+  RootStackParamList,
+  'SignupScreen'
+>;
 
-const ResetPasswordScreen = () => {
-  const navigation = useNavigation()
+type Props = {
+  navigation: SignupScreenNavigationProps
+}
+
+const ResetPasswordScreen: React.FC<Props> = ({ navigation }) => {
+  navigation.setOptions({
+    headerLeft: () => (
+      <BackToSplashScreenButton />
+    ),
+    title: 'InsertLogo'
+  });
 
   return (
     <KeyboardAvoidingView style={styles.screenContainer} behavior='padding'>
-      <ResetPasswordForm></ResetPasswordForm>
-      <Text style={copyRightStyles.copyRight}>© 2020 LiveLot LLC All Rights Reserved</Text>
+      <ResetPasswordForm />
+      <CopyRightFooter />
     </KeyboardAvoidingView>
   )
 }
@@ -27,26 +38,6 @@ const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
     backgroundColor: colors.backgroundPrimaryColor
-  }
-})
-
-ResetPasswordScreen['navigationOptions'] = ({
-  navigation,
-}: {
-  navigation: Navigation;
-}) => ({
-  title: 'LiveLot',
-  headerLeft: () => {
-    return (
-      <Icon
-        name='home'
-        testID={'login-home'}
-        size={spacing.m}
-        color={colors.textPrimaryColor}
-        style={{ marginLeft: spacing.xs }}
-        onPress={() => navigation.navigate('SplashScreen')}
-      />
-    )
   }
 })
 

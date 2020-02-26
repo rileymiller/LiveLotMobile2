@@ -157,25 +157,26 @@ describe('ResetPasswordForm', () => {
     getByText('Please enter your password')
   })
 
-  test('submitting a valid reset password form redirects to home screen', async () => {
-    const { getByText, getByPlaceholderText } = renderWithReduxAndNavigation({
-      navigatorConfig: { initialRouteName }
-    })
+  // TODO: reenable this test after enabling homescreen
+  // test('submitting a valid reset password form redirects to home screen', async () => {
+  //   const { getByText, getByPlaceholderText } = renderWithReduxAndNavigation({
+  //     navigatorConfig: { initialRouteName }
+  //   })
 
-    await wait(() => { fireEvent.changeText(getByPlaceholderText('Email'), 'New Text') })
+  //   await wait(() => { fireEvent.changeText(getByPlaceholderText('Email'), 'New Text') })
 
-    await wait(() => { fireEvent.changeText(getByPlaceholderText('Password'), 'New Text') })
+  //   await wait(() => { fireEvent.changeText(getByPlaceholderText('Password'), 'New Text') })
 
-    await wait(() => { fireEvent.changeText(getByPlaceholderText('New Password'), 'New Text') })
+  //   await wait(() => { fireEvent.changeText(getByPlaceholderText('New Password'), 'New Text') })
 
-    await wait(() => { fireEvent.changeText(getByPlaceholderText('Confirm Password'), 'New Text') })
+  //   await wait(() => { fireEvent.changeText(getByPlaceholderText('Confirm Password'), 'New Text') })
 
 
 
-    await wait(() => { fireEvent.press(getByText('Reset Password')) })
+  //   await wait(() => { fireEvent.press(getByText('Reset Password')) })
 
-    getByText('Mines Lots')
-  })
+  //   getByText('Mines Lots')
+  // })
 
   test('pressing login button redirects to login page', async () => {
     const { getByText, getByTestId } = renderWithReduxAndNavigation({
@@ -192,6 +193,6 @@ describe('ResetPasswordForm', () => {
       navigatorConfig: { initialRouteName }
     })
 
-    getByText('LiveLot')
+    getByText('InsertLogo')
   })
 })

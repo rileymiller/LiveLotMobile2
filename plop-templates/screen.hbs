@@ -1,8 +1,8 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 
-import { copyRightStyles } from 'screens/SplashScreen/SplashScreen'
-import { useNavigation } from 'hooks/useNavigation'
+import CopyRightFooter from 'components/CopyRightFooter/CopyRightFooter'
+import { useNavigation } from '@react-navigation/native'
 import { colors } from 'colors/colors'
 
 const {{ pascalCase screen_name }}Screen = () => {
@@ -10,7 +10,7 @@ const {{ pascalCase screen_name }}Screen = () => {
 
   return (
     <View style={styles.screenContainer}>
-      <Text style={copyRightStyles.copyRight}>© 2020 LiveLot LLC All Rights Reserved</Text>
+      <CopyRightFooter />
     </View>
   )
 }

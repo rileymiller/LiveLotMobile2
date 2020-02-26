@@ -1,12 +1,12 @@
 import { renderWithReduxAndNavigation } from 'components/App/App'
 import { fireEvent, wait } from '@testing-library/react-native'
 
-describe('{{ pascalCase screen_name }}Screen', () => {
-const initialRouteName = '{{ pascalCase screen_name }}Screen';
+describe('CopyRightFooter', () => {
+  const initialRouteName = 'SplashScreen';
 
-  test('Renders copyright notice', () => {
+  test('Renders Component', () => {
     const { getByText } = renderWithReduxAndNavigation({
-    navigatorConfig: { initialRouteName }
+      navigatorConfig: { initialRouteName }
     })
 
     getByText('© 2020 LiveLot LLC All Rights Reserved')

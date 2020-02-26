@@ -1,10 +1,10 @@
-import { renderWithNavigation } from 'components/App/App'
+import { renderWithReduxAndNavigation } from 'components/App/App'
 
 // The SplashScreen is set as the default route so this will render on app load
 describe('SplashScreen', () => {
   const initialRouteName = 'SplashScreen';
   test('Renders SplashScreen with Start View on app load', () => {
-    const { getByTestId } = renderWithNavigation({
+    const { getByTestId } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName },
     });
     expect(getByTestId('title').props.children).toBe(
@@ -13,7 +13,7 @@ describe('SplashScreen', () => {
   });
 
   test('Renders copyright notice', () => {
-    const { getByText } = renderWithNavigation({
+    const { getByText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName }
     })
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import LotsView from 'components/LotsView/LotsView'
-import { useNavigation } from 'hooks/useNavigation'
+import { useNavigation } from '@react-navigation/native'
 import { colors } from 'colors/colors'
 import { spacing } from 'spacing/spacing'
 import { copyRightStyles } from 'screens/SplashScreen/SplashScreen'

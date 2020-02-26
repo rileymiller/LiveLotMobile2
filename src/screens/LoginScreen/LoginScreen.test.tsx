@@ -44,6 +44,6 @@ describe('LoginScreen', () => {
       navigatorConfig: { initialRouteName }
     })
 
-    getByText('LiveLot')
+    getByText('InsertLogo')
   })
 })
