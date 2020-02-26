@@ -19,6 +19,7 @@ type Props = {
 
 const SignupScreen: React.FC<Props> = ({ navigation }) => {
   navigation.setOptions({
+    title: 'InsertLogo',
     headerLeft: () => (
       <BackToSplashScreenButton />
     ),

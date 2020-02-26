@@ -7,16 +7,20 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import { colors } from 'colors/colors'
 import { useNavigation } from '@react-navigation/native'
 import { spacing } from 'spacing/spacing'
+import ErrorToast from 'components/ErrorToast/ErrorToast'
 
 const SignupForm = () => {
 
   const navigation = useNavigation()
   const [email, setEmail] = useState<string>('')
+  const [username, setUsername] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [confirmPassword, setConfirmPassword] = useState<string>('')
 
+  const [serverError, setServerError] = useState<string>('')
 
   const [emailError, setEmailError] = useState<boolean>(false)
+  const [usernameError, setUsernameError] = useState<boolean>(false)
   const [passwordError, setPasswordError] = useState<boolean>(false)
   const [confirmPasswordError, setConfirmPasswordError] = useState<boolean>(false)
 
@@ -24,6 +28,11 @@ const SignupForm = () => {
   const updateEmail = (email: string) => {
     setEmail(email)
     setEmailError(false)
+  }
+
+  const updateUsername = (username: string) => {
+    setUsername(username)
+    setUsernameError(false)
   }
 
   const updatePassword = (password: string) => {
@@ -42,6 +51,10 @@ const SignupForm = () => {
       return
     }
 
+    if (!username?.length) {
+      setUsernameError(true)
+      return
+    }
     if (!password?.length) {
       setPasswordError(true)
       return
@@ -57,11 +70,11 @@ const SignupForm = () => {
       return
     }
 
-    navigation.navigate('HomeScreen')
   }
 
   return (
     <View style={styles.container}>
+      <ErrorToast error={serverError} setError={setServerError} />
       <ScrollView contentContainerStyle={styles.keyboardContainer} keyboardShouldPersistTaps={'handled'}>
         <Input
           label={'Enter Email'}
@@ -71,7 +84,7 @@ const SignupForm = () => {
           labelStyle={{ color: colors.textPrimaryColor }}
           placeholderTextColor={colors.textPrimaryColor}
           onChangeText={updateEmail}
-          keyboardType={'default'}
+          keyboardType={'email-address'}
           leftIcon={
             <Icon
               name={'envelope'}
@@ -84,6 +97,29 @@ const SignupForm = () => {
           returnKeyLabel={'Next'}
           onSubmitEditing={() => validateForm()}
           errorMessage={emailError ? 'Please enter a valid email' : ''}
+        />
+        <Input
+          label={'Enter Username'}
+          placeholder={'Username'}
+          testID={'signup-username-input'}
+          accessibilityLabel={'Username'}
+          containerStyle={{ marginTop: spacing.s }}
+          labelStyle={{ color: colors.textPrimaryColor }}
+          placeholderTextColor={colors.textPrimaryColor}
+          onChangeText={updateUsername}
+          keyboardType={'default'}
+          leftIcon={
+            <Icon
+              name={'envelope'}
+              size={spacing.s + spacing.xxxs}
+              color={colors.textPrimaryColor}
+              style={{ marginRight: spacing.xs }}
+            />
+          }
+          returnKeyType={'next'}
+          returnKeyLabel={'Next'}
+          onSubmitEditing={() => validateForm()}
+          errorMessage={usernameError ? 'Please enter a valid username' : ''}
         />
         <Input
           label={'Enter Password'}

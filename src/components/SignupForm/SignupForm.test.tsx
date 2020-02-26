@@ -4,7 +4,7 @@ import { renderWithReduxAndNavigation } from 'components/App/App'
 
 describe('SignupForm', () => {
   const initialRouteName = 'SignupScreen'
-  test('renders email input', async () => {
+  test('renders email input', () => {
     const { getByPlaceholderText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName },
     })
@@ -18,6 +18,23 @@ describe('SignupForm', () => {
     })
 
     getByLabelText('Email')
+  })
+
+  test('renders username input', () => {
+    const { getByPlaceholderText } = renderWithReduxAndNavigation({
+      navigatorConfig: { initialRouteName },
+    })
+
+    getByPlaceholderText('Username')
+  })
+
+
+  test('renders username input', () => {
+    const { getByLabelText } = renderWithReduxAndNavigation({
+      navigatorConfig: { initialRouteName },
+    })
+
+    getByLabelText('Username')
   })
 
   test('renders password input', () => {
@@ -99,12 +116,28 @@ describe('SignupForm', () => {
     getByText('Please enter a valid email')
   })
 
+  test('Username error message displays when input is empty', async () => {
+    const { getByTestId, getByText } = renderWithReduxAndNavigation({
+      navigatorConfig: { initialRouteName }
+    })
+
+    fireEvent.changeText(getByTestId('signup-email-input'), 'yoo')
+
+
+    await wait(() => fireEvent.press(getByText('Signup')))
+
+    getByText('Please enter a valid username')
+
+  })
+
   test('Password error message displays when input is empty', async () => {
     const { getByTestId, getByText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName }
     })
 
     fireEvent.changeText(getByTestId('signup-email-input'), 'yoo')
+
+    fireEvent.changeText(getByTestId('signup-username-input'), 'yooes')
 
     await wait(() => fireEvent.press(getByText('Signup')))
 
@@ -118,6 +151,8 @@ describe('SignupForm', () => {
     })
 
     fireEvent.changeText(getByTestId('signup-email-input'), 'yoo')
+
+    fireEvent.changeText(getByTestId('signup-username-input'), 'secreasdt')
 
     fireEvent.changeText(getByTestId('signup-password-input'), 'secret')
 
@@ -133,6 +168,8 @@ describe('SignupForm', () => {
     })
 
     fireEvent.changeText(getByTestId('signup-email-input'), 'yoo')
+
+    fireEvent.changeText(getByTestId('signup-username-input'), 'spaghetti')
 
     fireEvent.changeText(getByTestId('signup-password-input'), 'secret')
 
