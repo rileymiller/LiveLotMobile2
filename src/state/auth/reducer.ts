@@ -4,20 +4,28 @@ import { cloneDeep } from 'lodash'
 
 export const initialState: TokenAuthState = {
   token: '',
-  isLoading: false
+  user: undefined,
+  isSignedIn: false
 }
 
 const authenticate = (
   state: TokenAuthState = initialState,
   action: TokenAuthAction
 ) => {
-  const newState: TokenAuthState = cloneDeep(state);
+  const oldState: TokenAuthState = cloneDeep(state);
 
   switch (action.type) {
-    case TOKEN_AUTH_ACTION_TYPES.RESTORE_TOKEN:
+    // case TOKEN_AUTH_ACTION_TYPES.RESTORE_TOKEN:
+    case TOKEN_AUTH_ACTION_TYPES.SIGN_IN:
+      // case TOKEN_AUTH_ACTION_TYPES.SIGN_OUT:
+      console.log('authenticate reducer called')
+      // console.log('state', state)
+      // console.log('action', action)
+      console.log({ ...oldState, ...action.payload })
       // const { token, isLoading } = action.tokenData;
-      return { ...newState, ...action.payload }
+      return { ...oldState, ...action.payload }
     default:
+      console.log('firing initial state')
       return { ...initialState }
   }
 }

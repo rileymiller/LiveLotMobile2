@@ -1,4 +1,4 @@
-import { XOutboundToken } from 'api/authentication/XOutboundToken'
+import { XOutboundToken, XOutboundLogin } from 'api/authentication/XOutboundToken'
 import { IXInboundLogin } from 'api/user/XInboundLogin'
 import { SERVER_URL } from 'react-native-dotenv'
 
@@ -12,7 +12,7 @@ import { SERVER_URL } from 'react-native-dotenv'
 * @param email the user email
 * @param password the user password
 */
-const login = async (email: string, password: string): Promise<XOutboundToken | undefined> => {
+const login = async (email: string, password: string): Promise<XOutboundLogin | undefined> => {
   const loginEndpoint = '/login'
 
   const loginInbound: IXInboundLogin = {
@@ -36,10 +36,8 @@ const login = async (email: string, password: string): Promise<XOutboundToken | 
       console.log('response failed, ', response.status)
       const json = await response.json()
       console.log('error message', json.message)
-      return {
-        statusCode: response.status,
-        message: json.message
-      }
+
+      throw Error(json.message)
     }
 
     console.log('response', response)

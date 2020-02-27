@@ -1,9 +1,11 @@
 import React from 'react'
 import { useState } from 'react'
-import { Text, StyleSheet, ScrollView, View, TouchableWithoutFeedback } from 'react-native'
-
+import { Text, StyleSheet, ScrollView, View, TouchableWithoutFeedback, Keyboard } from 'react-native'
+import { useDispatch } from 'react-redux'
+import { signIn } from 'state/auth/actions'
 import { signup } from 'api/authentication/SignupAPI'
-import { XOutboundAuthError, XOutboundToken } from 'api/authentication/XOutboundToken'
+import { checkToken } from 'api/authentication/CheckTokenAPI'
+import { XOutboundAuthError, XOutboundToken, XOutboundLogin, XOutboundSignup } from 'api/authentication/XOutboundToken'
 
 import { Input, Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -15,6 +17,8 @@ import ErrorToast from 'components/ErrorToast/ErrorToast'
 const SignupForm = () => {
 
   const navigation = useNavigation()
+  const dispatch = useDispatch()
+
   const [email, setEmail] = useState<string>('')
   const [username, setUsername] = useState<string>('')
   const [password, setPassword] = useState<string>('')
@@ -27,6 +31,7 @@ const SignupForm = () => {
   const [passwordError, setPasswordError] = useState<boolean>(false)
   const [confirmPasswordError, setConfirmPasswordError] = useState<boolean>(false)
 
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const updateEmail = (email: string) => {
     setEmail(email)
@@ -49,6 +54,7 @@ const SignupForm = () => {
   }
 
   const validateForm = () => {
+    Keyboard.dismiss()
     if (!email?.length) {
       setEmailError(true)
       return false
@@ -80,23 +86,44 @@ const SignupForm = () => {
     if (!validateForm()) {
       return
     }
+    await Keyboard.dismiss()
     try {
       console.log('about to submit form')
-      const response: XOutboundToken = await signup(email, username, password, confirmPassword)
-      if ((response as XOutboundAuthError)?.statusCode) {
-        // type guard for error
-        setServerError((response as XOutboundAuthError)?.message ?? 'Server Error')
-        return
-      }
+      setIsLoading(true)
 
+      const response: XOutboundSignup = await signup(email, username, password, confirmPassword)
+
+      console.log('response', response)
       // upon response of token, set isLoading to true
+      const { token } = response
+
+      try {
+        console.log('token for GET checkToken', token)
+
+        const user = await checkToken(token)
+        console.log(user)
+
+        await dispatch(signIn(token, user, true))
+
+        console.log('dispatched signIn action')
+        setServerError('')
+        setIsLoading(false)
+
+      } catch (e) {
+        setServerError(e.message)
+        setIsLoading(false)
+        console.log(e)
+      }
       // try to authenticate with token
       // if authenticated
       // call action creater to store token
       // set isLoading to false in store and drop auth screens at root
 
     } catch (e) {
-      console.log('ERROR: ', e)
+      console.log('ERROR: ', e.message)
+      await Keyboard.dismiss()
+      setServerError(e.message)
+      setIsLoading(false)
     }
   }
 
@@ -200,6 +227,7 @@ const SignupForm = () => {
         <Button
           title={'Signup'}
           accessibilityLabel={'Signup Button'}
+          loading={isLoading}
           containerStyle={{ marginTop: spacing.xs, alignSelf: 'stretch' }}
           buttonStyle={{ backgroundColor: colors.buttonPrimaryColor }}
           titleStyle={{ color: colors.buttonTextPrimaryColor }}

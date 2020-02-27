@@ -1,6 +1,9 @@
+import { XOutboundUserDTO } from 'api/user/XOutboundUserDTO'
+
 export type TokenAuthState = {
   token: string;
-  isLoading: boolean;
+  user?: XOutboundUserDTO;
+  isSignedIn?: boolean;
 }
 
 export type RestoreTokenAction = {
@@ -21,6 +24,5 @@ export type SignOutAction = {
 export type TokenAuthAction = RestoreTokenAction | SignOutAction | SignInAction
 
 export type AppState = {
-  token: string,
-  isLoading: boolean
+  authenticate: TokenAuthState
 }

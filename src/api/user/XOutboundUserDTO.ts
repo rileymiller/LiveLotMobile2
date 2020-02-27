@@ -1,3 +1,5 @@
+import { XOutboundAuthError } from 'api/authentication/XOutboundToken'
+
 /**
  * Interface for a user.
  * 
@@ -6,7 +8,7 @@
  * 
  * DTO is an abbreviation for Data Transfer Object
  */
-interface IUserDTO {
+type XOutboundUserDTO = {
   username: string,
   password: string,
   fullName?: string,
@@ -15,4 +17,5 @@ interface IUserDTO {
   createdDate?: string
 }
 
-export { IUserDTO }
+type XOutboundCheckTokenResponse = XOutboundUserDTO | XOutboundAuthError
+export { XOutboundUserDTO, XOutboundCheckTokenResponse }

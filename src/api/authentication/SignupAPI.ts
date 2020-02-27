@@ -1,4 +1,4 @@
-import { XOutboundToken } from 'api/authentication/XOutboundToken'
+import { XOutboundToken, XOutboundSignup } from 'api/authentication/XOutboundToken'
 import { IXInboundSignup } from 'api/user/XInboundSignup'
 import { SERVER_URL } from 'react-native-dotenv'
 
@@ -13,7 +13,7 @@ import { SERVER_URL } from 'react-native-dotenv'
 * @param password the user password
 * @param username the user username
 */
-const signup = async (email: string, username: string, password: string, confirmPassword: string): Promise<XOutboundToken | undefined> => {
+const signup = async (email: string, username: string, password: string, confirmPassword: string): Promise<XOutboundSignup> => {
   const signupEndpoint = '/signup'
 
   const signupInbound: IXInboundSignup = {
@@ -23,35 +23,30 @@ const signup = async (email: string, username: string, password: string, confirm
     confirmPassword: confirmPassword
   }
 
-  try {
-    console.log(SERVER_URL + signupEndpoint)
-    console.log('signupInbound', signupEndpoint)
-    const response = await fetch(SERVER_URL + signupEndpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: JSON.stringify(signupInbound)
-    })
+  console.log(SERVER_URL + signupEndpoint)
+  console.log('signupInbound', signupEndpoint)
+  const response = await fetch(SERVER_URL + signupEndpoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: JSON.stringify(signupInbound)
+  })
 
-    if (!response.ok) {
-      console.log('response failed, ', response.status)
-      const json = await response.json()
-      console.log('error message', json.message)
-      return {
-        statusCode: response.status,
-        message: json.message
-      }
-    }
+  if (!response.ok) {
+    console.log('response failed, ', response.status)
+    const json = await response.json()
+    console.log('error message', json.message)
 
-    console.log('response', response)
-    const body = await response.json()
-    console.log('body', body)
-    return body
-  } catch (e) {
-    console.log(e)
+    throw Error(`${response.status} Error: ${json.message}`)
   }
+
+  console.log('response', response)
+  const body = await response.json()
+  console.log('body', body)
+  return body
+
 }
 
 export { signup }

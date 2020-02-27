@@ -1,7 +1,7 @@
 import React from 'react'
 import { KeyboardAvoidingView, Text } from 'react-native'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { RootStackParamList } from 'components/App/App'
+import { RootStackParamList } from 'components/AppBase/AppBase'
 import SignupForm from 'components/SignupForm/SignupForm'
 import CopyRightFooter from 'components/CopyRightFooter/CopyRightFooter'
 import { colors } from 'colors/colors'

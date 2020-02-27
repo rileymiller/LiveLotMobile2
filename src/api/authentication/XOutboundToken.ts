@@ -3,19 +3,19 @@
  */
 
 type XOutboundLogin = {
-  token?: string
+  token: string
 }
 
 type XOutboundSignup = {
-  token?: string
+  token: string
 }
 
 type XOutboundResetPassword = {
-  token?: string
+  token: string
 }
 
 type XOutboundAuthError = {
-  statusCode?: number,
+  statusCode: number,
   message?: string
 }
 

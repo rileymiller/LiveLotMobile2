@@ -1,15 +1,10 @@
 import React from 'react'
 import { useState } from 'react'
-import { Dispatch } from 'redux'
-import { connect } from 'react-redux'
 
-import { TokenAuthAction } from 'state/types'
-import { signIn } from 'state/auth/actions'
 import { login } from 'api/authentication/LoginAPI'
 
-import { Text, StyleSheet, ScrollView, View, TouchableWithoutFeedback, Keyboard } from 'react-native'
+import { StyleSheet, ScrollView, View, TouchableWithoutFeedback, Keyboard } from 'react-native'
 import ErrorToast from 'components/ErrorToast/ErrorToast'
-import { AppState } from 'state/types'
 import { Input, Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { colors } from 'colors/colors'
@@ -166,17 +161,6 @@ const LoginForm = () => {
   )
 }
 
-const mapStateToProps = (state: AppState) => ({
-  token: state.token,
-  isLoading: state.isLoading
-})
-
-const mapDispatchToProps = (dispatch: Dispatch<TokenAuthAction>) => ({
-  login: (token: string, isLoading: boolean) => {
-    dispatch(signIn(token, isLoading))
-  }
-})
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -206,4 +190,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm)
+export default LoginForm
