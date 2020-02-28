@@ -29,22 +29,18 @@ const signup = async (email: string, username: string, password: string, confirm
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
-      // 'Content-Type': 'application/x-www-form-urlencoded',
     },
     body: JSON.stringify(signupInbound)
   })
 
   if (!response.ok) {
-    console.log('response failed, ', response.status)
     const json = await response.json()
-    console.log('error message', json.message)
 
     throw Error(`${response.status} Error: ${json.message}`)
   }
 
-  console.log('response', response)
   const body = await response.json()
-  console.log('body', body)
+
   return body
 
 }

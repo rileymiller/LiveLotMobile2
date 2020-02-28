@@ -26,22 +26,17 @@ const login = async (email: string, password: string): Promise<XOutboundLogin> =
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
-      // 'Content-Type': 'application/x-www-form-urlencoded',
     },
     body: JSON.stringify(loginInbound)
   })
 
   if (!response.ok) {
-    console.log('response failed, ', response.status)
     const json = await response.json()
-    console.log('error message', json.message)
 
     throw Error(json.message)
   }
 
-  console.log('response', response)
   const body = await response.json()
-  console.log('body', body)
   return body
 }
 

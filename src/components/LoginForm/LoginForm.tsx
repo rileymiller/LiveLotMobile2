@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { login } from 'api/authentication/LoginAPI'
+import { storeToken } from 'api/authentication/AsyncStorageTokenAPI'
 import { checkToken } from 'api/authentication/CheckTokenAPI'
 import { signIn } from 'state/auth/actions'
 import { StyleSheet, ScrollView, View, Keyboard } from 'react-native'
@@ -71,6 +72,8 @@ const LoginForm = () => {
         console.log(user)
 
         await dispatch(signIn(token, user, true))
+
+        await storeToken(token)
 
         setServerError('')
         setIsLoading(false)

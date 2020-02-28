@@ -1,18 +1,19 @@
 import React from 'react';
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { AppState } from 'state/types'
 
-import { AsyncStorage } from 'react-native';
-import { Provider, useSelector, useStore } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { checkToken } from 'api/authentication/CheckTokenAPI'
 import { NavigationContainer } from '@react-navigation/native'
 import SplashScreen from 'screens/SplashScreen/SplashScreen';
 import HomeScreen from 'screens/HomeScreen/HomeScreen';
 import LoginScreen from 'screens/LoginScreen/LoginScreen';
 import SignupScreen from 'screens/SignupScreen/SignupScreen';
-import BackToSplashScreenButton from 'components/BackToSplashScreenButton/BackToSplashScreenButton'
 import ResetPasswordScreen from 'screens/ResetPasswordScreen/ResetPasswordScreen'
 import { createStackNavigator, StackNavigationOptions } from '@react-navigation/stack'
 import { colors } from 'colors/colors'
+import { signIn } from 'state/auth/actions'
+import { getToken, storeToken } from 'api/authentication/AsyncStorageTokenAPI';
 
 type RootStackParamList = {
   LoginScreen: undefined,
@@ -24,25 +25,33 @@ type RootStackParamList = {
 
 const Stack = createStackNavigator<RootStackParamList>()
 
-// const Navigation = createAppContainer(AppNavigator);
-// const serverURL = "http://localhost:3000"
 const AppBase = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(true)
   const isSignedIn = useSelector((state: AppState) => state.authenticate.isSignedIn)
-  console.log(isSignedIn)
-  // const getToken = () => {
-  //   let userToken
-  //   try {
-  //     userToken = AsyncStorage.getItem('userToken')
-  //   } catch (e) {
-  //     console.error(e)
-  //   }
-  //   return userToken
-  // }
+  const dispatch = useDispatch()
 
   useEffect(() => {
     // try to restore token from Async Storage, if token is restored, redirect to homescreen
+    const loadTokenFromStorage = async () => {
 
+
+      try {
+        const token = await getToken()
+        console.log('token: ', token)
+        try {
+
+          const user = await checkToken(token)
+          console.log(user)
+
+          await dispatch(signIn(token, user, true))
+        } catch (e) {
+          console.log('Error authenticating token on server', e)
+        }
+
+        storeToken(token)
+      } catch (e) {
+        console.log('Error loading token from storage', e)
+      }
+    }
     // socket example
     //   const socket = io(serverURL, {
     //     transportOptions: {
@@ -54,7 +63,7 @@ const AppBase = () => {
     //     }
     //   })
     //   socket.on("HELLO", (data: any) => console.log('received payload', data))
-
+    loadTokenFromStorage()
   }, [])
 
   const defaultNavigationOptions: StackNavigationOptions = {
@@ -108,7 +117,7 @@ const AppBase = () => {
                 name="HomeScreen"
                 component={HomeScreen}
                 options={{
-                  animationTypeForReplace: !isSignedIn ? 'pop' : 'push',
+                  animationTypeForReplace: 'pop'
                 }}
               />
             </>

@@ -1,18 +1,19 @@
 import React from 'react'
 import { useState } from 'react'
-import { StyleSheet, ScrollView, View, Keyboard } from 'react-native'
+import { StyleSheet, ScrollView, View, Keyboard, AsyncStorage } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { signIn } from 'state/auth/actions'
 import { signup } from 'api/authentication/SignupAPI'
 import { checkToken } from 'api/authentication/CheckTokenAPI'
 import { XOutboundSignup } from 'api/authentication/XOutboundToken'
-
+import { storeToken } from 'api/authentication/AsyncStorageTokenAPI'
 import { Input, Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { colors } from 'colors/colors'
 import { useNavigation } from '@react-navigation/native'
 import { spacing } from 'spacing/spacing'
 import ErrorToast from 'components/ErrorToast/ErrorToast'
+import store from 'state/store'
 
 const SignupForm = () => {
 
@@ -100,6 +101,8 @@ const SignupForm = () => {
         console.log(user)
 
         await dispatch(signIn(token, user, true))
+
+        await storeToken(token)
 
         setServerError('')
         setIsLoading(false)

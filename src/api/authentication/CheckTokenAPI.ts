@@ -1,4 +1,4 @@
-import { XOutboundCheckTokenResponse, XOutboundUserDTO } from 'api/user/XOutboundUserDTO'
+import { XOutboundUserDTO } from 'api/user/XOutboundUserDTO'
 import { SERVER_URL } from 'react-native-dotenv'
 
 /**
@@ -24,15 +24,12 @@ const checkToken = async (token: string): Promise<XOutboundUserDTO> => {
   })
 
   if (!response.ok) {
-    console.log('response failed, ', response.status)
     const json = await response.json()
-    console.log('error message', json.message)
     throw Error(`${response.status} Error: ${json.message}`)
   }
 
-  console.log('response', response)
   const body = await response.json()
-  console.log('body', body)
+  console.log('Success, token authenticated!')
   return body
 }
 
