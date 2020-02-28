@@ -1,15 +1,11 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, } from 'react-native';
 import LotsView from 'components/LotsView/LotsView'
-import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { RootStackParamList } from 'components/AppBase/AppBase'
 import { colors } from 'colors/colors'
-import { spacing } from 'spacing/spacing'
 import SignOutButton from 'components/SignOutButton/SignOutButton'
 import CopyRightFooter from 'components/CopyRightFooter/CopyRightFooter'
-import Icon from 'react-native-vector-icons/FontAwesome'
-import BackToSplashScreenButton from 'components/BackToSplashScreenButton/BackToSplashScreenButton'
 
 
 type SignupScreenNavigationProps = StackNavigationProp<
@@ -25,9 +21,6 @@ type Props = {
 const HomeScreen: React.FC<Props> = ({ navigation }) => {
   navigation.setOptions({
     title: 'InsertLogo',
-    // headerLeft: () => (
-    //   <BackToSplashScreenButton />
-    // ),
     headerRight: () => (
       <SignOutButton />
     )

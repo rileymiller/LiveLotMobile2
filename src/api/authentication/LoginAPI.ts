@@ -12,7 +12,7 @@ import { SERVER_URL } from 'react-native-dotenv'
 * @param email the user email
 * @param password the user password
 */
-const login = async (email: string, password: string): Promise<XOutboundLogin | undefined> => {
+const login = async (email: string, password: string): Promise<XOutboundLogin> => {
   const loginEndpoint = '/login'
 
   const loginInbound: IXInboundLogin = {
@@ -20,33 +20,29 @@ const login = async (email: string, password: string): Promise<XOutboundLogin | 
     password: password
   }
 
-  try {
-    console.log(SERVER_URL + loginEndpoint)
-    console.log('loginInbound', loginInbound)
-    const response = await fetch(SERVER_URL + loginEndpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: JSON.stringify(loginInbound)
-    })
+  console.log(SERVER_URL + loginEndpoint)
+  console.log('loginInbound', loginInbound)
+  const response = await fetch(SERVER_URL + loginEndpoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: JSON.stringify(loginInbound)
+  })
 
-    if (!response.ok) {
-      console.log('response failed, ', response.status)
-      const json = await response.json()
-      console.log('error message', json.message)
+  if (!response.ok) {
+    console.log('response failed, ', response.status)
+    const json = await response.json()
+    console.log('error message', json.message)
 
-      throw Error(json.message)
-    }
-
-    console.log('response', response)
-    const body = await response.json()
-    console.log('body', body)
-    return body
-  } catch (e) {
-    console.log(e)
+    throw Error(json.message)
   }
+
+  console.log('response', response)
+  const body = await response.json()
+  console.log('body', body)
+  return body
 }
 
 export { login }

@@ -1,25 +1,29 @@
 import React from 'react'
 import { useState } from 'react'
-
+import { useDispatch } from 'react-redux'
 import { login } from 'api/authentication/LoginAPI'
-
-import { StyleSheet, ScrollView, View, TouchableWithoutFeedback, Keyboard } from 'react-native'
+import { checkToken } from 'api/authentication/CheckTokenAPI'
+import { signIn } from 'state/auth/actions'
+import { StyleSheet, ScrollView, View, Keyboard } from 'react-native'
 import ErrorToast from 'components/ErrorToast/ErrorToast'
 import { Input, Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { colors } from 'colors/colors'
 import { useNavigation } from '@react-navigation/native'
 import { spacing } from 'spacing/spacing'
-import { XOutboundToken, XOutboundAuthError } from 'api/authentication/XOutboundToken'
+import { XOutboundLogin } from 'api/authentication/XOutboundToken'
 
 const LoginForm = () => {
 
   const navigation = useNavigation()
+  const dispatch = useDispatch()
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
 
   const [emailError, setEmailError] = useState<boolean>(false)
   const [passwordError, setPasswordError] = useState<boolean>(false)
+
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const [serverError, setServerError] = useState<string>('')
   const updateEmail = (email: string) => {
@@ -48,29 +52,40 @@ const LoginForm = () => {
     }
 
     return true
-    // navigation.navigate('HomeScreen')
   }
 
   const submitForm = async () => {
     if (!validateForm()) {
       return
     }
+    await Keyboard.dismiss()
     try {
-      console.log('about to submit form')
-      const response: XOutboundToken = await login(email, password)
-      if ((response as XOutboundAuthError)?.statusCode) {
-        // type guard for error
-        setServerError((response as XOutboundAuthError)?.message ?? 'Server Error')
-        return
+      setIsLoading(true)
+
+      const response: XOutboundLogin = await login(email, password)
+
+      const { token } = response
+
+      try {
+        const user = await checkToken(token)
+        console.log(user)
+
+        await dispatch(signIn(token, user, true))
+
+        setServerError('')
+        setIsLoading(false)
+
+      } catch (e) {
+        setServerError(e.message)
+        setIsLoading(false)
+        console.log(e)
       }
 
-      // upon response of token, set isLoading to true
-      // try to authenticate with token
-      // if authenticated
-      // call action creater to store token
-      // set isLoading to false in store and drop auth screens at root
     } catch (e) {
-      console.log('ERROR: ', e)
+      console.log('ERROR: ', e.message)
+      await Keyboard.dismiss()
+      setServerError(e.message)
+      setIsLoading(false)
     }
   }
 
@@ -126,6 +141,7 @@ const LoginForm = () => {
         <Button
           title={'Login'}
           accessibilityLabel={'Login Button'}
+          loading={isLoading}
           containerStyle={{ marginTop: spacing.xs, alignSelf: 'stretch' }}
           buttonStyle={{ backgroundColor: colors.buttonPrimaryColor }}
           titleStyle={{ color: colors.buttonTextPrimaryColor }}
@@ -173,18 +189,15 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    // alignContent: 'center',
     justifyContent: 'center',
   },
   signupLinkContainer: {
-    // flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
   forgotPassword: {
     fontSize: spacing.s,
     color: colors.textPrimaryColor,
-    // alignSelf: 'center',
     textDecorationLine: 'underline',
     marginTop: spacing.xxs
   },

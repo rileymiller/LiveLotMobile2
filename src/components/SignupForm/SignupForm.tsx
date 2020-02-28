@@ -1,11 +1,11 @@
 import React from 'react'
 import { useState } from 'react'
-import { Text, StyleSheet, ScrollView, View, TouchableWithoutFeedback, Keyboard } from 'react-native'
+import { StyleSheet, ScrollView, View, Keyboard } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { signIn } from 'state/auth/actions'
 import { signup } from 'api/authentication/SignupAPI'
 import { checkToken } from 'api/authentication/CheckTokenAPI'
-import { XOutboundAuthError, XOutboundToken, XOutboundLogin, XOutboundSignup } from 'api/authentication/XOutboundToken'
+import { XOutboundSignup } from 'api/authentication/XOutboundToken'
 
 import { Input, Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -88,24 +88,19 @@ const SignupForm = () => {
     }
     await Keyboard.dismiss()
     try {
-      console.log('about to submit form')
       setIsLoading(true)
 
       const response: XOutboundSignup = await signup(email, username, password, confirmPassword)
 
-      console.log('response', response)
-      // upon response of token, set isLoading to true
       const { token } = response
 
       try {
-        console.log('token for GET checkToken', token)
 
         const user = await checkToken(token)
         console.log(user)
 
         await dispatch(signIn(token, user, true))
 
-        console.log('dispatched signIn action')
         setServerError('')
         setIsLoading(false)
 
@@ -114,10 +109,6 @@ const SignupForm = () => {
         setIsLoading(false)
         console.log(e)
       }
-      // try to authenticate with token
-      // if authenticated
-      // call action creater to store token
-      // set isLoading to false in store and drop auth screens at root
 
     } catch (e) {
       console.log('ERROR: ', e.message)
@@ -274,18 +265,15 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    // alignContent: 'center',
     justifyContent: 'center',
   },
   signupLinkContainer: {
-    // flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
   forgotPassword: {
     fontSize: spacing.s,
     color: colors.textPrimaryColor,
-    // alignSelf: 'center',
     textDecorationLine: 'underline',
     marginTop: spacing.xxs
   },

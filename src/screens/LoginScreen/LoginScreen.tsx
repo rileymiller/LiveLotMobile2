@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, KeyboardAvoidingView, StyleSheet } from 'react-native'
 
-import { RootStackParamList } from 'components/App/App'
+import { RootStackParamList } from 'components/AppBase/AppBase'
 import CopyRightFooter from 'components/CopyRightFooter/CopyRightFooter'
 import LoginForm from 'components/LoginForm/LoginForm'
 import { StackNavigationProp } from '@react-navigation/stack'

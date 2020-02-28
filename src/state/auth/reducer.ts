@@ -15,17 +15,10 @@ const authenticate = (
   const oldState: TokenAuthState = cloneDeep(state);
 
   switch (action.type) {
-    // case TOKEN_AUTH_ACTION_TYPES.RESTORE_TOKEN:
     case TOKEN_AUTH_ACTION_TYPES.SIGN_IN:
-      // case TOKEN_AUTH_ACTION_TYPES.SIGN_OUT:
-      console.log('authenticate reducer called')
-      // console.log('state', state)
-      // console.log('action', action)
-      console.log({ ...oldState, ...action.payload })
-      // const { token, isLoading } = action.tokenData;
+    case TOKEN_AUTH_ACTION_TYPES.SIGN_OUT:
       return { ...oldState, ...action.payload }
     default:
-      console.log('firing initial state')
       return { ...initialState }
   }
 }
