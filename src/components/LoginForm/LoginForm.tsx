@@ -4,7 +4,8 @@ import { useDispatch } from 'react-redux'
 import { login } from 'api/authentication/LoginAPI'
 import { storeToken } from 'api/authentication/AsyncStorageTokenAPI'
 import { checkToken } from 'api/authentication/CheckTokenAPI'
-import { signIn } from 'state/auth/actions'
+import { signIn } from 'state/auth/auth-actions'
+import { isLoading as isLoadingAction, doneLoading } from 'state/loading/loading-actions'
 import { StyleSheet, ScrollView, View, Keyboard } from 'react-native'
 import ErrorToast from 'components/ErrorToast/ErrorToast'
 import { Input, Button } from 'react-native-elements'
@@ -71,9 +72,14 @@ const LoginForm = () => {
         const user = await checkToken(token)
         console.log(user)
 
-        await dispatch(signIn(token, user, true))
+        dispatch(signIn(token, user, true))
 
+        // console.log('about to dispatch isLoading Action')
+        // dispatch(isLoadingAction())
         await storeToken(token)
+
+        // console.log('about to dispatch done Loading Action')
+        // dispatch(doneLoading())
 
         setServerError('')
         setIsLoading(false)

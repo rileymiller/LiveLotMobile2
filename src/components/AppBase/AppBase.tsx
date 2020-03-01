@@ -2,17 +2,18 @@ import React from 'react';
 import { useEffect } from 'react'
 import { AppState } from 'state/types'
 
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch, useStore } from 'react-redux'
 import { checkToken } from 'api/authentication/CheckTokenAPI'
 import { NavigationContainer } from '@react-navigation/native'
 import SplashScreen from 'screens/SplashScreen/SplashScreen';
+import { isLoading as isLoadingAction, doneLoading } from 'state/loading/loading-actions'
 import HomeScreen from 'screens/HomeScreen/HomeScreen';
 import LoginScreen from 'screens/LoginScreen/LoginScreen';
 import SignupScreen from 'screens/SignupScreen/SignupScreen';
 import ResetPasswordScreen from 'screens/ResetPasswordScreen/ResetPasswordScreen'
 import { createStackNavigator, StackNavigationOptions } from '@react-navigation/stack'
 import { colors } from 'colors/colors'
-import { signIn } from 'state/auth/actions'
+import { signIn } from 'state/auth/auth-actions'
 import { getToken, storeToken } from 'api/authentication/AsyncStorageTokenAPI';
 
 type RootStackParamList = {
@@ -27,8 +28,8 @@ const Stack = createStackNavigator<RootStackParamList>()
 
 const AppBase = () => {
   const isSignedIn = useSelector((state: AppState) => state.authenticate.isSignedIn)
+  // const isLoading = useSelector((state: AppState) => state.loading.isLoading)
   const dispatch = useDispatch()
-
   useEffect(() => {
     // try to restore token from Async Storage, if token is restored, redirect to homescreen
     const loadTokenFromStorage = async () => {
@@ -40,14 +41,20 @@ const AppBase = () => {
         try {
 
           const user = await checkToken(token)
-          console.log(user)
+          console.log('user after getToken', user)
 
+          // console.log('about to dispatch isLoading action')
+          // dispatch(isLoadingAction())
           await dispatch(signIn(token, user, true))
+          // await storeToken(token)
+
+          // console.log('about to dispatch done Loading Action')
+          // dispatch(doneLoading())
         } catch (e) {
           console.log('Error authenticating token on server', e)
         }
 
-        storeToken(token)
+
       } catch (e) {
         console.log('Error loading token from storage', e)
       }

@@ -2,8 +2,9 @@ import React from 'react'
 import { useState } from 'react'
 import { StyleSheet, ScrollView, View, Keyboard, AsyncStorage } from 'react-native'
 import { useDispatch } from 'react-redux'
-import { signIn } from 'state/auth/actions'
+import { signIn } from 'state/auth/auth-actions'
 import { signup } from 'api/authentication/SignupAPI'
+import { isLoading as isLoadingAction, doneLoading } from 'state/loading/loading-actions'
 import { checkToken } from 'api/authentication/CheckTokenAPI'
 import { XOutboundSignup } from 'api/authentication/XOutboundToken'
 import { storeToken } from 'api/authentication/AsyncStorageTokenAPI'
@@ -102,7 +103,12 @@ const SignupForm = () => {
 
         await dispatch(signIn(token, user, true))
 
+        // console.log('about to dispatch isLoading action')
+        // dispatch(isLoadingAction())
         await storeToken(token)
+
+        // console.log('about to dispatch done Loading Action')
+        // dispatch(doneLoading())
 
         setServerError('')
         setIsLoading(false)

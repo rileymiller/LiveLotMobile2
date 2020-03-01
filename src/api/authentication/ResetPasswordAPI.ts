@@ -3,11 +3,11 @@ import { IXInboundResetPassword } from 'api/user/XInboundResetPassword'
 import { SERVER_URL } from 'react-native-dotenv'
 
 /**
-* This method will return a promise with a jwt on successful signup and an
-* error on an unsuccessful signup
+* This method will return a promise with a jwt on successful reset of password and an
+* error on an unsuccessful reset
 * 
-* The signup endpoint is located at https://github.com/maddiearogers/LiveLotAppAPI/blob/master/api/controllers/userCtrl.js 
-* under the signup export
+* The reset password endpoint is located at https://github.com/maddiearogers/LiveLotAppAPI/blob/master/api/controllers/userCtrl.js 
+* under the resetPassword export
 * 
 * @param email the user email
 * @param password the user password

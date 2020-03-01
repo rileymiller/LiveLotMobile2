@@ -1,9 +1,21 @@
 import { createStore, combineReducers } from 'redux'
-// import { AppState } from 'state/types'
-import { authenticate, initialState } from 'state/auth/reducer'
+import { authenticate } from 'state/auth/auth-reducer'
+import { lots } from 'state/lots/lot-reducer'
+import { AppState } from 'state/types'
 
-const store = createStore(combineReducers({
-  authenticate,
+export const initialState: AppState = {
+  authenticate: {
+    token: '',
+    user: undefined,
+    isSignedIn: false
+  },
+  lots: {
+    lots: []
+  },
+}
+const store = createStore(combineReducers<AppState>({
+  authenticate: authenticate,
+  lots: lots,
 }))
 
 export default store

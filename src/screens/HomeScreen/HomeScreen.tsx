@@ -1,4 +1,7 @@
 import React from 'react';
+import { useEffect, useState } from 'react'
+import { useDispatch, useStore } from 'react-redux'
+import { updateLots } from 'state/lots/lot-actions'
 import { View, } from 'react-native';
 import LotsView from 'components/LotsView/LotsView'
 import { StackNavigationProp } from '@react-navigation/stack'
@@ -19,6 +22,8 @@ type Props = {
 
 
 const HomeScreen: React.FC<Props> = ({ navigation }) => {
+
+
   navigation.setOptions({
     title: 'InsertLogo',
     headerRight: () => (

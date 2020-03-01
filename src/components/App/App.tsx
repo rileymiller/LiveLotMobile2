@@ -5,7 +5,6 @@ import { Provider, useStore } from 'react-redux'
 import { createStackNavigator, StackNavigationOptions } from '@react-navigation/stack'
 import { NavigationContainer, useNavigation } from '@react-navigation/native'
 import store from 'state/store'
-import { initialState } from 'state/auth/reducer'
 import { render } from '@testing-library/react-native';
 import io from "socket.io-client";
 import SplashScreen from 'screens/SplashScreen/SplashScreen';
