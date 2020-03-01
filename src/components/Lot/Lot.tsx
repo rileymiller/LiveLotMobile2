@@ -1,7 +1,8 @@
 import React from 'react'
 import { Text, StyleSheet, View } from 'react-native'
 import SkeletonContent from "react-native-skeleton-content-nonexpo";
-import { Card } from 'react-native-elements'
+import { Card, withBadge } from 'react-native-elements'
+import { SPOT_THRESHOLD } from 'state/constants'
 import { colors } from 'colors/colors'
 import { spacing } from 'spacing/spacing'
 import { XOutboundLotDTO } from 'api/lots/XOutboundLotDTO';
@@ -17,14 +18,21 @@ const Lot = ({ isLoading, lot }: Props) => {
     return (Math.floor(Math.random() * 250) + 100)
   }
 
+  const getLotStatus = () => {
+    if (!lot?.lotStatus) {
+      return `down`
+    } else if (lot.numSpots <= SPOT_THRESHOLD) {
+      return `less than 5 available spots`
+    } else {
+      return `healthy`
+    }
+  }
+
   return (
 
     <Card
       containerStyle={{
         borderRadius: spacing.xxxs,
-        shadowOffset: { width: 2, height: 2, },
-        shadowColor: 'black',
-        shadowOpacity: .4,
       }}
       wrapperStyle={{
         height: 200
@@ -45,27 +53,69 @@ const Lot = ({ isLoading, lot }: Props) => {
                   { key: "4", width: randWidth(), height: 15, marginBottom: spacing.xs },
                 ]}
               >
-                <Text style={{ color: colors.textPrimaryColor, alignSelf: 'center', fontWeight: '500', marginBottom: 10 }}>
-                  Lot data or something
-                </Text>
               </SkeletonContent>
             </>
 
           ) : (
             <>
-              <Text
+              <View
                 style={{
-                  fontSize: spacing.l,
-                  textAlign: 'center',
+                  borderBottomColor: colors.dividerColor,
+                  borderBottomWidth: .3,
                 }}
               >
-                {lot?.numSpots}
-              </Text>
+                <Text
+                  style={{
+                    fontSize: spacing.l,
+                    textAlign: 'center',
+                    fontWeight: '400',
+                    color: ((lot && lot?.numSpots > SPOT_THRESHOLD) && lot?.lotStatus) ? colors.lotSpotBackgroundGreenColor : colors.lotSpotBackgroundRedColor
+                  }}
+                >
+                  {lot?.lotName}
+                </Text>
+              </View>
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}
+              >
+                <View
+                  style={
+                    ((lot && lot?.numSpots > SPOT_THRESHOLD) && lot?.lotStatus) ? styles.greenSpots : styles.redSpots
+                  }
+                >
+                  <Text
+                    style={{
+                      fontSize: spacing.l,
+                      color: colors.textSecondaryColor
+                    }}
+                  >
+                    {lot?.numSpots}
+                  </Text>
+                </View>
+              </View>
               <Text>
-                {lot?.lotName}
-              </Text>
-              <Text>
-                {`total spots: ${lot?.totalSpots}`}
+                <Text
+                  style={{
+                    fontWeight: '600',
+                    color: colors.textPrimaryColor,
+                  }}
+                >
+                  {`Status: `}
+                </Text>
+                <Text
+                  style={{
+                    fontWeight: '500',
+                    color: ((lot && lot?.numSpots > SPOT_THRESHOLD) && lot?.lotStatus) ? colors.lotSpotBackgroundGreenColor : colors.lotSpotBackgroundRedColor
+                  }}
+                >
+                  {
+                    getLotStatus()
+                  }
+                </Text>
               </Text>
             </>
           )
@@ -80,6 +130,22 @@ const styles = StyleSheet.create({
     flex: 1,
     borderColor: colors.borderPrimaryColor,
     borderWidth: 1
+  },
+  greenSpots: {
+    backgroundColor: colors.lotSpotBackgroundGreenColor,
+    borderRadius: spacing.xl,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 80,
+    height: 80,
+  },
+  redSpots: {
+    backgroundColor: colors.lotSpotBackgroundRedColor,
+    borderRadius: spacing.xl,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 80,
+    height: 80,
   }
 })
 export default Lot
