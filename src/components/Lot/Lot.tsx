@@ -28,6 +28,27 @@ const Lot = ({ isLoading, lot }: Props) => {
     }
   }
 
+  const getLotColor = () => {
+    if (!lot?.lotStatus) {
+      return colors.disabledColor
+    } else if (lot.numSpots <= SPOT_THRESHOLD) {
+      return colors.lotSpotBackgroundRedColor
+    } else {
+      return colors.lotSpotBackgroundGreenColor
+    }
+  }
+
+  const getNumSpotColor = () => {
+    if (!lot?.lotStatus) {
+      return styles.disabledSpots
+    } else if (lot.numSpots <= SPOT_THRESHOLD) {
+      return styles.redSpots
+    } else {
+      return styles.greenSpots
+    }
+  }
+
+
   return (
 
     <Card
@@ -57,11 +78,15 @@ const Lot = ({ isLoading, lot }: Props) => {
             </>
 
           ) : (
-            <>
+            <View
+              style={{
+                flex: 1,
+              }}
+            >
               <View
                 style={{
                   borderBottomColor: colors.dividerColor,
-                  borderBottomWidth: .3,
+                  borderBottomWidth: spacing.borderWidth,
                 }}
               >
                 <Text
@@ -69,7 +94,7 @@ const Lot = ({ isLoading, lot }: Props) => {
                     fontSize: spacing.l,
                     textAlign: 'center',
                     fontWeight: '400',
-                    color: ((lot && lot?.numSpots > SPOT_THRESHOLD) && lot?.lotStatus) ? colors.lotSpotBackgroundGreenColor : colors.lotSpotBackgroundRedColor
+                    color: getLotColor()
                   }}
                 >
                   {lot?.lotName}
@@ -84,7 +109,7 @@ const Lot = ({ isLoading, lot }: Props) => {
               >
                 <View
                   style={
-                    ((lot && lot?.numSpots > SPOT_THRESHOLD) && lot?.lotStatus) ? styles.greenSpots : styles.redSpots
+                    getNumSpotColor()
                   }
                 >
                   <Text
@@ -109,7 +134,7 @@ const Lot = ({ isLoading, lot }: Props) => {
                 <Text
                   style={{
                     fontWeight: '500',
-                    color: ((lot && lot?.numSpots > SPOT_THRESHOLD) && lot?.lotStatus) ? colors.lotSpotBackgroundGreenColor : colors.lotSpotBackgroundRedColor
+                    color: getLotColor()
                   }}
                 >
                   {
@@ -117,7 +142,7 @@ const Lot = ({ isLoading, lot }: Props) => {
                   }
                 </Text>
               </Text>
-            </>
+            </View>
           )
       }
     </Card>
@@ -128,11 +153,17 @@ const Lot = ({ isLoading, lot }: Props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    borderColor: colors.borderPrimaryColor,
-    borderWidth: 1
   },
   greenSpots: {
     backgroundColor: colors.lotSpotBackgroundGreenColor,
+    borderRadius: spacing.xl,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 80,
+    height: 80,
+  },
+  disabledSpots: {
+    backgroundColor: colors.disabledColor,
     borderRadius: spacing.xl,
     justifyContent: 'center',
     alignItems: 'center',
