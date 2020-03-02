@@ -6,7 +6,6 @@ import { useSelector, useDispatch, useStore } from 'react-redux'
 import { checkToken } from 'api/authentication/CheckTokenAPI'
 import { NavigationContainer } from '@react-navigation/native'
 import SplashScreen from 'screens/SplashScreen/SplashScreen';
-import { isLoading as isLoadingAction, doneLoading } from 'state/loading/loading-actions'
 import HomeScreen from 'screens/HomeScreen/HomeScreen';
 import LoginScreen from 'screens/LoginScreen/LoginScreen';
 import SignupScreen from 'screens/SignupScreen/SignupScreen';

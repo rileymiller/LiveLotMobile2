@@ -8,7 +8,8 @@ export type TokenAuthState = {
 }
 
 export type LotState = {
-  lots: XOutboundLotDTO[]
+  lots: XOutboundLotDTO[],
+  lotName?: undefined
 }
 
 export type LoadingState = {
@@ -31,11 +32,15 @@ export type SignOutAction = {
 }
 
 
-export type UpdateLotAction = {
+export type UpdateLotsAction = {
   type: string,
   payload: LotState
 }
 
+export type UpdateLotAction = {
+  type: string,
+  payload: XOutboundLotDTO
+}
 export type IsLoadingAction = {
   type: string,
   payload: LoadingState
@@ -48,7 +53,7 @@ export type DoneLoadingAction = {
 
 export type TokenAuthAction = RestoreTokenAction | SignOutAction | SignInAction
 
-export type LotAction = UpdateLotAction
+export type LotAction = UpdateLotsAction | UpdateLotAction
 
 export type AppState = {
   authenticate: TokenAuthState,

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useStore } from 'react-redux'
 import { updateLots } from 'state/lots/lot-actions'
 import { View, } from 'react-native';
+import WebSocket from 'components/WebSocket/WebSocket'
 import LotsView from 'components/LotsView/LotsView'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { RootStackParamList } from 'components/AppBase/AppBase'
@@ -35,6 +36,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
     <View style={{ flex: 1, backgroundColor: colors.backgroundPrimaryColor }}>
       <LotsView />
       <CopyRightFooter />
+      <WebSocket />
     </View>
   )
 }
