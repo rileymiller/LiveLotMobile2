@@ -19,6 +19,11 @@ In order to remain consistent across development machines and to reduce the pain
 
 Developing with common environments will help us to remain consistent across machines and ensure that we don't introduce descrepancies between environments. Also, due to the nature of React Native leveraging "Native" development tools, we can't dockerize our app to mitigate this issue 😔.
 
+Also will need to create a `.env` file at the root of your app. As of now, the only contents you need explicitly are:
+```
+SERVER_URL="http://localhost:3000"
+```
+this `SERVER_URL` will need to be set using environment variables at prod. Still gotta figure that out.
 ## Scaffolding
 In order to maintain our codebase we will use a tool called `plop` to create new components (https://plopjs.com/documentation/). This tool currently supports both `screens` and `components` generators which will allow you to automagically create all of the relevant scaffolding, file names, and populate the necessary files to create new screens and components in our app. To get started install plop: 
 ```
@@ -57,6 +62,7 @@ import { spacing } from 'spacing/spacing'
 import { spacing } from '../../../spacing'
 ```
 Absolute paths are more declarative and easier to read than relative paths.
+
 ## Navigation
 We leverage `react-navigation` to navigate between screens in our app. In the `AppBase` component we declare all of our screens and our HoC navigation components. We declare all of these navigation components a level below our root `App` component sos we can dynamically set the `StackNavigator` based on the `isSignedIn` value in our redux store. React navigation also exports a nifty `useNavigation` hook which allows us to uptake and manage navigation anywhere in our app. Example:
 ```
@@ -80,6 +86,7 @@ const MyComponent = () => {
 
 export default MyComponent
 ```
+
 ## Testing
 Right now we are leveraging `@testing-library/react-native` as our unit/integration testing framework. The primary paradigm behind this library is that you should test your app the way the user interacts with it versus testing for component internals. They have a great set of docs on their website to reference while you're writing tests: https://www.native-testing-library.com/docs/intro.
 
