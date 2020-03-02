@@ -46,7 +46,19 @@ const MyComponent = () => {
 
 export default MyComponent
 ```
-* `hooks/` this folder contains our custom React Hooks. The most important hook in there right now is our `useNavigation` hook which allows us to uptake and manage navigation anywhere in our app. Example:
+* `hooks/` this folder contains our custom React Hooks.
+- `spacing/` this holds a spacing object that holds common values for spacing/sizes throughout our app. This will help us maintain a common look and feel throughout our app by using our `spacing` object.
+- `images/` this folder holds all of our images that we are uptaking in our components.
+
+In order to import one of these files we leverage absolute paths to avoid the nested nature of relative pathing. Example:
+```
+import { spacing } from 'spacing/spacing'
+// vs.
+import { spacing } from '../../../spacing'
+```
+Absolute paths are more declarative and easier to read than relative paths.
+## Navigation
+We leverage `react-navigation` to navigate between screens in our app. In the `AppBase` component we declare all of our screens and our HoC navigation components. We declare all of these navigation components a level below our root `App` component sos we can dynamically set the `StackNavigator` based on the `isSignedIn` value in our redux store. React navigation also exports a nifty `useNavigation` hook which allows us to uptake and manage navigation anywhere in our app. Example:
 ```
 import React from 'react'
 import { Text } from 'react-native
@@ -68,17 +80,6 @@ const MyComponent = () => {
 
 export default MyComponent
 ```
-- `spacing/` this holds a spacing object that holds common values for spacing/sizes throughout our app. This will help us maintain a common look and feel throughout our app by using our `spacing` object.
-- `images/` this folder holds all of our images that we are uptaking in our components.
-
-In order to import one of these files we leverage absolute paths to avoid the nested nature of relative pathing. Example:
-```
-import { spacing } from 'spacing/spacing'
-// vs.
-import { spacing } from '../../../spacing'
-```
-Absolute paths are more declarative and easier to read than relative paths.
-
 ## Testing
 Right now we are leveraging `@testing-library/react-native` as our unit/integration testing framework. The primary paradigm behind this library is that you should test your app the way the user interacts with it versus testing for component internals. They have a great set of docs on their website to reference while you're writing tests: https://www.native-testing-library.com/docs/intro.
 
@@ -92,11 +93,18 @@ yarn jest --watch
 ```
 to run `jest` in watch mode that way you can fix tests in real time while you're making changes.
 
+Need to catch up on a **lot** of test coverage after this push to get the app out. 🤒
+Specifically need to test our API surface area, redux migration, and all of the HomeScreen, lot view, and websocket communication when we have a chance.
 ## API
-Coming Soon
+In our app we uptake the `LiveLotAPI` which is a Node/MongoDB API that we use to communicate with all of the separate parts of our platform. In our mobile client we have created a service layer that we use to communicate with our API. The way that our API layer is structured is `src/api/<functionality_scope>/<file_name>.ts`, where we group all of our endpoints and types in the same folder for locality. Specifically when we uptake a new endpoint on the client we create both types for the DTO (Data Transfer Object), the endpoint, as well as a `<scope>API.ts` file which exports a promise for the endpoint. One of the nice things about dealing with promises is that it allows us to handle asyc requests with `async/await` and `try/catch` blocks which offers a higher level of specificity when handling errors.
 
-## Conventional Commits
-Coming Soon
+ We handle all of our side effects directly in our component instead of in redux because frankly it was lower effort upfront. Will probably migrate our effects into redux in the future. Also will plan to consolidate all of these endpoints and types in some type of API manager abstraction to try and consolidate the imports.
 
+ ## Redux
+We decided to use `redux` in our app as a means to consolidate the complexity of our authentication logic as well as introducing the infrastructure for global state management as we continue to scale our app. So far we have two different stores that we use to keep track of our app's state: `authentication` and `lots`. The way that we keep organize our state management in our app is within the `state` directory in the `src` folder. Underneath the `state` folder we have three files that handle higher order state `store.ts`, `types.ts`, and `constants.ts` where `store` contains the declaration of the global store and uptake of the reducers. `types` holds all of our types for our state specific actions/state. Then, we declare our actions and reducers within a folder that is named after the scope that the actions/reducers are pertaining too (i.e. `state/auth/auth-actions.ts` and `state/auth/auth-reducer.ts`).
+
+To uptake our actions within our components we leverage `useSelector` and `useDispatch` from `react-redux` where `useSelector` enables us to grab a part of the global store within our component and `useDispatch` is used to dispatch actions from our components.
+
+Still need to test all of our redux state management.
 ## CI
 Coming Soon
