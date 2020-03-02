@@ -25,7 +25,7 @@ const colors = {
   buttonTextSecondaryColor: aqua_marine_500,
   disabledColor: storm_500,
   dividerColor: socks_500,
-  errorColor: august_burns_red_500,
+  errorColor: chief_500,
   errorTextPrimaryColor: vanilla_500,
   greenHintTextColor: sea_green_500,
   lotSpotBackgroundGreenColor: sea_green_500,
