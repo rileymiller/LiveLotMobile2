@@ -1,31 +1,43 @@
 import React from 'react'
 import { useState } from 'react'
-import { Text, StyleSheet, ScrollView, View, TouchableWithoutFeedback } from 'react-native'
-
+import { useDispatch } from 'react-redux'
+import { login } from 'api/authentication/LoginAPI'
+import { storeToken } from 'api/authentication/AsyncStorageTokenAPI'
+import { checkToken } from 'api/authentication/CheckTokenAPI'
+import { signIn } from 'state/auth/auth-actions'
+import { isLoading as isLoadingAction, doneLoading } from 'state/loading/loading-actions'
+import { StyleSheet, ScrollView, View, Keyboard } from 'react-native'
+import ErrorToast from 'components/ErrorToast/ErrorToast'
 import { Input, Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { colors } from 'colors/colors'
-import { useNavigation } from 'hooks/useNavigation'
+import { useNavigation } from '@react-navigation/native'
 import { spacing } from 'spacing/spacing'
+import { XOutboundLogin } from 'api/authentication/XOutboundToken'
 
 const LoginForm = () => {
 
   const navigation = useNavigation()
+  const dispatch = useDispatch()
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
 
   const [emailError, setEmailError] = useState<boolean>(false)
   const [passwordError, setPasswordError] = useState<boolean>(false)
 
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
+  const [serverError, setServerError] = useState<string>('')
   const updateEmail = (email: string) => {
     setEmail(email)
     setEmailError(false)
+    setServerError('')
   }
 
   const updatePassword = (password: string) => {
     setPassword(password)
     setPasswordError(false)
+    setServerError('')
   }
 
 
@@ -33,20 +45,63 @@ const LoginForm = () => {
   const validateForm = () => {
     if (!email?.length) {
       setEmailError(true)
-      return
+      return false
     }
 
     if (!password?.length) {
       setPasswordError(true)
-      return
+      return false
     }
 
-    navigation.navigate('HomeScreen')
+    return true
+  }
+
+  const submitForm = async () => {
+    if (!validateForm()) {
+      return
+    }
+    await Keyboard.dismiss()
+    try {
+      setIsLoading(true)
+
+      const response: XOutboundLogin = await login(email, password)
+
+      const { token } = response
+
+      try {
+        const user = await checkToken(token)
+        console.log(user)
+
+        dispatch(signIn(token, user, true))
+
+        // console.log('about to dispatch isLoading Action')
+        // dispatch(isLoadingAction())
+        await storeToken(token)
+
+        // console.log('about to dispatch done Loading Action')
+        // dispatch(doneLoading())
+
+        setServerError('')
+        setIsLoading(false)
+
+      } catch (e) {
+        setServerError(e.message)
+        setIsLoading(false)
+        console.log(e)
+      }
+
+    } catch (e) {
+      console.log('ERROR: ', e.message)
+      await Keyboard.dismiss()
+      setServerError(e.message)
+      setIsLoading(false)
+    }
   }
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.keyboardContainer}>
+      <ErrorToast error={serverError} setError={setServerError} />
+      <ScrollView contentContainerStyle={styles.keyboardContainer} keyboardShouldPersistTaps={'handled'}>
         <Input
           label={'Enter Email'}
           placeholder={'Email'}
@@ -87,18 +142,19 @@ const LoginForm = () => {
               style={{ marginRight: spacing.xs }}
             />
           }
-          returnKeyType={'next'}
-          returnKeyLabel={'Next'}
-          onSubmitEditing={() => validateForm()}
+          returnKeyType={'go'}
+          returnKeyLabel={'Submit'}
+          onSubmitEditing={() => submitForm()}
           errorMessage={passwordError ? 'Please enter your password' : ''}
         />
         <Button
           title={'Login'}
           accessibilityLabel={'Login Button'}
+          loading={isLoading}
           containerStyle={{ marginTop: spacing.xs, alignSelf: 'stretch' }}
           buttonStyle={{ backgroundColor: colors.buttonPrimaryColor }}
           titleStyle={{ color: colors.buttonTextPrimaryColor }}
-          onPress={() => { validateForm() }}
+          onPress={() => { submitForm() }}
         />
         <Button
           titleStyle={styles.forgotPassword}
@@ -142,18 +198,15 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    // alignContent: 'center',
     justifyContent: 'center',
   },
   signupLinkContainer: {
-    // flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
   forgotPassword: {
     fontSize: spacing.s,
     color: colors.textPrimaryColor,
-    // alignSelf: 'center',
     textDecorationLine: 'underline',
     marginTop: spacing.xxs
   },

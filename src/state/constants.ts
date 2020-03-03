@@ -1,0 +1,3 @@
+const SPOT_THRESHOLD = 5
+
+export { SPOT_THRESHOLD }

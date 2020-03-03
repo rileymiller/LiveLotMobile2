@@ -1,11 +1,11 @@
-import { renderWithNavigation } from 'components/App/App'
+import { renderWithReduxAndNavigation } from 'components/App/App'
 import { fireEvent, wait } from '@testing-library/react-native'
 
 describe('{{ pascalCase screen_name }}Screen', () => {
 const initialRouteName = '{{ pascalCase screen_name }}Screen';
 
   test('Renders copyright notice', () => {
-    const { getByText } = renderWithNavigation({
+    const { getByText } = renderWithReduxAndNavigation({
     navigatorConfig: { initialRouteName }
     })
 

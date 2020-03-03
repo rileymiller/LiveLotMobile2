@@ -1,12 +1,16 @@
 import React from 'react'
 import { useState } from 'react'
+import { Keyboard } from 'react-native'
 import { Text, StyleSheet, ScrollView, View } from 'react-native'
 
+import ErrorToast from 'components/ErrorToast/ErrorToast'
 import { Input, Button } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { colors } from 'colors/colors'
-import { useNavigation } from 'hooks/useNavigation'
+import { useNavigation } from '@react-navigation/native'
 import { spacing } from 'spacing/spacing'
+import { XOutboundResetPassword } from 'api/authentication/XOutboundToken'
+import { resetPassword } from 'api/authentication/ResetPasswordAPI'
 
 const ResetPasswordForm = () => {
 
@@ -15,6 +19,9 @@ const ResetPasswordForm = () => {
   const [password, setPassword] = useState<string>('')
   const [newPassword, setNewPassword] = useState<string>('')
   const [confirmNewPassword, setConfirmNewPassword] = useState<string>('')
+
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [serverError, setServerError] = useState<string>('')
 
   const [emailError, setEmailError] = useState<boolean>(false)
   const [passwordError, setPasswordError] = useState<boolean>(false)
@@ -44,30 +51,52 @@ const ResetPasswordForm = () => {
   const validateForm = () => {
     if (!email?.length) {
       setEmailError(true)
-      return
+      return false
     }
 
     if (!password?.length) {
       setPasswordError(true)
-      return
+      return false
     }
 
     if (!newPassword?.length) {
       setNewPasswordError(true)
-      return
+      return false
     }
 
     if (!confirmNewPassword?.length) {
       setConfirmNewPasswordError(true)
-      return
+      return false
     }
 
-    navigation.navigate('HomeScreen')
+    return true
+  }
+
+  const submitForm = async () => {
+    if (!validateForm()) {
+      return
+    }
+    await Keyboard.dismiss()
+    try {
+      setIsLoading(true)
+
+      await resetPassword(email, password, newPassword, confirmNewPassword)
+
+      navigation.navigate('LoginScreen')
+
+
+    } catch (e) {
+      console.log('ERROR: ', e.message)
+      await Keyboard.dismiss()
+      setServerError(e.message)
+      setIsLoading(false)
+    }
   }
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.keyboardContainer}>
+      <ErrorToast error={serverError} setError={setServerError} />
+      <ScrollView contentContainerStyle={styles.keyboardContainer} keyboardShouldPersistTaps={'handled'}>
         <Input
           label={'Enter Email'}
           placeholder={'Email'}
@@ -155,7 +184,7 @@ const ResetPasswordForm = () => {
           }
           returnKeyType={'go'}
           returnKeyLabel={'Submit'}
-          onSubmitEditing={() => validateForm()}
+          onSubmitEditing={() => submitForm()}
           errorMessage={confirmNewPasswordError ? 'Please enter a valid password' : ''}
         />
         <Button
@@ -163,7 +192,7 @@ const ResetPasswordForm = () => {
           containerStyle={{ marginTop: spacing.xs }}
           buttonStyle={{ backgroundColor: colors.buttonPrimaryColor }}
           titleStyle={{ color: colors.buttonTextPrimaryColor }}
-          onPress={() => { validateForm() }}
+          onPress={() => { submitForm() }}
         />
       </ScrollView>
       <View style={styles.signupLinkContainer}>

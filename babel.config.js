@@ -1,5 +1,8 @@
 module.exports = {
-  presets: ['module:metro-react-native-babel-preset'],
+  presets: [
+    'module:metro-react-native-babel-preset',
+    'module:react-native-dotenv'
+  ],
   plugins: ['@babel/plugin-proposal-optional-chaining',
     ['module-resolver',
       {
@@ -23,8 +26,8 @@ module.exports = {
           components: './src/components',
           hooks: './src/hooks',
           images: './src/images',
-          authentication: './src/authentication'
-          // state: './src/state',
+          authentication: './src/authentication',
+          state: './src/state',
         },
       }
     ],

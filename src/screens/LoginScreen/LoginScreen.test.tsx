@@ -1,9 +1,9 @@
-import { renderWithNavigation } from 'components/App/App'
+import { renderWithReduxAndNavigation } from 'components/App/App'
 import { fireEvent, wait } from '@testing-library/react-native'
 describe('LoginScreen', () => {
   const initialRouteName = 'LoginScreen';
   test('Renders LoginScreen when LoginScreen is in focus', () => {
-    const { findByText } = renderWithNavigation({
+    const { findByText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName },
     });
 
@@ -12,7 +12,7 @@ describe('LoginScreen', () => {
   });
 
   test('Renders copyright notice', () => {
-    const { getByText } = renderWithNavigation({
+    const { getByText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName }
     })
 
@@ -20,7 +20,7 @@ describe('LoginScreen', () => {
   })
 
   test('Pressing Signup button switches to Signup page', async () => {
-    const { getByText, getByTestId } = renderWithNavigation({
+    const { getByText, getByTestId } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName }
     })
 
@@ -30,7 +30,7 @@ describe('LoginScreen', () => {
   })
 
   test('pressing home button redirects to SplashScreen', async () => {
-    const { getByTestId, getByText } = renderWithNavigation({
+    const { getByTestId, getByText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName }
     })
 
@@ -40,10 +40,10 @@ describe('LoginScreen', () => {
   })
 
   test('renders user login title', async () => {
-    const { getByText } = renderWithNavigation({
+    const { getByText } = renderWithReduxAndNavigation({
       navigatorConfig: { initialRouteName }
     })
 
-    getByText('LiveLot')
+    getByText('InsertLogo')
   })
 })

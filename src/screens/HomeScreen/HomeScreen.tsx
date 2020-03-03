@@ -1,55 +1,44 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { useEffect, useState } from 'react'
+import { useDispatch, useStore } from 'react-redux'
+import { updateLots } from 'state/lots/lot-actions'
+import { View, } from 'react-native';
+import WebSocket from 'components/WebSocket/WebSocket'
 import LotsView from 'components/LotsView/LotsView'
-import { useNavigation } from 'hooks/useNavigation'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { RootStackParamList } from 'components/AppBase/AppBase'
 import { colors } from 'colors/colors'
-import { spacing } from 'spacing/spacing'
-import { copyRightStyles } from 'screens/SplashScreen/SplashScreen'
-import Icon from 'react-native-vector-icons/FontAwesome'
-import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-navigation'
-
-type Navigation = NavigationScreenProp<NavigationState, NavigationParams>;
+import SignOutButton from 'components/SignOutButton/SignOutButton'
+import CopyRightFooter from 'components/CopyRightFooter/CopyRightFooter'
 
 
-const HomeScreen = () => {
-  const navigation = useNavigation();
+type SignupScreenNavigationProps = StackNavigationProp<
+  RootStackParamList,
+  'SignupScreen'
+>;
+
+type Props = {
+  navigation: SignupScreenNavigationProps
+}
+
+
+const HomeScreen: React.FC<Props> = ({ navigation }) => {
+
+
+  navigation.setOptions({
+    title: 'InsertLogo',
+    headerRight: () => (
+      <SignOutButton />
+    )
+  });
+
   return (
     <View style={{ flex: 1, backgroundColor: colors.backgroundPrimaryColor }}>
       <LotsView />
-      <Text style={copyRightStyles.copyRight}>© 2020 LiveLot LLC All Rights Reserved</Text>
+      <CopyRightFooter />
+      <WebSocket />
     </View>
   )
 }
 
-// Template for custom header options
-HomeScreen['navigationOptions'] = ({
-  navigation,
-}: {
-  navigation: Navigation;
-}) => ({
-  title: 'Mines Lots',
-  headerRight: () => {
-    return (
-      <Icon
-        name='sign-out'
-        testID={'signout-button'}
-        size={spacing.m}
-        color={colors.textPrimaryColor}
-        style={{ marginRight: spacing.xs }}
-        onPress={() => navigation.navigate('SplashScreen')} // add logic to hit signout endpoint here 
-      />
-    )
-  },
-  headerLeft: () => {
-    return (
-      <Icon
-        name='user'
-        testID={'profile-button'}
-        size={spacing.m}
-        color={colors.textPrimaryColor}
-        style={{ marginLeft: spacing.xs }}
-      />
-    )
-  }
-})
 export default HomeScreen

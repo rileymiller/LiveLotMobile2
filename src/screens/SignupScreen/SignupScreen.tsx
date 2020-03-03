@@ -1,47 +1,36 @@
 import React from 'react'
 import { KeyboardAvoidingView, Text } from 'react-native'
-
+import { StackNavigationProp } from '@react-navigation/stack'
+import { RootStackParamList } from 'components/AppBase/AppBase'
 import SignupForm from 'components/SignupForm/SignupForm'
-import { copyRightStyles } from 'screens/SplashScreen/SplashScreen'
-import { useNavigation } from 'hooks/useNavigation'
+import CopyRightFooter from 'components/CopyRightFooter/CopyRightFooter'
 import { colors } from 'colors/colors'
-import { spacing } from 'spacing/spacing'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import BackToSplashScreenButton from 'components/BackToSplashScreenButton/BackToSplashScreenButton'
 
-import { NavigationScreenProp, NavigationState, NavigationParams } from 'react-navigation'
 
-type Navigation = NavigationScreenProp<NavigationState, NavigationParams>;
+type SignupScreenNavigationProps = StackNavigationProp<
+  RootStackParamList,
+  'SignupScreen'
+>;
 
-const SignupScreen = () => {
-  const navigation = useNavigation()
+type Props = {
+  navigation: SignupScreenNavigationProps
+}
+
+const SignupScreen: React.FC<Props> = ({ navigation }) => {
+  navigation.setOptions({
+    title: 'InsertLogo',
+    headerLeft: () => (
+      <BackToSplashScreenButton />
+    ),
+  });
 
   return (
     <KeyboardAvoidingView style={{ flex: 1, backgroundColor: colors.backgroundPrimaryColor }} behavior="padding">
       <SignupForm />
-      <Text style={copyRightStyles.copyRight}>© 2020 LiveLot LLC All Rights Reserved</Text>
-
+      <CopyRightFooter />
     </KeyboardAvoidingView>
   )
 }
-
-SignupScreen['navigationOptions'] = ({
-  navigation,
-}: {
-  navigation: Navigation;
-}) => ({
-  title: 'LiveLot',
-  headerLeft: () => {
-    return (
-      <Icon
-        name='home'
-        testID={'login-home'}
-        size={spacing.m}
-        color={colors.textPrimaryColor}
-        style={{ marginLeft: spacing.xs }}
-        onPress={() => navigation.navigate('SplashScreen')}
-      />
-    )
-  }
-})
 
 export default SignupScreen

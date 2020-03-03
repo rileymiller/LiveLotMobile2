@@ -1,28 +1,28 @@
 import 'react-native';
 import { fireEvent, findByText, render } from '@testing-library/react-native';
-import { renderWithNavigation } from 'components/App/App'
+import { renderWithReduxAndNavigation } from 'components/App/App'
 
 describe('StartView', () => {
   test('Renders StartView on load', async () => {
-    const { getByTestId } = renderWithNavigation();
+    const { getByTestId } = renderWithReduxAndNavigation();
     expect(getByTestId('title').props.children).toMatch('LiveLot');
   });
 
   test('renders Login button', () => {
-    const { getByText } = renderWithNavigation()
+    const { getByText } = renderWithReduxAndNavigation()
 
     getByText('Login')
 
   })
 
   test('renders Signup button', () => {
-    const { getByText } = renderWithNavigation()
+    const { getByText } = renderWithReduxAndNavigation()
     getByText('Signup')
 
   })
 
   test('navigates to Login Form when Login button is pressed', async () => {
-    const { getByText, getByPlaceholderText } = renderWithNavigation()
+    const { getByText, getByPlaceholderText } = renderWithReduxAndNavigation()
 
     fireEvent.press(getByText('Login'))
 
@@ -30,7 +30,7 @@ describe('StartView', () => {
   })
 
   test('navigates to Signup Form when Signup is pressed', async () => {
-    const { getByText, getByPlaceholderText } = renderWithNavigation()
+    const { getByText, getByPlaceholderText } = renderWithReduxAndNavigation()
 
     fireEvent.press(getByText(/Signup/i))
 
