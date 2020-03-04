@@ -74,12 +74,7 @@ const LoginForm = () => {
 
         dispatch(signIn(token, user, true))
 
-        // console.log('about to dispatch isLoading Action')
-        // dispatch(isLoadingAction())
         await storeToken(token)
-
-        // console.log('about to dispatch done Loading Action')
-        // dispatch(doneLoading())
 
         setServerError('')
         setIsLoading(false)
@@ -156,6 +151,7 @@ const LoginForm = () => {
           title={'Login'}
           accessibilityLabel={'Login Button'}
           loading={isLoading}
+          loadingProps={{ color: colors.backgroundPrimaryColor }}
           containerStyle={{ marginTop: spacing.xs, alignSelf: 'stretch' }}
           buttonStyle={{ backgroundColor: colors.buttonPrimaryColor }}
           titleStyle={{ color: colors.buttonTextSecondaryColor }}

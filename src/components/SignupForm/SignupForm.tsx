@@ -237,6 +237,7 @@ const SignupForm = () => {
           title={'Signup'}
           accessibilityLabel={'Signup Button'}
           loading={isLoading}
+          loadingProps={{ color: colors.backgroundPrimaryColor }}
           containerStyle={{ marginTop: spacing.xs, alignSelf: 'stretch' }}
           buttonStyle={{ backgroundColor: colors.buttonPrimaryColor }}
           titleStyle={{ color: colors.buttonTextSecondaryColor }}
