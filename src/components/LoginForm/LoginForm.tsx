@@ -111,6 +111,9 @@ const LoginForm = () => {
           placeholderTextColor={colors.textPrimaryColor}
           onChangeText={updateEmail}
           keyboardType={'default'}
+          selectionColor={colors.textPrimaryColor}
+          inputStyle={{ color: colors.textPrimaryColor }}
+          containerStyle={{ borderColor: colors.backgroundPrimaryColor, borderBottomColor: colors.borderSecondaryColor, borderWidth: 2 }}
           leftIcon={
             <Icon
               name={'envelope'}
@@ -128,9 +131,11 @@ const LoginForm = () => {
           label={'Enter Password'}
           placeholder={'Password'}
           accessibilityLabel={'Password'}
-          containerStyle={{ marginTop: spacing.s }}
+          containerStyle={{ marginTop: spacing.s, borderColor: colors.backgroundPrimaryColor, borderBottomColor: colors.borderSecondaryColor, borderWidth: 2 }}
           labelStyle={{ color: colors.textPrimaryColor }}
           placeholderTextColor={colors.textPrimaryColor}
+          selectionColor={colors.textPrimaryColor}
+          inputStyle={{ color: colors.textPrimaryColor }}
           onChangeText={updatePassword}
           keyboardType={'default'}
           secureTextEntry
@@ -153,7 +158,7 @@ const LoginForm = () => {
           loading={isLoading}
           containerStyle={{ marginTop: spacing.xs, alignSelf: 'stretch' }}
           buttonStyle={{ backgroundColor: colors.buttonPrimaryColor }}
-          titleStyle={{ color: colors.buttonTextPrimaryColor }}
+          titleStyle={{ color: colors.buttonTextSecondaryColor }}
           onPress={() => { submitForm() }}
         />
         <Button

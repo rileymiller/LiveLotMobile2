@@ -9,6 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import { colors } from 'colors/colors'
 import { spacing } from 'spacing/spacing'
+import AppLogo from 'components/AppLogo/AppLogo';
 
 const StartView = () => {
 
@@ -17,9 +18,9 @@ const StartView = () => {
   return (
     <View style={styles.screenContainer}>
       <View style={styles.titleBackground}>
-        <Text>insert_logo_here</Text>
+        <AppLogo size={spacing.xl} />
         <Text style={styles.livelotTitle} testID="title">LiveLot 🌴</Text>
-        <Text>v.0.0-alpha</Text>
+        <Text style={{ color: colors.textPrimaryColor }}>v.0.0-alpha</Text>
       </View>
       <View style={styles.buttonContainer} testID="button-container">
         <View style={styles.loginButton}>
@@ -34,7 +35,7 @@ const StartView = () => {
           <Button
             title="Signup"
             titleStyle={{ color: colors.textPrimaryColor }}
-            buttonStyle={{ borderStyle: 'solid', borderColor: colors.buttonBorderColor }}
+            buttonStyle={{ borderStyle: 'solid', borderColor: colors.buttonBorderColor, borderWidth: .8, }}
             type='outline'
             onPress={() => navigation.navigate('SignupScreen')}
           />

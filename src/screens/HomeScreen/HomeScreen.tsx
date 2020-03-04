@@ -10,7 +10,8 @@ import { RootStackParamList } from 'components/AppBase/AppBase'
 import { colors } from 'colors/colors'
 import SignOutButton from 'components/SignOutButton/SignOutButton'
 import CopyRightFooter from 'components/CopyRightFooter/CopyRightFooter'
-
+import AppLogo from 'components/AppLogo/AppLogo'
+import { spacing } from 'spacing/spacing'
 
 type SignupScreenNavigationProps = StackNavigationProp<
   RootStackParamList,
@@ -26,10 +27,14 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
 
 
   navigation.setOptions({
-    title: 'InsertLogo',
+    title: 'LiveLot',
+    headerTitleStyle: {
+      fontSize: spacing.l,
+      color: colors.textPrimaryColor
+    },
     headerRight: () => (
       <SignOutButton />
-    )
+    ),
   });
 
   return (

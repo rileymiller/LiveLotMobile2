@@ -103,6 +103,9 @@ const ResetPasswordForm = () => {
           accessibilityLabel={'Email'}
           labelStyle={{ color: colors.textPrimaryColor }}
           placeholderTextColor={colors.textPrimaryColor}
+          selectionColor={colors.textPrimaryColor}
+          inputStyle={{ color: colors.textPrimaryColor }}
+          containerStyle={{ borderColor: colors.backgroundPrimaryColor, borderBottomColor: colors.borderSecondaryColor, borderWidth: 2 }}
           onChangeText={updateEmail}
           keyboardType={'default'}
           leftIcon={
@@ -122,8 +125,10 @@ const ResetPasswordForm = () => {
           label={'Enter Password'}
           placeholder={'Password'}
           accessibilityLabel={'Password'}
-          containerStyle={{ marginTop: spacing.s }}
+          containerStyle={{ marginTop: spacing.s, borderColor: colors.backgroundPrimaryColor, borderBottomColor: colors.borderSecondaryColor, borderWidth: 2 }}
           labelStyle={{ color: colors.textPrimaryColor }}
+          selectionColor={colors.textPrimaryColor}
+          inputStyle={{ color: colors.textPrimaryColor }}
           placeholderTextColor={colors.textPrimaryColor}
           onChangeText={updatePassword}
           keyboardType={'default'}
@@ -144,8 +149,10 @@ const ResetPasswordForm = () => {
         <Input
           label={'Enter New Password'}
           placeholder={'New Password'}
-          containerStyle={{ marginTop: spacing.s }}
+          containerStyle={{ marginTop: spacing.s, borderColor: colors.backgroundPrimaryColor, borderBottomColor: colors.borderSecondaryColor, borderWidth: 2 }}
           labelStyle={{ color: colors.textPrimaryColor }}
+          selectionColor={colors.textPrimaryColor}
+          inputStyle={{ color: colors.textPrimaryColor }}
           placeholderTextColor={colors.textPrimaryColor}
           onChangeText={updateNewPassword}
           accessibilityLabel={'New Password'}
@@ -168,8 +175,10 @@ const ResetPasswordForm = () => {
           label={'Confirm Password'}
           placeholder={'Confirm Password'}
           accessibilityLabel={'Confirm Password'}
-          containerStyle={{ marginTop: spacing.s }}
+          containerStyle={{ marginTop: spacing.s, borderColor: colors.backgroundPrimaryColor, borderBottomColor: colors.borderSecondaryColor, borderWidth: 2 }}
           labelStyle={{ color: colors.textPrimaryColor }}
+          selectionColor={colors.textPrimaryColor}
+          inputStyle={{ color: colors.textPrimaryColor }}
           placeholderTextColor={colors.textPrimaryColor}
           onChangeText={updateConfirmNewPassword}
           secureTextEntry
@@ -191,7 +200,7 @@ const ResetPasswordForm = () => {
           title={'Reset Password'}
           containerStyle={{ marginTop: spacing.xs }}
           buttonStyle={{ backgroundColor: colors.buttonPrimaryColor }}
-          titleStyle={{ color: colors.buttonTextPrimaryColor }}
+          titleStyle={{ color: colors.buttonTextSecondaryColor }}
           onPress={() => { submitForm() }}
         />
       </ScrollView>

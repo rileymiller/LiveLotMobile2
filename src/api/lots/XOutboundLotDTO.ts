@@ -10,7 +10,8 @@ type XOutboundLotDTO = {
   numSpots: number,
   totalSpots: number,
   lotAddress: string,
-  lotStatus: boolean
+  lotStatus: boolean,
+  lastUpdated: string
 }
 
 export { XOutboundLotDTO }

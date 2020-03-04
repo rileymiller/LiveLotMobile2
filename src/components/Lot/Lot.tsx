@@ -8,8 +8,8 @@ import { spacing } from 'spacing/spacing'
 import { XOutboundLotDTO } from 'api/lots/XOutboundLotDTO';
 
 type Props = {
-  lot?: XOutboundLotDTO
-  isLoading?: boolean
+  lot: XOutboundLotDTO
+  isLoading: boolean
 }
 
 const Lot = ({ isLoading, lot }: Props) => {
@@ -22,20 +22,21 @@ const Lot = ({ isLoading, lot }: Props) => {
     if (!lot?.lotStatus) {
       return `down`
     } else if (lot.numSpots <= SPOT_THRESHOLD) {
-      return `less than 5 available spots`
+      return `< 5 spots`
     } else {
       return `healthy`
     }
   }
 
   const getLotColor = () => {
-    if (!lot?.lotStatus) {
-      return colors.disabledColor
-    } else if (lot.numSpots <= SPOT_THRESHOLD) {
-      return colors.lotSpotBackgroundRedColor
-    } else {
-      return colors.lotSpotBackgroundGreenColor
-    }
+    return colors.hintColor
+    // if (!lot?.lotStatus) {
+    //   return colors.disabledColor
+    // } else if (lot.numSpots <= SPOT_THRESHOLD) {
+    //   return colors.lotSpotBackgroundRedColor
+    // } else {
+    //   return colors.lotSpotBackgroundGreenColor
+    // }
   }
 
   const getNumSpotColor = () => {
@@ -52,9 +53,7 @@ const Lot = ({ isLoading, lot }: Props) => {
   return (
 
     <Card
-      containerStyle={{
-        borderRadius: spacing.xxxs,
-      }}
+      containerStyle={styles.card}
       wrapperStyle={{
         height: 200
       }}
@@ -87,61 +86,125 @@ const Lot = ({ isLoading, lot }: Props) => {
                 style={{
                   borderBottomColor: colors.dividerColor,
                   borderBottomWidth: spacing.borderWidth,
+                  marginBottom: spacing.xs
                 }}
               >
                 <Text
                   style={{
                     fontSize: spacing.l,
                     textAlign: 'center',
-                    fontWeight: '400',
-                    color: getLotColor()
+                    fontWeight: '300',
+                    color: colors.hintColor
                   }}
                 >
                   {lot?.lotName}
                 </Text>
               </View>
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: 'center',
-                  alignItems: 'center'
-                }}
-              >
+              <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'space-between', }}>
+
                 <View
-                  style={
-                    getNumSpotColor()
-                  }
+                  style={{
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    flex: 1,
+                    borderRightColor: colors.dividerColor,
+                    borderRightWidth: spacing.borderWidth,
+                    paddingRight: spacing.m,
+                  }}
                 >
-                  <Text
-                    style={{
-                      fontSize: spacing.l,
-                      color: colors.textSecondaryColor
-                    }}
-                  >
-                    {lot?.numSpots}
+                  <Text>
+                    <Text
+                      style={styles.label}
+                    >
+                      Lot name:
+                    </Text>
+                    <Text
+                      style={styles.info}
+                    >
+
+                      {` ${lot?.lotName}`}
+                    </Text>
+                  </Text>
+                  <Text>
+                    <Text
+                      style={styles.label}
+                    >
+                      Address:
+                    </Text>
+                    <Text
+                      style={styles.info}
+                    >
+
+                      {` ${lot?.lotAddress}`}
+                    </Text>
+                  </Text>
+                  <Text>
+                    <Text
+                      style={styles.label}
+                    >
+                      Total Spots:
+                    </Text>
+                    <Text
+                      style={styles.info}
+                    >
+
+                      {` ${lot?.totalSpots}`}
+                    </Text>
+                  </Text>
+                  <Text>
+                    <Text
+                      style={styles.label}
+                    >
+                      {`Status: `}
+                    </Text>
+                    <Text
+                      style={styles.info}
+                    >
+                      {
+                        getLotStatus()
+                      }
+                    </Text>
+                  </Text>
+                  <Text>
+                    <Text
+                      style={styles.label}
+                    >
+                      {`Last Updated: `}
+                    </Text>
+                    <Text
+                      style={styles.info}
+                    >
+                      {
+                        `${new Date(lot?.lastUpdated).toLocaleString()}`
+                      }
+                    </Text>
                   </Text>
                 </View>
+                <View
+                  style={{
+                    flexDirection: 'column',
+                    padding: spacing.m,
+                    justifyContent: 'center',
+                    alignContent: 'center'
+                  }}
+                >
+
+                  <View
+                    style={
+                      getNumSpotColor()
+                    }
+                  >
+                    <Text
+                      style={{
+                        fontSize: spacing.l,
+                        color: colors.textPrimaryColor
+                      }}
+                    >
+                      {lot?.numSpots}
+                    </Text>
+                  </View>
+                </View>
               </View>
-              <Text>
-                <Text
-                  style={{
-                    fontWeight: '600',
-                    color: colors.textPrimaryColor,
-                  }}
-                >
-                  {`Status: `}
-                </Text>
-                <Text
-                  style={{
-                    fontWeight: '500',
-                    color: getLotColor()
-                  }}
-                >
-                  {
-                    getLotStatus()
-                  }
-                </Text>
-              </Text>
             </View>
           )
       }
@@ -151,31 +214,81 @@ const Lot = ({ isLoading, lot }: Props) => {
 
 
 const styles = StyleSheet.create({
-  container: {
+  card: {
     flex: 1,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.30,
+    shadowRadius: 4.65,
+
+    elevation: 8,
+    borderRadius: spacing.xxs
+  },
+  label: {
+    fontWeight: '600',
+    color: colors.hintColor,
+  },
+  info: {
+    fontWeight: '500',
+    color: colors.hintSecondaryColor,
   },
   greenSpots: {
     backgroundColor: colors.lotSpotBackgroundGreenColor,
     borderRadius: spacing.xl,
     justifyContent: 'center',
     alignItems: 'center',
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+    alignSelf: 'center',
+    elevation: 4,
     width: 80,
+    minWidth: 80,
     height: 80,
   },
   disabledSpots: {
     backgroundColor: colors.disabledColor,
     borderRadius: spacing.xl,
+    alignSelf: 'center',
     justifyContent: 'center',
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+
+    elevation: 4,
     alignItems: 'center',
     width: 80,
+    minWidth: 80,
     height: 80,
   },
   redSpots: {
     backgroundColor: colors.lotSpotBackgroundRedColor,
     borderRadius: spacing.xl,
     justifyContent: 'center',
+    alignSelf: 'center',
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+
+    elevation: 4,
     alignItems: 'center',
     width: 80,
+    minWidth: 80,
     height: 80,
   }
 })
