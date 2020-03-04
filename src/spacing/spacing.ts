@@ -7,7 +7,7 @@ const spacing = {
   m: 24,
   l: 32,
   xl: 48,
-  borderWidth: .3
+  borderWidth: .4
 }
 
 export { spacing }

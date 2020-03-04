@@ -6,6 +6,8 @@ import SignupForm from 'components/SignupForm/SignupForm'
 import CopyRightFooter from 'components/CopyRightFooter/CopyRightFooter'
 import { colors } from 'colors/colors'
 import BackToSplashScreenButton from 'components/BackToSplashScreenButton/BackToSplashScreenButton'
+import AppLogo from 'components/AppLogo/AppLogo'
+import { spacing } from 'spacing/spacing'
 
 
 type SignupScreenNavigationProps = StackNavigationProp<
@@ -23,6 +25,9 @@ const SignupScreen: React.FC<Props> = ({ navigation }) => {
     headerLeft: () => (
       <BackToSplashScreenButton />
     ),
+    headerTitle: () => (
+      <AppLogo size={spacing.l} />
+    )
   });
 
   return (

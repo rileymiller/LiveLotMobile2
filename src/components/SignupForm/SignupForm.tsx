@@ -138,6 +138,9 @@ const SignupForm = () => {
           accessibilityLabel={'Email'}
           labelStyle={{ color: colors.textPrimaryColor }}
           placeholderTextColor={colors.textPrimaryColor}
+          containerStyle={{ borderColor: colors.backgroundPrimaryColor, borderBottomColor: colors.borderSecondaryColor, borderWidth: 2 }}
+          selectionColor={colors.textPrimaryColor}
+          inputStyle={{ color: colors.textPrimaryColor }}
           onChangeText={updateEmail}
           keyboardType={'email-address'}
           leftIcon={
@@ -158,7 +161,9 @@ const SignupForm = () => {
           placeholder={'Username'}
           testID={'signup-username-input'}
           accessibilityLabel={'Username'}
-          containerStyle={{ marginTop: spacing.s }}
+          containerStyle={{ marginTop: spacing.s, borderColor: colors.backgroundPrimaryColor, borderBottomColor: colors.borderSecondaryColor, borderWidth: 2 }}
+          selectionColor={colors.textPrimaryColor}
+          inputStyle={{ color: colors.textPrimaryColor }}
           labelStyle={{ color: colors.textPrimaryColor }}
           placeholderTextColor={colors.textPrimaryColor}
           onChangeText={updateUsername}
@@ -181,7 +186,9 @@ const SignupForm = () => {
           placeholder={'Password'}
           testID={'signup-password-input'}
           accessibilityLabel={'Password'}
-          containerStyle={{ marginTop: spacing.s }}
+          selectionColor={colors.textPrimaryColor}
+          inputStyle={{ color: colors.textPrimaryColor }}
+          containerStyle={{ marginTop: spacing.s, borderColor: colors.backgroundPrimaryColor, borderBottomColor: colors.borderSecondaryColor, borderWidth: 2 }}
           labelStyle={{ color: colors.textPrimaryColor }}
           placeholderTextColor={colors.textPrimaryColor}
           onChangeText={updatePassword}
@@ -205,7 +212,9 @@ const SignupForm = () => {
           placeholder={'Confirm Password'}
           testID={'signup-confirm-password-input'}
           accessibilityLabel={'Confirm Password'}
-          containerStyle={{ marginTop: spacing.s }}
+          containerStyle={{ marginTop: spacing.s, borderColor: colors.backgroundPrimaryColor, borderBottomColor: colors.borderSecondaryColor, borderWidth: 2 }}
+          selectionColor={colors.textPrimaryColor}
+          inputStyle={{ color: colors.textPrimaryColor }}
           labelStyle={{ color: colors.textPrimaryColor }}
           placeholderTextColor={colors.textPrimaryColor}
           onChangeText={updateConfirmPassword}
@@ -230,7 +239,7 @@ const SignupForm = () => {
           loading={isLoading}
           containerStyle={{ marginTop: spacing.xs, alignSelf: 'stretch' }}
           buttonStyle={{ backgroundColor: colors.buttonPrimaryColor }}
-          titleStyle={{ color: colors.buttonTextPrimaryColor }}
+          titleStyle={{ color: colors.buttonTextSecondaryColor }}
           onPress={() => { submitForm() }}
         />
         <Button
