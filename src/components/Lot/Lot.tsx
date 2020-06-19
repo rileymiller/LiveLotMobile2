@@ -8,7 +8,7 @@ import { spacing } from 'spacing/spacing'
 import { XOutboundLotDTO } from 'api/lots/XOutboundLotDTO';
 
 type Props = {
-  lot: XOutboundLotDTO
+  lot?: XOutboundLotDTO
   isLoading: boolean
 }
 
